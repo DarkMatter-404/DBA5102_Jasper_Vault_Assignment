@@ -1,0 +1,105 @@
+{
+  "source_workbook": "/Users/coconutwzmini/Library/Mobile Documents/com~apple~CloudDocs/Code/Total_Scripts/0DTE 与options 订单/options_orders_20260201_20260824_融合.xlsx",
+  "source_sheet": "Options",
+  "source_rows": 9789,
+  "source_columns": [
+    "premiumAmount_USDC",
+    "createdAt",
+    "closedAt",
+    "expirationDate",
+    "optionType",
+    "productType",
+    "quantity_BTC",
+    "strikePrice",
+    "realizedProfit_USDC",
+    "optionType_label"
+  ],
+  "source_first_createdAt_utc": "2026-02-02 01:41:47",
+  "source_last_createdAt_utc": "2026-08-24 15:58:54",
+  "split_method": "Sort by createdAt ascending; earliest 80% training; latest 20% validation",
+  "split_is_random": false,
+  "training_rows": 7204,
+  "validation_rows": 1898,
+  "training_share": 0.7914744012304988,
+  "validation_share": 0.20852559876950122,
+  "training_first_createdAt_utc": "2026-02-02 01:41:47",
+  "training_last_createdAt_utc": "2026-07-31 17:11:11",
+  "validation_first_createdAt_utc": "2026-07-31 17:11:48",
+  "validation_last_createdAt_utc": "2026-08-24 15:58:54",
+  "validation_hidden_fields": [
+    "closedAt",
+    "realizedProfit_USDC"
+  ],
+  "output_columns_unchanged_from_source": false,
+  "output_columns": [
+    "premiumAmount_USDC",
+    "createdAt",
+    "closedAt",
+    "expirationDate",
+    "optionType",
+    "productType",
+    "quantity_BTC",
+    "strikePrice",
+    "realizedProfit_USDC",
+    "optionType_label",
+    "orderPrice_per_BTC_USDC",
+    "apiBasePrice_per_BTC_USDC",
+    "markup_per_BTC_USDC"
+  ],
+  "pricing_enrichment": {
+    "quote_directory": "/Users/coconutwzmini/fsdownload/0dte_price",
+    "quote_local_timezone": "UTC+8",
+    "order_timezone": "UTC",
+    "quote_date_range_loaded": "2026-02-02 to 2026-08-24",
+    "quote_files_loaded": 188,
+    "missing_quote_dates": [
+      "2026-05-09",
+      "2026-05-10",
+      "2026-05-29",
+      "2026-05-30",
+      "2026-05-31",
+      "2026-06-01",
+      "2026-06-02",
+      "2026-06-03",
+      "2026-06-04",
+      "2026-06-05",
+      "2026-06-06",
+      "2026-06-07",
+      "2026-06-08",
+      "2026-06-09",
+      "2026-06-10",
+      "2026-06-11"
+    ],
+    "quote_pair_anomalies": 77,
+    "match_rule": "Same optionType and productType; nearest 0DTE quote within 120 seconds after converting createdAt from UTC to UTC+8",
+    "formulas": {
+      "orderPrice_per_BTC_USDC": "premiumAmount_USDC / quantity_BTC",
+      "markup_per_BTC_USDC": "orderPrice_per_BTC_USDC - apiBasePrice_per_BTC_USDC"
+    },
+    "training_before_negative_markup_filter": {
+      "rows": 7831,
+      "matched": 6700,
+      "unmatched": 1131,
+      "zeroQuantity": 0,
+      "maxGapSeconds": 108,
+      "maxIdentityError": 0
+    },
+    "validation_before_negative_markup_filter": {
+      "rows": 1958,
+      "matched": 1955,
+      "unmatched": 3,
+      "zeroQuantity": 0,
+      "maxGapSeconds": 101,
+      "maxIdentityError": 0
+    }
+  },
+  "pre_negative_markup_filter_training_rows": 7831,
+  "pre_negative_markup_filter_validation_rows": 1958,
+  "negative_markup_filter": {
+    "rule": "Remove rows where markup_per_BTC_USDC < 0; retain rows where markup is blank",
+    "training_rows_removed": 627,
+    "validation_rows_removed": 60,
+    "total_rows_removed": 687,
+    "applied_after_chronological_split": true
+  }
+}

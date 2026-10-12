@@ -1,0 +1,4 @@
+# Preserve the supplied dataset releases byte-for-byte on every platform.
+data/en/** -text
+data/with_base_premium/** -text
+data/**/*.csv whitespace=cr-at-eol

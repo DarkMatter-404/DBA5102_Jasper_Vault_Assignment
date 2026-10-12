@@ -1,0 +1,34 @@
+{
+  "source_workbook": "/Users/coconutwzmini/Library/Mobile Documents/com~apple~CloudDocs/Code/Total_Scripts/0DTE 与options 订单/options_orders_20260201_20260824_融合.xlsx",
+  "source_sheet": "Options",
+  "source_rows": 9789,
+  "source_columns": [
+    "premiumAmount_USDC",
+    "createdAt",
+    "closedAt",
+    "expirationDate",
+    "optionType",
+    "productType",
+    "quantity_BTC",
+    "strikePrice",
+    "realizedProfit_USDC",
+    "optionType_label"
+  ],
+  "source_first_createdAt_utc": "2026-02-02 01:41:47",
+  "source_last_createdAt_utc": "2026-08-24 15:58:54",
+  "split_method": "Sort by createdAt ascending; earliest 80% training; latest 20% validation",
+  "split_is_random": false,
+  "training_rows": 7831,
+  "validation_rows": 1958,
+  "training_share": 0.7999795689038717,
+  "validation_share": 0.2000204310961283,
+  "training_first_createdAt_utc": "2026-02-02 01:41:47",
+  "training_last_createdAt_utc": "2026-07-31 17:11:11",
+  "validation_first_createdAt_utc": "2026-07-31 17:11:48",
+  "validation_last_createdAt_utc": "2026-08-24 15:58:54",
+  "validation_hidden_fields": [
+    "closedAt",
+    "realizedProfit_USDC"
+  ],
+  "output_columns_unchanged_from_source": true
+}
