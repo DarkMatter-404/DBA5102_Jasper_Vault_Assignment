@@ -1,0 +1,12 @@
+{
+  "dataset": "Original EN release; not the with_base_premium release",
+  "repository_base_commit": "f51d0eb356c249cd16daa820d2cf714657e45c6c",
+  "input_sha256": {
+    "data_dictionary.csv": "e125ed6bad95db3eca3c083562846bc161bfd07eafd4f5c7bac38f36750ba297",
+    "btc_market_history.csv": "64ac0e482e498df1570cabc6b9ec87d6cc26d884080d7b660d7cd239b2267b2c",
+    "pp_research_datasets_metadata.json": "3430b1465d3b7bbff148a382b145b84928a1b756614fdd9b0d11a121b0bab572",
+    "pp_transactions_training.csv": "8d2023b7d3d0ed7b64021b3f2760b73b7aa156048bd803cc308c125e0c48b930",
+    "classnotes.md": "4669ff0f11bfbe96bda60bb211210accd0ffcd9efba91511e814b5e109ba4c51",
+    "research_dataset_guide.md": "dd45bd438bd1fa8fb3567de0067f88d5e3839226cdf03af38e7a81c137a50647"
+  }
+}
