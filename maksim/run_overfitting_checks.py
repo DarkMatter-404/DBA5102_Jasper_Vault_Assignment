@@ -70,7 +70,7 @@ def coefficient_stability(mkt) -> tuple[pl.DataFrame, pl.DataFrame]:
         for t_s, pipe in pr.move.models.items():
             sc, glm = pipe[0], pipe[-1]
             raw = glm.coef_ / sc.scale_  # change in log expected move per unit of each (log) feature
-            rows.append({"cutoff": cut, "productType": t_s, **dict(zip(pr.move.feature_names, raw)),
+            rows.append({"cutoff": cut, "productType": t_s, "n_windows": pr.move.n_windows[t_s], **dict(zip(pr.move.feature_names, raw)),
                          "event_jump_bps": np.sqrt(pr.event_jump_var) * 1e4})
     coef = pl.DataFrame(rows)
     k_apr, k_end = kidx(mkt, "2026-04-01"), kidx(mkt, config.TRAIN_END)

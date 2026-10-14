@@ -10,8 +10,8 @@ Pricing strategy for Jasper Vault's Perpetual Protect (PP): analysis, code, back
 | --- | --- |
 | How profitable is current pricing? | Barely. February to July 2026: premiums 248,089 USDC, payouts 230,652 USDC, loss ratio 0.93. June and July orders with a base quote: loss ratio 1.00. |
 | Does the current markup (CTA layer) track risk? | No. Relative to the API base price its ordered Lorenz Gini is 0.01 (90 percent interval minus 0.05 to 0.07): it carries no information about which orders pay out. |
-| Does the model track risk? | Yes. On the 3,947 June and July test orders with a base quote, Gini 0.175 against the current price (0.10 to 0.24) and 0.151 against the base price (0.10 to 0.20). Its fair value matches actual payouts (payout / fair value 0.98, interval 0.88 to 1.10, February to July) without being fitted on any payout. |
-| Which factors matter? | Recent volatility, and above all the time of day: BTC variance in the half hour after the 09:30 ET US equity open is about 3.8 times its average, and the base price ignores this. Scheduled releases add extra variance, but this estimate is unstable (0 to 57 basis points depending on the fit window). Direction (call or put) does not matter; order size matters only below 1,000 USDC (those orders pay out 0.79 of fair value). |
+| Does the model track risk? | Yes. On the 3,947 June and July test orders with a base quote, Gini 0.175 against the current price (0.10 to 0.24) and 0.151 against the base price (0.10 to 0.20). Its fair value matches actual payouts (payout / fair value 0.98, interval 0.88 to 1.09, February to July) without being fitted on any payout. |
+| Which factors matter? | Recent volatility, and above all the time of day: BTC variance in the half hour after the 09:30 ET US equity open is about 3.8 times its average over the week, and the base price ignores this. Scheduled releases add extra variance, but this estimate is unstable (0 to 57 basis points depending on the fit window). Direction (call or put) does not matter; order size matters only below 1,000 USDC (those orders pay out 0.79 of fair value). |
 | Profit in the June and July test | 45,101 USDC against 10,576 for current pricing if users do not react to price; 39,603 if a 10 percent higher price loses 10 percent of orders; 12,280 if every order priced above today's price is lost and cheaper prices win nothing. |
 | Is it better pricing or just higher pricing? | Partly higher. Total premium is 16.5 percent above today's. 61 percent of orders get cheaper, but they are small: orders holding 63 percent of today's premium get dearer (large orders plus 17 percent). Against a flat raise of every current price to the same total, the model has smaller losses on bad days (worst day minus 7,636 against minus 8,530) and earns more when users are price-sensitive (elasticity 1: 39,603 against 38,717; elasticity 2: 37,532 against 33,237; strict rule: 12,280 against 0), but less when users accept any rise up to 25 percent (18,463 against 45,101). |
 | Main risk | If users are lost as soon as a price exceeds what they paid today and cheaper prices win no extra orders, the model earns less than current pricing over the six-month walk-forward (15,401 against 17,437 USDC). It cuts prices that users already accepted while losing some profitable large orders. |
@@ -56,7 +56,7 @@ Numbers in this section come from `run_descriptive.py` (`results/descriptive_fac
 1. **Current pricing is close to break-even.** Loss ratio 0.93 overall, and above 1 in some segments: 4-hour products 1.14 over February to July, and the 08:00 to 12:00 UTC window 1.23 in June and July.
 2. **The API base price is too low.** Payouts were 1.40 times the base price in total. The base price is a Black-Scholes value; its implied volatility fell from about 50 percent per year in February and March to about 31 percent in July (monthly medians). For 30-minute and 1-hour orders it is below the realised volatility of the hour before the order (medians 36 and 33 percent against 44 and 41 percent); for longer products the two are similar. The main shortfall is that the base price does not change with the time of day, while orders cluster in the most volatile hours.
 3. **The CTA markup does not follow risk.** Split into five equal groups by markup, the orders with the lowest markup (mean 1.15 times base) lost money (loss ratio 1.18) and those with the highest markup (mean 2.50 times base) were very profitable (0.56), while the payout per unit of base price was similar in all five groups (1.30 to 1.47).
-4. **Time of day is the largest missing factor.** On weekdays, BTC variance in the half hour after 09:30 ET is 3.8 times its average over all days and stays above average until early afternoon; nights and weekends are calmer. See `results/figures/time_of_day_volatility.png`.
+4. **Time of day is the largest missing factor.** On weekdays, BTC variance in the half hour after 09:30 ET is 3.8 times its average over all minutes of the week (final profile in `outputs/model_card.json`) and stays above average until early afternoon; nights and weekends are calmer. See `results/figures/time_of_day_volatility.png`.
 5. **Scheduled releases move BTC.** In the 30 minutes after a release, BTC moved 2.6 times as much as in the same clock window on the preceding release-free weekdays for FOMC decisions (5 releases), 1.8 times for the jobs report (7), 1.4 times for CPI (7) and 0.92 times for PCE (8), so PCE is not used. The counts are small and the effects uncertain.
 6. **Direction is not predictable from the training data.** BTC was at 77,626 at the first training order (2 February) and 62,798 at the last (31 July), and puts lost more than calls. Relative to the model's fair value, however, calls paid out 0.90 and puts 1.10, and both 90 percent intervals include 1. A downtrend over six months is not a forecast for the next few hours, so the model prices the size of the move, not its direction.
 
@@ -78,7 +78,7 @@ fair value per BTC = Black-Scholes value with window volatility s = expected |mo
 | `log_seas_window` | typical activity during the protection window, from the time-of-day profile (US Eastern time, weekday or weekend) |
 | `log_seas_last60` | typical activity during the last hour, so that a busy last hour that is simply due to the US open is not read as a more volatile market |
 
-The regressions are fitted on market history, one window every 5 minutes (about 40,000 to 60,000 windows per product length), not on the 7,204 orders. A Poisson regression with a log link estimates the mean of a non-negative quantity directly, which is what pricing needs.
+The regressions are fitted on market history, one window every 5 minutes (about 41,000 windows per product length in the June development fit and 59,000 in the final fit), not on the 7,204 orders. A Poisson regression with a log link estimates the mean of a non-negative quantity directly, which is what pricing needs.
 
 **Step 2. Scheduled releases.** If a CPI, jobs report or FOMC release falls inside the window, the window variance increases by a fixed amount, estimated from past releases as the extra squared 30-minute move after a release compared with the same UTC clock time on other weekdays (57 basis points of move in the final fit, from 19 releases). Because variances add, this raises a 30-minute price a lot and a 24-hour price only slightly.
 
@@ -93,7 +93,7 @@ The regressions are fitted on market history, one window every 5 minutes (about 
 - Expected move over the hour: 0.66 percent. Fair value per BTC = 65,994 x 0.0066 / 2 = 217.85 USDC.
 - Model price per BTC = 217.85 x 1.25 = 272.31 USDC, so the premium is 0.1702 x 272.31 = **46.35 USDC**.
 - For comparison: API base price 92.62 per BTC (15.76 USDC), current price 165.88 per BTC (**28.23 USDC**).
-- Actual payout: **84.07 USDC**. Both prices lost money on this order, as single orders often do: the current price lost 55.84 USDC and the model price 37.72 USDC. The point is the average over thousands of orders.
+- Actual payout: **84.07 USDC**. Both prices lost money on this order, as single orders often do: the current price lost 55.83 USDC and the model price 37.72 USDC. The point is the average over thousands of orders.
 
 ## 4. How the model was tested
 
@@ -155,7 +155,7 @@ On the 3,947 test orders with a base quote, the API base price alone would have 
 | Keep only orders at most 25 percent above today | 17,437 | 28,911 | 4 of 6 |
 | Keep only orders priced at or below today | 17,437 | 15,401 | 3 of 6 |
 
-Under the strictest rule the model earns less in April (1,033 against 2,645), May (2,490 against 4,620) and July (3,715 against 4,319), and more in February, March and June. In April and May current pricing was profitable (loss ratio 0.82); there the model's price cuts give margin away and its price rises lose orders that would have been profitable. This is the main risk of the strategy if Jasper Vault's conversion constraint works this way. See `results/figures/walk_forward_monthly_profit.png` and `results/walk_forward_monthly.csv`.
+Under the strictest rule the model earns less in April (1,033 against 2,645), May (2,490 against 4,620) and July (3,715 against 4,319), and more in February, March and June. In April and May current pricing was profitable (loss ratios 0.76 and 0.82); there the model's price cuts give margin away and its price rises lose orders that would have been profitable. This is the main risk of the strategy if Jasper Vault's conversion constraint works this way. See `results/figures/walk_forward_monthly_profit.png` and `results/walk_forward_monthly.csv`.
 
 ### 5.4 Margin
 
@@ -195,11 +195,11 @@ Two kinds of overfitting are possible here. The first is fitting noise with too 
 
 ### 6.1 Parameters
 
-The model has 7 regressions with 7 coefficients each, a 96-value time-of-day profile and one release parameter, all fitted on market data (40,000 to 60,000 windows per regression). No parameter is fitted on order payouts, and the margin is a business target.
+The model has 7 regressions with 7 coefficients each, a 96-value time-of-day profile and one release parameter, all fitted on market data (41,000 to 59,000 windows per regression, `results/overfitting/move_model_coefficients_by_cutoff.csv`). No parameter is fitted on order payouts, and the margin is a business target.
 
 - *In sample against out of sample.* The move model was refitted at five monthly cut-offs (1 March to 1 July) and scored on the following month. Skill, the reduction in forecast error against a model that only knows the average move, is 0.208 in sample and 0.187 out of sample on average. By product length the gap is small (30 minutes 0.26 against 0.24, 4 hours 0.20 against 0.20) and largest for the rare 12-hour product (0.19 against 0.13). Out of sample the forecasts are slightly too high on average (realised / predicted 0.955), which errs on the safe side for pricing.
 - *Stability.* Across six fits, the coefficient on last-hour volatility varies by 0.01 to 0.03 around values of 0.05 to 0.27. The weekday time-of-day profile fitted on January to March correlates 0.93 with the one fitted on April to July (weekend profile 0.55, less stable). The release effect is the least stable parameter: 0, 31, 49, 45, 51 and 57 basis points as more releases enter the fit.
-- *Agreement with theory.* The expected absolute move should scale with the square root of variance, so the four volatility coefficients should add up to about 0.5. They add up to 0.50 for 30-minute windows and 0.43 to 0.48 for the other lengths, without this being imposed.
+- *Agreement with theory.* The expected absolute move should scale with the square root of variance, so the four volatility coefficients should add up to about 0.5. Averaged over the six fits they add up to 0.50 for 30-minute windows and 0.43 to 0.48 for the other lengths (0.41 to 0.49 in the final fit), without this being imposed.
 
 ### 6.2 Design decisions
 
@@ -255,7 +255,7 @@ The lesson for the strategy is risk control rather than a different model: a cap
 
 - **Hidden Markov model of market regimes.** A two-state Gaussian HMM on hourly realised variance, using the forward (filtering) probabilities only, so that no future hour is used. It did not improve the forecast (deviance 47.99 against 47.51) or the ranking (Gini 0.175 in both cases), because recent realised volatility already measures the current regime.
 - **News sentiment (NLP).** No timestamped news archive was supplied; paid feeds are hard to align to the minute without look-ahead, and six months of orders are too few to learn a reliable mapping from sentiment to payouts. The release calendar captures the predictable part of news risk and is known in advance.
-- **Size tiers.** A loading by order size estimated on February to May orders was unstable (large orders 0.88 in the calibration period, about 1.0 later). With the time-of-day model in place, payouts per unit of fair value are 0.98 for medium and 0.99 for large orders; only orders under 1,000 USDC pay out less (0.79), and they hold about 1 percent of premium.
+- **Size tiers.** A loading by order size is unstable over time: in the walk-forward, large orders paid out 0.84 of fair value in February to May and 1.01 in June and July (`results/payout_over_fair_value_walk_forward.csv`). With the time-of-day model in place, payouts per unit of fair value are 0.98 for medium and 0.99 for large orders; only orders under 1,000 USDC pay out less (0.79), and they hold about 1 percent of premium.
 - **Charging by direction.** Calls 0.90 and puts 1.10 of fair value over February to July; both 90 percent intervals include 1.
 - **Blending with the base price.** Once the model is known, the base price adds no ranking information (Gini of the base price against the model minus 0.004, interval minus 0.05 to 0.05, on the 3,947 test orders), and it is missing for 53 percent of validation orders. It is used only as a price floor.
 
@@ -289,8 +289,8 @@ Over all 1,960 rows with a base quote, the premium-weighted multiplier is 1.60, 
 
 ## 9. Data integrity notes
 
-- **The validation file reveals its own outcomes.** `closedAt` is still filled in (the dataset guide says it would be blank), and the BTC history runs to 14 October 2026. Together these allow the hidden payout of every validation order to be recomputed. The pricing code drops `closedAt` before pricing and uses only candles that closed before each order (an independent audit re-priced all 4,155 orders after altering every later candle and got identical premiums). Jasper Vault may want to know about this.
-- **Quote time.** Features use the last candle that closed before `createdAt`, as the dataset guide prescribes. `expirationDate` minus the product length is a median 18 seconds earlier than `createdAt` in the training data, so for about a third of orders the last candle closes a few seconds after the implied contract start; re-pricing at the implied start changes total premium by about 0.2 percent. The API base quote was matched within 120 seconds of the order (dataset guide) and is treated as available at the order, as the guide states.
+- **The validation file reveals its own outcomes.** `closedAt` is still filled in (the dataset guide says it would be blank), and the BTC history runs to 14 October 2026. Together these allow the hidden payout of every validation order to be recomputed. The pricing code drops `closedAt` before pricing and uses only candles that closed before each order (`tests/test_no_lookahead.py` checks this: altering every candle after each order leaves the premiums of 150 validation orders exactly unchanged, while altering the hour before them changes the premiums). Jasper Vault may want to know about this.
+- **Quote time.** Features use the last candle that closed before `createdAt`, as the dataset guide prescribes. `expirationDate` minus the product length is a median 18 seconds earlier than `createdAt` in the June and July test orders, so for some orders the last candle used closes a few seconds after the implied contract start; re-pricing all test orders at the implied start changes total premium by 0.05 percent (`results/summary.json`). The API base quote was matched within 120 seconds of the order (dataset guide) and is treated as available at the order, as the guide states.
 - 54 training orders have no close time and no payout (some have an expiry before their creation time); they are excluded.
 - 1,131 training orders and 2,195 validation orders have no API base price. The model does not need it; the floor is not applied to those orders.
 - Order times are UTC. The time-of-day profile uses US Eastern time (including the daylight saving change on 8 March 2026), since the main volatility events are tied to US trading hours.
@@ -312,10 +312,11 @@ Over all 1,960 rows with a base quote, the premium-weighted multiplier is 1.60, 
 cd maksim
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python run_descriptive.py          # results/descriptive_facts.json (sections 1 and 2)
-.venv/bin/python run_backtest.py             # results/*.csv, about 10 seconds
+.venv/bin/python run_backtest.py             # results/*.csv
 .venv/bin/python run_overfitting_checks.py   # results/overfitting/*.csv
 .venv/bin/python run_validation.py           # outputs/validation_recommendations.csv
 .venv/bin/python make_figures.py             # results/figures/*.png
+.venv/bin/python -m pytest tests -q          # no-look-ahead test
 ```
 
 | Path | Content |
@@ -331,6 +332,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `run_validation.py` | final fit and validation recommendations |
 | `run_sealed_check.py` | one-time check of the frozen recommendations against August to October outcomes (runs only on the committed, frozen file; outputs in `results/sealed_check/`) |
 | `make_figures.py` | figures in `results/figures/` |
+| `tests/test_no_lookahead.py` | checks that a price depends only on candles closed before the order |
 | `results/` | every table behind the numbers above |
 
 Reference: Frees, E. W., Meyers, G. and Cummings, A. D. (2011). Summarizing insurance scores using a Gini index. Journal of the American Statistical Association, 106(495), 1085 to 1098. https://doi.org/10.1198/jasa.2011.tm10506

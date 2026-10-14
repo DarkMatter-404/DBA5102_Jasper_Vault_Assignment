@@ -17,15 +17,20 @@
         "premium_change": 0.11399258592503592,
         "share_of_current_premium": 0.07005169354425872
       },
-      "large": {
-        "premium_change": 0.17185811994372657,
-        "share_of_current_premium": 0.9171979662426789
-      },
       "small": {
         "premium_change": -0.057466372749445216,
         "share_of_current_premium": 0.012750340213062617
+      },
+      "large": {
+        "premium_change": 0.17185811994372657,
+        "share_of_current_premium": 0.9171979662426789
       }
     }
+  },
+  "quote_time_sensitivity": {
+    "median_gap_seconds": 18.0,
+    "share_orders_with_earlier_implied_start": 1.0,
+    "total_premium_change_when_priced_at_implied_start": -0.0005384672170362093
   },
   "all_orders": {
     "current price (base + CTA markup)": {
@@ -41,13 +46,13 @@
         "median_price_vs_current": 1.0,
         "share_cheaper_than_current": 0.0,
         "days": 61,
-        "mean_daily_pnl": 173.37017559695042,
+        "mean_daily_pnl": 173.37017559695053,
         "sd_daily_pnl": 2165.323253166543,
-        "sharpe_annualised": 1.52967116997508,
+        "sharpe_annualised": 1.5296711699750811,
         "share_losing_days": 0.3114754098360656,
         "worst_day": -9629.87531061522,
-        "cvar5_daily": -5552.3935264418415,
-        "max_drawdown": 13030.535489129554,
+        "cvar5_daily": -5552.393526441839,
+        "max_drawdown": 13030.535489129556,
         "subset": "all orders"
       },
       "elasticity=1": {
@@ -83,13 +88,13 @@
         "median_price_vs_current": 1.0,
         "share_cheaper_than_current": 0.0,
         "days": 61,
-        "mean_daily_pnl": 173.37017559695053,
+        "mean_daily_pnl": 173.37017559695047,
         "sd_daily_pnl": 2165.3232531665426,
-        "sharpe_annualised": 1.5296711699750813,
+        "sharpe_annualised": 1.529671169975081,
         "share_losing_days": 0.3114754098360656,
         "worst_day": -9629.87531061522,
         "cvar5_daily": -5552.39352644184,
-        "max_drawdown": 13030.535489129554,
+        "max_drawdown": 13030.535489129556,
         "subset": "all orders"
       },
       "keep_if_within_0pct": {
@@ -104,13 +109,13 @@
         "median_price_vs_current": 1.0,
         "share_cheaper_than_current": 0.0,
         "days": 61,
-        "mean_daily_pnl": 173.37017559695053,
+        "mean_daily_pnl": 173.37017559695047,
         "sd_daily_pnl": 2165.3232531665426,
-        "sharpe_annualised": 1.5296711699750813,
+        "sharpe_annualised": 1.529671169975081,
         "share_losing_days": 0.3114754098360656,
         "worst_day": -9629.87531061522,
         "cvar5_daily": -5552.39352644184,
-        "max_drawdown": 13030.535489129554,
+        "max_drawdown": 13030.535489129556,
         "subset": "all orders"
       }
     },
@@ -128,8 +133,8 @@
         "share_cheaper_than_current": 0.6099979343110927,
         "days": 61,
         "mean_daily_pnl": 739.3586311987057,
-        "sd_daily_pnl": 1959.7024995081586,
-        "sharpe_annualised": 7.207944480839883,
+        "sd_daily_pnl": 1959.7024995081588,
+        "sharpe_annualised": 7.207944480839882,
         "share_losing_days": 0.16393442622950818,
         "worst_day": -7636.312846615097,
         "cvar5_daily": -4341.735575140607,
@@ -148,12 +153,12 @@
         "median_price_vs_current": 0.8850457092874779,
         "share_cheaper_than_current": 0.6099979343110927,
         "days": 61,
-        "mean_daily_pnl": 649.2330716101663,
+        "mean_daily_pnl": 649.2330716101662,
         "sd_daily_pnl": 1554.7360709307025,
-        "sharpe_annualised": 7.977933135437689,
+        "sharpe_annualised": 7.977933135437688,
         "share_losing_days": 0.21311475409836064,
         "worst_day": -4404.3003910805555,
-        "cvar5_daily": -3145.530058125299,
+        "cvar5_daily": -3145.5300581253,
         "max_drawdown": 5131.71884267954,
         "subset": "all orders"
       },

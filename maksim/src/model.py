@@ -47,6 +47,7 @@ class MoveModel:
     """One Poisson regression per product length, on a chosen subset of features."""
     feature_names: list[str]
     models: dict[int, object] = field(default_factory=dict)
+    n_windows: dict[int, int] = field(default_factory=dict)
 
     def fit(self, mkt: Market, seas: Seasonality, k_from: int, k_to: int,
             hmm: VolRegimeHMM | None = None) -> "MoveModel":
@@ -57,6 +58,7 @@ class MoveModel:
             y = mkt.forward_abs_return(k, np.full(len(k), t_min)) * BPS
             pipe = make_pipeline(StandardScaler(), PoissonRegressor(alpha=0.0, max_iter=1000))
             self.models[t_s] = pipe.fit(x, y)
+            self.n_windows[t_s] = len(k)
         return self
 
     def _matrix(self, mkt, seas, k, t_min, hmm) -> np.ndarray:
@@ -84,7 +86,7 @@ class MoveModel:
         rows = []
         for t_s, pipe in self.models.items():
             glm = pipe[-1]
-            row = {"productType": t_s, "intercept": float(glm.intercept_)}
+            row = {"productType": t_s, "n_windows": self.n_windows.get(t_s), "intercept": float(glm.intercept_)}
             row.update({n: float(c) for n, c in zip(self.feature_names, glm.coef_)})
             rows.append(row)
         return pl.DataFrame(rows)

@@ -149,6 +149,15 @@ def segments(priced: pl.DataFrame) -> pl.DataFrame:
         "current_loss_ratio", "model_loss_ratio", "payout_over_fair_value", "model_vs_current_price").sort("segment_type", "segment")
 
 
+def quote_time_sensitivity(pricer, mkt, test: pl.DataFrame, priced: pl.DataFrame) -> dict:
+    """Re-price at the implied contract start (expiry minus product length) when it is before createdAt."""
+    start = pl.col("expirationDate") - pl.duration(seconds=pl.col("productType"))
+    alt = pricer.price(mkt, test.with_columns(createdAt=pl.min_horizontal(pl.col("createdAt"), start)))
+    gap = test.select((pl.col("createdAt") - start).dt.total_seconds()).to_series()
+    return {"median_gap_seconds": float(gap.median()), "share_orders_with_earlier_implied_start": float((gap > 0).mean()),
+            "total_premium_change_when_priced_at_implied_start": float(alt["model_premium_USDC"].sum() / priced["model_premium_USDC"].sum() - 1)}
+
+
 def price_change(priced: pl.DataFrame) -> dict:
     """How the model price compares with today's price, by order count and by premium."""
     r = (priced["model_premium_USDC"] / priced["premiumAmount_USDC"]).to_numpy()
@@ -249,8 +258,9 @@ def main() -> None:
     wf_priced.write_parquet(config.RESULTS / "walk_forward_orders_priced.parquet")
     segments(priced).write_csv(config.RESULTS / "segments_test_period.csv")
     worst_days(priced, candles).write_csv(config.RESULTS / "worst_days_test_period.csv")
-    diag = pl.concat([payout_over_fv_by(wf_priced, c) for c in ["tier", "optionType_label", "month"]]
-                     + [payout_over_fv_by(wf_priced.with_columns(all=pl.lit("all orders")), "all")])
+    wf_p = wf_priced.with_columns(tier_and_period=pl.col("tier") + pl.when(pl.col("month") <= "2026-05").then(pl.lit(", Feb to May")).otherwise(pl.lit(", Jun and Jul")))
+    diag = pl.concat([payout_over_fv_by(wf_p, c) for c in ["tier", "optionType_label", "month", "tier_and_period"]]
+                     + [payout_over_fv_by(wf_p.with_columns(all=pl.lit("all orders")), "all")])
     diag.write_csv(config.RESULTS / "payout_over_fair_value_walk_forward.csv")
     final.move.coefficients().write_csv(config.RESULTS / "move_model_coefficients_dev.csv")
     pl.DataFrame({"et_half_hour": [f"{(i % 48) // 2:02d}:{30 * (i % 2):02d}" for i in range(96)],
@@ -265,6 +275,7 @@ def main() -> None:
         "test_orders": test.height, "test_orders_with_base": matched.height, "flat_markup_on_base": k_flat,
         "margin": final.margin, "event_jump_bps": float(np.sqrt(final.event_jump_var) * 1e4), "events_fitted": final.n_events_fitted,
         "price_change": price_change(priced),
+        "quote_time_sensitivity": quote_time_sensitivity(final, mkt, test, priced),
         "all_orders": {s: {sc: pick(backtest, s, sc, "all orders") for sc in ["elasticity=0", "elasticity=1", "elasticity=2", "keep_if_within_0pct"]}
                        for s in [CURRENT, "model"]},
     }
