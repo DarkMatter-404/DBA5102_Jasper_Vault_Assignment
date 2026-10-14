@@ -1,36 +1,39 @@
 orders 7204 (54 without payout excluded), candles 412080, releases 27
-shape: (5, 4)
-┌──────────────────────────┬───────────┬──────────┬──────────┐
-│ variant                  ┆ dev       ┆ spearman ┆ calib    │
-│ ---                      ┆ ---       ┆ ---      ┆ ---      │
-│ str                      ┆ f64       ┆ f64      ┆ f64      │
-╞══════════════════════════╪═══════════╪══════════╪══════════╡
-│ + macro releases (final) ┆ 47.513006 ┆ 0.32906  ┆ 0.976199 │
-│ + time of day            ┆ 47.666998 ┆ 0.326402 ┆ 0.978243 │
-│ + HMM regime             ┆ 47.990805 ┆ 0.321937 ┆ 0.976002 │
-│ recent volatility        ┆ 50.350176 ┆ 0.273679 ┆ 0.98229  │
-│ average move only        ┆ 54.069516 ┆ NaN      ┆ 0.918369 │
-└──────────────────────────┴───────────┴──────────┴──────────┘
-shape: (13, 6)
-┌───────────────────────────────────┬───────────────────────────────────┬───────────┬───────────┬───────────┬─────────────────────┐
-│ candidate                         ┆ reference                         ┆ gini      ┆ gini_ci05 ┆ gini_ci95 ┆ share_boot_positive │
-│ ---                               ┆ ---                               ┆ ---       ┆ ---       ┆ ---       ┆ ---                 │
-│ str                               ┆ str                               ┆ f64       ┆ f64       ┆ f64       ┆ f64                 │
-╞═══════════════════════════════════╪═══════════════════════════════════╪═══════════╪═══════════╪═══════════╪═════════════════════╡
-│ current price (base + CTA markup) ┆ API base price                    ┆ 0.010774  ┆ -0.05237  ┆ 0.073429  ┆ 0.625               │
-│ API base price                    ┆ current price (base + CTA markup) ┆ 0.092081  ┆ 0.028791  ┆ 0.154091  ┆ 0.996               │
-│ model: average move only          ┆ current price (base + CTA markup) ┆ 0.064902  ┆ 0.003505  ┆ 0.123753  ┆ 0.956               │
-│ model: average move only          ┆ API base price                    ┆ -0.025415 ┆ -0.073983 ┆ 0.027002  ┆ 0.218               │
-│ model: recent volatility          ┆ current price (base + CTA markup) ┆ 0.061459  ┆ -0.022383 ┆ 0.133607  ┆ 0.897               │
-│ model: recent volatility          ┆ API base price                    ┆ 0.009632  ┆ -0.064021 ┆ 0.077483  ┆ 0.581               │
-│ model: + time of day              ┆ current price (base + CTA markup) ┆ 0.16393   ┆ 0.081274  ┆ 0.234437  ┆ 1.0                 │
-│ model: + time of day              ┆ API base price                    ┆ 0.136333  ┆ 0.075028  ┆ 0.19096   ┆ 0.997               │
-│ model: + macro releases (final)   ┆ current price (base + CTA markup) ┆ 0.17488   ┆ 0.100342  ┆ 0.242045  ┆ 1.0                 │
-│ model: + macro releases (final)   ┆ API base price                    ┆ 0.150544  ┆ 0.095846  ┆ 0.20298   ┆ 1.0                 │
-│ API base price                    ┆ model: + macro releases (final)   ┆ -0.004149 ┆ -0.052304 ┆ 0.050577  ┆ 0.479               │
-│ model: + HMM regime               ┆ current price (base + CTA markup) ┆ 0.175146  ┆ 0.100274  ┆ 0.242701  ┆ 1.0                 │
-│ model: + HMM regime               ┆ API base price                    ┆ 0.150408  ┆ 0.097468  ┆ 0.199775  ┆ 1.0                 │
-└───────────────────────────────────┴───────────────────────────────────┴───────────┴───────────┴───────────┴─────────────────────┘
+shape: (6, 4)
+┌────────────────────────────────┬───────────┬──────────┬──────────┐
+│ variant                        ┆ dev       ┆ spearman ┆ calib    │
+│ ---                            ┆ ---       ┆ ---      ┆ ---      │
+│ str                            ┆ f64       ┆ f64      ┆ f64      │
+╞════════════════════════════════╪═══════════╪══════════╪══════════╡
+│ + macro releases (final)       ┆ 47.513006 ┆ 0.32906  ┆ 0.976199 │
+│ + range and volume (candidate) ┆ 47.665733 ┆ 0.327779 ┆ 0.978504 │
+│ + time of day                  ┆ 47.666998 ┆ 0.326402 ┆ 0.978243 │
+│ + HMM regime                   ┆ 47.990805 ┆ 0.321937 ┆ 0.976002 │
+│ recent volatility              ┆ 50.350176 ┆ 0.273679 ┆ 0.98229  │
+│ average move only              ┆ 54.069516 ┆ NaN      ┆ 0.918369 │
+└────────────────────────────────┴───────────┴──────────┴──────────┘
+shape: (15, 6)
+┌───────────────────────────────────────┬───────────────────────────────────┬───────────┬───────────┬───────────┬─────────────────────┐
+│ candidate                             ┆ reference                         ┆ gini      ┆ gini_ci05 ┆ gini_ci95 ┆ share_boot_positive │
+│ ---                                   ┆ ---                               ┆ ---       ┆ ---       ┆ ---       ┆ ---                 │
+│ str                                   ┆ str                               ┆ f64       ┆ f64       ┆ f64       ┆ f64                 │
+╞═══════════════════════════════════════╪═══════════════════════════════════╪═══════════╪═══════════╪═══════════╪═════════════════════╡
+│ current price (base + CTA markup)     ┆ API base price                    ┆ 0.010774  ┆ -0.05237  ┆ 0.073429  ┆ 0.625               │
+│ API base price                        ┆ current price (base + CTA markup) ┆ 0.092081  ┆ 0.028791  ┆ 0.154091  ┆ 0.996               │
+│ model: average move only              ┆ current price (base + CTA markup) ┆ 0.064902  ┆ 0.003505  ┆ 0.123753  ┆ 0.956               │
+│ model: average move only              ┆ API base price                    ┆ -0.025415 ┆ -0.073983 ┆ 0.027002  ┆ 0.218               │
+│ model: recent volatility              ┆ current price (base + CTA markup) ┆ 0.061459  ┆ -0.022383 ┆ 0.133607  ┆ 0.897               │
+│ model: recent volatility              ┆ API base price                    ┆ 0.009632  ┆ -0.064021 ┆ 0.077483  ┆ 0.581               │
+│ model: + time of day                  ┆ current price (base + CTA markup) ┆ 0.16393   ┆ 0.081274  ┆ 0.234437  ┆ 1.0                 │
+│ model: + time of day                  ┆ API base price                    ┆ 0.136333  ┆ 0.075028  ┆ 0.19096   ┆ 0.997               │
+│ model: + macro releases (final)       ┆ current price (base + CTA markup) ┆ 0.17488   ┆ 0.100342  ┆ 0.242045  ┆ 1.0                 │
+│ model: + macro releases (final)       ┆ API base price                    ┆ 0.150544  ┆ 0.095846  ┆ 0.20298   ┆ 1.0                 │
+│ API base price                        ┆ model: + macro releases (final)   ┆ -0.004149 ┆ -0.052304 ┆ 0.050577  ┆ 0.479               │
+│ model: + HMM regime                   ┆ current price (base + CTA markup) ┆ 0.175146  ┆ 0.100274  ┆ 0.242701  ┆ 1.0                 │
+│ model: + HMM regime                   ┆ API base price                    ┆ 0.150408  ┆ 0.097468  ┆ 0.199775  ┆ 1.0                 │
+│ model: + range and volume (candidate) ┆ current price (base + CTA markup) ┆ 0.177423  ┆ 0.099764  ┆ 0.24848   ┆ 1.0                 │
+│ model: + range and volume (candidate) ┆ API base price                    ┆ 0.151047  ┆ 0.092503  ┆ 0.206601  ┆ 1.0                 │
+└───────────────────────────────────────┴───────────────────────────────────┴───────────┴───────────┴───────────┴─────────────────────┘
 shape: (56, 13)
 ┌───────────────────────┬───────────────────────┬───────────────────────┬───────────────┬───────────────┬────────────────┬────────────┬───────────────────┬───────────────┬───────────────┬───────────────┬───────────────────────┬──────────────────────┐
 │ subset                ┆ strategy              ┆ scenario              ┆ premium       ┆ payout        ┆ profit         ┆ loss_ratio ┆ sharpe_annualised ┆ worst_day     ┆ cvar5_daily   ┆ max_drawdown  ┆ median_price_vs_curre ┆ share_cheaper_than_c │
@@ -264,24 +267,24 @@ shape: (18, 6)
 │ ---              ┆ ---                 ┆ ---    ┆ ---                    ┆ ---      ┆ ---      │
 │ str              ┆ str                 ┆ i64    ┆ f64                    ┆ f64      ┆ f64      │
 ╞══════════════════╪═════════════════════╪════════╪════════════════════════╪══════════╪══════════╡
-│ tier             ┆ large               ┆ 2017   ┆ 0.986934               ┆ 0.871149 ┆ 1.105213 │
-│ tier             ┆ medium              ┆ 1429   ┆ 0.982212               ┆ 0.898642 ┆ 1.069584 │
-│ tier             ┆ small               ┆ 3704   ┆ 0.78911                ┆ 0.718817 ┆ 0.867859 │
-│ optionType_label ┆ Call                ┆ 3849   ┆ 0.896381               ┆ 0.741468 ┆ 1.046205 │
-│ optionType_label ┆ Put                 ┆ 3301   ┆ 1.095273               ┆ 0.830989 ┆ 1.376793 │
-│ month            ┆ 2026-02             ┆ 211    ┆ 1.411113               ┆ 0.924335 ┆ 1.990605 │
-│ month            ┆ 2026-03             ┆ 266    ┆ 1.115088               ┆ 0.443087 ┆ 1.582995 │
-│ month            ┆ 2026-04             ┆ 867    ┆ 0.845713               ┆ 0.667442 ┆ 1.021832 │
-│ month            ┆ 2026-05             ┆ 965    ┆ 0.852557               ┆ 0.724269 ┆ 0.98759  │
-│ month            ┆ 2026-06             ┆ 2270   ┆ 1.012905               ┆ 0.819618 ┆ 1.234022 │
-│ month            ┆ 2026-07             ┆ 2571   ┆ 0.996396               ┆ 0.833923 ┆ 1.151935 │
-│ tier_and_period  ┆ large, Feb to May   ┆ 561    ┆ 0.843763               ┆ 0.728113 ┆ 0.961064 │
-│ tier_and_period  ┆ large, Jun and Jul  ┆ 1456   ┆ 1.0093                 ┆ 0.883876 ┆ 1.149479 │
-│ tier_and_period  ┆ medium, Feb to May  ┆ 655    ┆ 1.02341                ┆ 0.885265 ┆ 1.172858 │
-│ tier_and_period  ┆ medium, Jun and Jul ┆ 774    ┆ 0.960463               ┆ 0.860706 ┆ 1.065045 │
-│ tier_and_period  ┆ small, Feb to May   ┆ 1093   ┆ 0.691565               ┆ 0.611415 ┆ 0.781026 │
-│ tier_and_period  ┆ small, Jun and Jul  ┆ 2611   ┆ 0.832615               ┆ 0.73751  ┆ 0.939708 │
-│ all              ┆ all orders          ┆ 7150   ┆ 0.984062               ┆ 0.875498 ┆ 1.089793 │
+│ tier             ┆ large               ┆ 2017   ┆ 0.986934               ┆ 0.87339  ┆ 1.107276 │
+│ tier             ┆ medium              ┆ 1429   ┆ 0.982212               ┆ 0.897805 ┆ 1.068023 │
+│ tier             ┆ small               ┆ 3704   ┆ 0.78911                ┆ 0.718363 ┆ 0.863155 │
+│ optionType_label ┆ Call                ┆ 3849   ┆ 0.896381               ┆ 0.738506 ┆ 1.059862 │
+│ optionType_label ┆ Put                 ┆ 3301   ┆ 1.095273               ┆ 0.836286 ┆ 1.374673 │
+│ month            ┆ 2026-02             ┆ 211    ┆ 1.411113               ┆ 0.91456  ┆ 1.984578 │
+│ month            ┆ 2026-03             ┆ 266    ┆ 1.115088               ┆ 0.467559 ┆ 1.580196 │
+│ month            ┆ 2026-04             ┆ 867    ┆ 0.845713               ┆ 0.676886 ┆ 1.032589 │
+│ month            ┆ 2026-05             ┆ 965    ┆ 0.852557               ┆ 0.722704 ┆ 0.977487 │
+│ month            ┆ 2026-06             ┆ 2270   ┆ 1.012905               ┆ 0.822292 ┆ 1.246093 │
+│ month            ┆ 2026-07             ┆ 2571   ┆ 0.996396               ┆ 0.849199 ┆ 1.164333 │
+│ tier_and_period  ┆ large, Feb to May   ┆ 561    ┆ 0.843763               ┆ 0.728874 ┆ 0.957758 │
+│ tier_and_period  ┆ large, Jun and Jul  ┆ 1456   ┆ 1.0093                 ┆ 0.875181 ┆ 1.136021 │
+│ tier_and_period  ┆ medium, Feb to May  ┆ 655    ┆ 1.02341                ┆ 0.890856 ┆ 1.173599 │
+│ tier_and_period  ┆ medium, Jun and Jul ┆ 774    ┆ 0.960463               ┆ 0.859671 ┆ 1.066236 │
+│ tier_and_period  ┆ small, Feb to May   ┆ 1093   ┆ 0.691565               ┆ 0.610575 ┆ 0.775817 │
+│ tier_and_period  ┆ small, Jun and Jul  ┆ 2611   ┆ 0.832615               ┆ 0.734028 ┆ 0.936504 │
+│ all              ┆ all orders          ┆ 7150   ┆ 0.984062               ┆ 0.880228 ┆ 1.09968  │
 └──────────────────┴─────────────────────┴────────┴────────────────────────┴──────────┴──────────┘
 {
  "dev_split": "2026-06-01",

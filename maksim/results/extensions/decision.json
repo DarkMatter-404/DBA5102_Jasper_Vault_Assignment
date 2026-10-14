@@ -1,0 +1,54 @@
+{
+  "rule": "skill gain >= 0.005 for >= 5 of 7 lengths and walk-forward Gini not lower",
+  "candidates": {
+    "B. range and volume": {
+      "skill_gain_by_product": {
+        "1800": 0.0014,
+        "3600": 0.001,
+        "7200": 0.0021,
+        "14400": -0.0028,
+        "28800": -0.0039,
+        "43200": -0.0114,
+        "86400": -0.0095
+      },
+      "mean_skill_gain": -0.003275597831633071,
+      "lengths_with_gain_at_least_0.005": 0,
+      "walk_forward_gini": 0.1914877991049539,
+      "current_model_gini": 0.18813770124387502,
+      "passes": false
+    },
+    "C. US holidays": {
+      "skill_gain_by_product": {
+        "1800": -0.0003,
+        "3600": -0.0002,
+        "7200": -0.0001,
+        "14400": 0.0022,
+        "28800": 0.0029,
+        "43200": 0.0034,
+        "86400": 0.0087
+      },
+      "mean_skill_gain": 0.0023752099330795156,
+      "lengths_with_gain_at_least_0.005": 1,
+      "walk_forward_gini": 0.18951050678381498,
+      "current_model_gini": 0.18813770124387502,
+      "passes": false
+    },
+    "B and C": {
+      "skill_gain_by_product": {
+        "1800": 0.0012,
+        "3600": 0.0009,
+        "7200": 0.0022,
+        "14400": -0.0001,
+        "28800": -0.0004,
+        "43200": -0.0069,
+        "86400": -0.0004
+      },
+      "mean_skill_gain": -0.0005087180012682249,
+      "lengths_with_gain_at_least_0.005": 0,
+      "walk_forward_gini": 0.19365490655976814,
+      "current_model_gini": 0.18813770124387502,
+      "passes": false
+    }
+  },
+  "adopted": null
+}

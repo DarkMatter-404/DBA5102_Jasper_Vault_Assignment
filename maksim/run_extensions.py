@@ -25,7 +25,9 @@ check, so it is not evaluated on August to October outcomes.
 
 The hedging overlay (A) is also shown on the validation period as a post-hoc illustration (prices
 are the frozen version 1 prices; the hedge has no parameter), clearly separated from the training
-evidence.
+evidence. The net-book band hedge (band_hedge) was added after the first run showed that hedging
+every order separately costs about half the profit; the bands 0, 0.25, 0.5 and 1 BTC are round
+numbers, not tuned.
 
 Outputs: results/extensions/*
 """
@@ -151,6 +153,45 @@ def hedge_summary(o: pl.DataFrame, price_col: str, payout_col: str, label: str) 
     return rows
 
 
+BANDS_BTC = [0.0, 0.25, 0.5, 1.0]  # added after the per-order result: hedge the net book within a band
+
+
+def band_hedge(o: pl.DataFrame, candles: pl.DataFrame, band: float) -> tuple[pl.DataFrame, float]:
+    """Hedge the book's net delta, trading only when it drifts more than `band` BTC from the hedge.
+
+    Returns daily hedge profit (before costs) and the total trading cost. The target hedge is the
+    sum of open per-order hedge positions; the hedge is marked at the minute close of each event.
+    """
+    ev = pl.concat([o.select(t=pl.col("createdAt"), d=pl.col("hedge_position_BTC")),
+                    o.select(t=pl.col("closedAt"), d=-pl.col("hedge_position_BTC"))]).sort("t")
+    t, d = ev["t"].to_numpy(), ev["d"].to_numpy()
+    px = close_price(candles, t)
+    target, h, cost = 0.0, 0.0, 0.0
+    pnl = np.zeros(len(t))
+    for i in range(len(t)):
+        if i:
+            pnl[i] = h * (px[i] - px[i - 1])  # profit on the hedge held since the previous event
+        target += d[i]
+        if abs(target - h) > band:
+            cost += HEDGE_FEE_PER_SIDE * abs(target - h) * px[i]
+            h = target
+    daily = pl.DataFrame({"day": t.astype("datetime64[D]"), "hedge": pnl}).with_columns(pl.col("day").cast(pl.Date)).group_by("day").agg(pl.col("hedge").sum())
+    return daily, cost
+
+
+def band_summary(o: pl.DataFrame, candles: pl.DataFrame, price_col: str, payout_col: str, label: str) -> list[dict]:
+    book = o.group_by("day").agg((pl.col(price_col) - pl.col(payout_col)).sum().alias("book"))
+    rows = []
+    for band in BANDS_BTC:
+        daily, cost = band_hedge(o, candles, band)
+        j = book.join(daily, on="day", how="full", coalesce=True).fill_null(0.0).sort("day")
+        total = (j["book"] + j["hedge"]).to_numpy()
+        r = daily_risk(j["day"].to_numpy(), total)
+        rows.append({"sample": label, "band_BTC": band, "profit_before_costs": float(total.sum()), "hedge_cost": cost,
+                     "profit_after_costs": float(total.sum() - cost), **{k: r[k] for k in ["sd_daily_pnl", "worst_day", "max_drawdown"]}})
+    return rows
+
+
 def net_exposure(o: pl.DataFrame) -> dict:
     """Open net option delta of the book over time (BTC), from order opens and closes."""
     ev = pl.concat([o.select(t=pl.col("createdAt"), d=-pl.col("hedge_position_BTC")),
@@ -198,6 +239,10 @@ def main() -> None:
     vm.write_csv(OUT / "hedging_validation_monthly_post_hoc.csv")
     exposure["validation"] = net_exposure(val)
     pl.DataFrame(hs).write_csv(OUT / "hedging_summary.csv")
+    bands = band_summary(wfo, candles, "model_premium_USDC", "realizedProfit_USDC", "training, Feb to Jul, model price")
+    bands += band_summary(val, candles, "recommended_premium_USDC", "payout", "validation, Aug to Oct, frozen v1 price (post hoc)")
+    pl.DataFrame(bands).write_csv(OUT / "hedging_net_book_bands.csv")
+    print(pl.DataFrame(bands), file=sys.stderr)
     (OUT / "net_exposure.json").write_text(json.dumps(exposure, indent=2))
 
     pl.Config.set_tbl_cols(20); pl.Config.set_tbl_width_chars(230); pl.Config.set_tbl_rows(40); pl.Config.set_fmt_str_lengths(50); pl.Config.set_float_precision(3)

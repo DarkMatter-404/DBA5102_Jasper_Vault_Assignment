@@ -16,6 +16,7 @@ Pricing strategy for Jasper Vault's Perpetual Protect (PP): analysis, code, back
 | Is it better pricing or just higher pricing? | Partly higher. Total premium is 16.5 percent above today's. 61 percent of orders get cheaper, but they are small: orders holding 63 percent of today's premium get dearer (large orders plus 17 percent). Against a flat raise of every current price to the same total, the model has smaller losses on bad days (worst day minus 7,636 against minus 8,530) and earns more when users are price-sensitive (elasticity 1: 39,603 against 38,717; elasticity 2: 37,532 against 33,237; strict rule: 12,280 against 0), but less when users accept any rise up to 25 percent (18,463 against 45,101). |
 | Main risk | If users are lost as soon as a price exceeds what they paid today and cheaper prices win no extra orders, the model earns less than current pricing over the six-month walk-forward (15,401 against 17,437 USDC). It cuts prices that users already accepted while losing some profitable large orders. |
 | Overfitting | Forecast skill 0.208 in sample and 0.187 out of sample; coefficients and the time-of-day profile are stable across refits; the simplest version (recent volatility and time of day, nothing else) gives 95 percent of the final profit. See section 6. |
+| Basic extensions (tested on training data after the holdout check, rule fixed in advance) | Delta hedging the net book within a 0.5 BTC band cuts the worst training day from minus 7,636 to minus 4,042 USDC for about 22 percent of profit, but would not have prevented the August loss. Range-based volatility, volume features and a US-holiday calendar all failed the pre-registered adoption rule, so the submitted prices are unchanged. See sections 5.7 and 7. |
 | Untouched holdout (validation file, August to October) | Checked once, after the recommendations were frozen and pushed (commit c70c413). The book is profitable but thin: premiums 205,824 USDC, payouts 201,003 USDC, loss ratio 0.98. August lost 12,667 USDC: BTC rose 25 percent and calls paid out 2.0 times fair value, although the size of the moves was forecast correctly (realised / expected move 1.03 for calls, 0.97 for puts). September and October were profitable (loss ratios 0.88 and 0.77). On the August orders with a base quote the model lost less than the base price and than a flat markup at today's average, but its risk ranking did not hold there. See section 6.4. |
 
 ![Loss ratio by quintile of model risk](results/figures/loss_ratio_by_model_quintile.png)
@@ -47,6 +48,7 @@ PP is short-dated protection on a perpetual futures position. A trader who is lo
 | `../data/with_base_premium/pp_transactions_training.csv` | 7,204 orders, 2 February to 31 July 2026, with the API base price per BTC (blank for 1,131 orders) |
 | `data/pp_transactions_validation.csv` | 4,155 orders, 31 July to 14 October 2026, outcome hidden (see section 8 for its two blocks) |
 | `data/btc_market_history_2026-01-01_to_2026-10-14.parquet` | 412,080 one-minute BTCUSDC perpetual candles. Identical to the supplied file on every overlapping candle except the last one, which was still open when the supplied file was cut |
+| `data/nyse_holidays_2026.csv` | NYSE full-day closures in 2026, from nyse.com (used only by the holiday candidate) |
 | `data/macro_events_2026.csv` | 38 US releases (CPI, jobs report, FOMC, PCE), January to October 2026, each with an official source URL (BLS, BEA, Federal Reserve), checked by a second independent pass |
 
 ## 2. What the data shows
@@ -189,6 +191,21 @@ The five worst days of the model's book in June and July (`results/worst_days_te
 - a cap on open protected notional per direction, tighter during scheduled release windows (which remain underpriced, model loss ratio 1.22) and after a large one-way move;
 - monthly monitoring of the loss ratio by product length and hour, with a review if a segment exceeds 1.0 for a month.
 
+### 5.7 Delta hedging
+
+Jasper Vault is short every protection it sells, so its book loses when BTC moves strongly in either direction and also carries a directional exposure (the net delta). A basic risk control for an options seller is to hedge that directional exposure with a BTC perpetual position. `run_extensions.py` tests this without changing any price: each protection's delta (Black-Scholes, with the model's window volatility) is hedged from open to close. Assumed trading cost: 0.04 percent of hedge notional per side. Profit in USDC, February to July walk-forward, model prices, no demand response.
+
+| Hedge | Profit after costs | Hedge cost | Worst day | Maximum drawdown | Standard deviation of daily profit |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| No hedge | 62,879 | 0 | minus 7,636 | 9,673 | 1,246 |
+| Every order hedged on its own | 28,197 | 31,671 | minus 5,653 | 8,991 | 1,000 |
+| Net book, rebalanced when off by more than 0.5 BTC | 49,157 | 13,998 | minus 4,042 | 6,523 | 1,025 |
+| Net book, rebalanced when off by more than 1 BTC | 52,676 | 5,722 | minus 5,247 | 8,539 | 1,123 |
+
+- Hedging every order on its own costs about half the profit. The book's net delta is small (at most 2.3 BTC, 95th percentile 1.2 BTC), so hedging the net book within a band is much cheaper: with a 0.5 BTC band it costs 22 percent of profit and cuts the worst day by 47 percent and the maximum drawdown by 33 percent. The band hedge was added after the per-order result was seen; the bands are round numbers, not tuned.
+- Post hoc on the validation period (frozen prices, payouts recomputed): the 1 BTC band improves the worst day from minus 15,183 to minus 11,386 USDC and the maximum drawdown from 34,184 to 29,550, with profit about unchanged after costs (3,728 against 4,821). The August loss came from large moves on the side that pays out, not from a net directional position, so hedging limits it only partly. Margin and exposure caps per direction remain the main controls for such months.
+- Outputs: `results/extensions/hedging_summary.csv`, `hedging_net_book_bands.csv`, `hedging_training_monthly.csv`, `net_exposure.json`.
+
 ## 6. Overfitting checks
 
 Two kinds of overfitting are possible here. The first is fitting noise with too many parameters. The second is choosing the design after looking at the test results, so that the test period stops being a fair test. Both were checked with `run_overfitting_checks.py` (outputs in `results/overfitting/`).
@@ -229,6 +246,8 @@ Several choices were made during development after looking at results that inclu
 | Drop size tiers | June and July test | February to May (table, D to F) |
 | Floor at the base price | June and July test, February to July walk-forward | February to May (table, C to D) |
 | Margin 25 percent | set before any test at that margin | margin table in section 5.4 |
+| Range and volume features, US holidays (not adopted) | proposed after the holdout check; adoption rule committed before the test (commit f8801e8) | training data only (section 7) |
+| Delta hedging overlay (no price change) | textbook risk control; band version added after the per-order cost was seen | training data; validation shown post hoc (section 5.7) |
 
 February to May is not a fully untouched period either, because the whole training period was explored at the start. The only data that played no part in any decision are the outcomes of the validation period (August to October 2026).
 
@@ -257,6 +276,8 @@ The lesson for the strategy is risk control rather than a different model: a cap
 - **News sentiment (NLP).** No timestamped news archive was supplied; paid feeds are hard to align to the minute without look-ahead, and six months of orders are too few to learn a reliable mapping from sentiment to payouts. The release calendar captures the predictable part of news risk and is known in advance.
 - **Size tiers.** A loading by order size is unstable over time: in the walk-forward, large orders paid out 0.84 of fair value in February to May and 1.01 in June and July (`results/payout_over_fair_value_walk_forward.csv`). With the time-of-day model in place, payouts per unit of fair value are 0.98 for medium and 0.99 for large orders; only orders under 1,000 USDC pay out less (0.79), and they hold about 1 percent of premium.
 - **Charging by direction.** Calls 0.90 and puts 1.10 of fair value over February to July; both 90 percent intervals include 1.
+- **Range-based volatility and trading activity.** One-hour and four-hour Parkinson (high-low) variance, last-hour volume relative to the weekly average, and last-hour taker buy/sell imbalance. Tested after the holdout check under a rule committed beforehand (commit f8801e8): adopt only if out-of-sample forecast skill improves by at least 0.005 for at least 5 of 7 product lengths and the walk-forward Gini against current pricing does not fall. Skill improved slightly for 30-minute to 2-hour products (0.001 to 0.002) and fell for longer ones (down to minus 0.011); 0 of 7 lengths reached 0.005. Not adopted (`results/extensions/decision.json`).
+- **US market holidays.** On NYSE holidays (for example Juneteenth or Labor Day) there is no 09:30 opening spike, so treating them like weekend days is a calendar fact (dates from nyse.com, `data/nyse_holidays_2026.csv`). In the walk-forward it raised profit from 62,879 to 65,105 USDC and the Gini from 0.188 to 0.190, but with only 7 holiday weekdays in the training period the forecast skill gain is small (0.002 on average, 1 of 7 lengths above 0.005), so under the pre-registered rule it is not adopted for the submission. It is a reasonable change for production.
 - **Blending with the base price.** Once the model is known, the base price adds no ranking information (Gini of the base price against the model minus 0.004, interval minus 0.05 to 0.05, on the 3,947 test orders), and it is missing for 53 percent of validation orders. It is used only as a price floor.
 
 ## 8. Validation recommendations
@@ -304,6 +325,7 @@ Over all 1,960 rows with a base quote, the premium-weighted multiplier is 1.60, 
 - **Remaining mispriced segments.** 24-hour products (payout / fair value 0.40 on 96 test orders) and orders between 16:00 and 24:00 UTC (0.75 to 0.77) are overpriced by the model; orders under 1,000 USDC pay out 0.79 of fair value.
 - **The validation extension** (rows 1,899 to 4,155) has much larger orders than the training data and almost no base quotes, so the floor does not protect it.
 - **Trend risk.** The model prices the size of the move, not its direction. In a strongly trending month (August 2026, BTC plus 25 percent) protection on the losing side pays out far more than its fair value (section 6.4). This needs an exposure limit, not a pricing change.
+- **Holidays and hedging for production.** The US-holiday calendar (section 7) and net-book delta hedging within a band (section 5.7) are recommended for live use but are not part of the submitted prices.
 - The model treats every at-the-money product the same way; deductibles other than zero are priced by the formula but were not in the data.
 
 ## 11. How to reproduce
@@ -315,6 +337,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python run_backtest.py             # results/*.csv
 .venv/bin/python run_overfitting_checks.py   # results/overfitting/*.csv
 .venv/bin/python run_validation.py           # outputs/validation_recommendations.csv
+.venv/bin/python run_extensions.py           # results/extensions/* (hedging, candidate features)
 .venv/bin/python make_figures.py             # results/figures/*.png
 .venv/bin/python -m pytest tests -q          # no-look-ahead test
 ```
@@ -330,6 +353,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `run_backtest.py` | June and July test, walk-forward, benchmarks, segments, margin grid, worst days |
 | `run_overfitting_checks.py` | in-sample against out-of-sample skill, parameter stability, design decisions by sub-period |
 | `run_validation.py` | final fit and validation recommendations |
+| `run_extensions.py` | delta hedging overlay and candidate features (range, volume, US holidays) with the pre-registered adoption rule |
 | `run_sealed_check.py` | one-time check of the frozen recommendations against August to October outcomes (runs only on the committed, frozen file; outputs in `results/sealed_check/`) |
 | `make_figures.py` | figures in `results/figures/` |
 | `tests/test_no_lookahead.py` | checks that a price depends only on candles closed before the order |
