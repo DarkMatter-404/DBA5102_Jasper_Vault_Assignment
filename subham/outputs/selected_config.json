@@ -1,0 +1,20 @@
+{
+ "name": "hybrid_events",
+ "config": {
+  "k": 3.0,
+  "cap_lo": 0.85,
+  "cap_hi": 1.6,
+  "risk_features": [
+   "event_in_window",
+   "hours_to_event",
+   "hours_since_event"
+  ],
+  "risk_kind": "glm",
+  "risk_alpha": 0.1,
+  "size_cap": [
+   0.8,
+   1.5
+  ],
+  "ref_kind": "model"
+ }
+}
