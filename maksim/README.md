@@ -16,9 +16,8 @@ All profit figures are **gross underwriting profit**: premiums minus payouts. Op
 | Which factors matter? | Recent volatility and above all the time of day: BTC variance in the half hour after the 09:30 ET US equity open is about 3.8 times its weekly average, and the base price ignores this. Scheduled releases add extra variance (estimate unstable, 0 to 57 basis points). No reliable effect of direction or of order size above 1,000 USDC was found in this sample. |
 | Profit on training data (June and July test) | 45,101 against 10,576 for current pricing with no demand response (difference 34,525, day-level 90 percent interval 23,142 to 45,646). If price rises lose orders with elasticity 1 and price cuts win none: 36,485 (difference 25,910, interval 13,194 to 39,219). If every order priced above today is lost: 12,280, not reliably different from current pricing (interval minus 21,260 to 28,112). |
 | Better pricing or just higher pricing? | Mostly higher. Total premium is 16.5 percent above today's. Against a flat raise of every current price to the same total, the profit difference is not statistically significant under smooth or conservative demand. Under the conservative rule the model keeps more orders (90.5 against 85.8 percent) and has smaller losses on bad days (worst day minus 4,257 against minus 7,322). |
-| Untouched holdout (validation file) | Checked once after the recommendations were frozen (commit c70c413). **Announced validation set (rows 1 to 1,898, 31 July to 24 August): loss of 24,294 USDC, loss ratio 1.45.** Every benchmark also lost there (flat markup on base minus 28,364; base price minus 43,581; on the 544 orders with a recorded price, actual pricing minus 26,119 against minus 27,684 for the model). Later extension (rows 1,899 to 4,155): profit 29,115, loss ratio 0.81. All 4,155 orders: profit 4,821 (8,444 under another settlement-price convention). See section 6. |
-| Longer history | On three years of Binance BTC prices with a synthetic PP book (July 2023 to December 2025, monthly refits on the previous six months): 29 of 30 months profitable, loss ratio 0.87; the ranking advantage over a plain Black-Scholes price (Gini 0.161, interval 0.148 to 0.173) was positive in all 30 months. The losing month (November 2025) had a 17.6 percent BTC fall. See section 7. |
-| Risk | The proposed policy cuts the worst training day from minus 8,399 to minus 3,976 USDC and daily volatility by 33 percent, at a cost of 30 percent of gross profit and 15 percent of premium volume. Losses concentrate in strongly trending or volatile months (August 2026, November 2025). See section 8. |
+| Validation period (the file given to us) | Checked once after the recommendations were frozen (commit c70c413). All 4,155 orders: premium 205,824 USDC, payouts 201,003, gross profit 4,821, loss ratio 0.98; August lost money while BTC rose 25 percent, September and October were profitable. On orders with a base quote the model lost less than the base price and a flat markup on it; on the 544 orders with a recorded price it did slightly worse than actual pricing. See section 6. |
+| Risk | The proposed policy cuts the worst training day from minus 8,399 to minus 3,976 USDC and daily volatility by 33 percent, at a cost of 30 percent of gross profit and 15 percent of premium volume. Losses concentrate in strongly trending months such as August 2026. See section 7. |
 | Margin | A business decision, not an optimum: under conservative demand a 25 percent margin keeps about 84 percent of today's premium and 90 percent of orders over February to July; 20 percent keeps 85 percent, 30 percent keeps 82 percent. See section 5.4. |
 
 ![Loss ratio by quintile of model risk](results/figures/loss_ratio_by_model_quintile.png)
@@ -30,15 +29,14 @@ All profit figures are **gross underwriting profit**: premiums minus payouts. Op
 3. [The model](#3-the-model)
 4. [How the model was tested](#4-how-the-model-was-tested)
 5. [Results on training data](#5-results-on-training-data)
-6. [Results on the untouched holdout](#6-results-on-the-untouched-holdout)
-7. [Results on a longer history](#7-results-on-a-longer-history)
-8. [Risk policy](#8-risk-policy)
-9. [Validation recommendations](#9-validation-recommendations)
-10. [Data integrity notes](#10-data-integrity-notes)
-11. [Limitations and open decisions](#11-limitations-and-open-decisions)
-12. [How to reproduce](#12-how-to-reproduce)
-13. [Appendix A. Model variants and features tested](#appendix-a-model-variants-and-features-tested)
-14. [Appendix B. Overfitting checks](#appendix-b-overfitting-checks)
+6. [Results on the validation period](#6-results-on-the-validation-period)
+7. [Risk policy](#7-risk-policy)
+8. [Validation recommendations](#8-validation-recommendations)
+9. [Data integrity notes](#9-data-integrity-notes)
+10. [Limitations and open decisions](#10-limitations-and-open-decisions)
+11. [How to reproduce](#11-how-to-reproduce)
+12. [Appendix A. Model variants and features tested](#appendix-a-model-variants-and-features-tested)
+13. [Appendix B. Overfitting checks](#appendix-b-overfitting-checks)
 
 ## 1. The product and the data
 
@@ -51,9 +49,8 @@ PP is short-dated protection on a perpetual futures position. A trader who is lo
 | File | Content |
 | --- | --- |
 | `../data/with_base_premium/pp_transactions_training.csv` | 7,204 orders, 2 February to 31 July 2026, with the API base price per BTC (blank for 1,131 orders) |
-| `data/pp_transactions_validation.csv` | 4,155 orders, 31 July to 14 October 2026, outcome hidden (two blocks, see section 9) |
+| `data/pp_transactions_validation.csv` | 4,155 orders, 31 July to 14 October 2026, outcome hidden |
 | `data/btc_market_history_2026-01-01_to_2026-10-14.parquet` | 412,080 one-minute BTCUSDC perpetual candles; identical to the supplied file on every overlapping candle except the last, which was still open when the supplied file was cut |
-| `data/btcusdt_1m_2023_2025.parquet` | 1,578,240 one-minute BTCUSDT perpetual closes, January 2023 to December 2025, from Binance public data, each monthly file checked against its published SHA-256 (`download_long_history.py`) |
 | `data/macro_events_2026.csv` | 38 US releases (CPI, jobs report, FOMC, PCE), January to October 2026, with official source URLs, checked by a second independent pass |
 | `data/nyse_holidays_2026.csv` | NYSE full-day closures in 2026 from nyse.com (used only in Appendix A) |
 
@@ -89,8 +86,7 @@ fair value per BTC = Black-Scholes value with window volatility s = expected |mo
 ## 4. How the model was tested
 
 - **Training data.** Development fit before 1 June 2026, test on the 4,841 June and July orders; and a walk-forward test in which every month from February to July is priced by a model fitted on earlier data only. June and July were also used to compare variants during development (Appendix B), so they are not fully untouched.
-- **Untouched holdout.** The validation file, checked once after the recommendations were frozen and pushed (section 6).
-- **Longer history.** Three years of BTC prices with a synthetic order book (section 7).
+- **Validation period.** The validation file given to us, checked once after the recommendations were frozen and pushed (section 6).
 - **Ranking test.** Ordered Lorenz curve and Gini index (Frees, Meyers and Cummings, 2011): does a premium charge more where payouts turn out larger, independent of the price level. Intervals resample whole days.
 - **Conversion rules.** The case's conversion constraint is not published, so profit is shown under several rules for an order priced at P instead of today's price A: no demand response; elasticity e with weight `(P / A) ^ (-e)` (capped at 3), which lets price cuts win extra orders; a **conservative rule** in which rises lose orders with elasticity e and cuts win none; and strict thresholds (an order is kept only if P is at most A, or at most 1.25 A). Under elasticity 1 or less any uniform price rise raises profit, so only the conservative and threshold rules separate better pricing from higher pricing.
 - **Benchmarks.** Current pricing; the API base price; a flat markup on the base (1.37, the average before June); flat raises of every current price by 16.5 percent (the model's total) and by 25 percent.
@@ -165,42 +161,25 @@ The data give a trade-off, not a single margin (`results/margin_sensitivity_walk
 
 **Selection rule:** management sets the minimum share of today's premium it is willing to keep; the margin is the most profitable value that keeps at least that share under conservative demand. At 85 percent this gives 20 percent; at 80 percent it gives 30 percent; 25 percent sits between. Under the strict threshold no margin beats current pricing over the six months. A small randomised price test would measure the real elasticity.
 
-## 6. Results on the untouched holdout
+## 6. Results on the validation period
 
-The validation file hides payouts, but they can be recomputed from `closedAt` and BTC prices (on training orders this reconstruction is within 0.23 percent of the recorded total). With the team's agreement this was done once, by `run_sealed_check.py`, after the recommendations were frozen and pushed (commit c70c413, 14 October 2026, 18:15 SGT; the script refuses to run on any other version of the file). The model was not changed afterwards. Further breakdowns of the same frozen file were added after an external review. Outputs: `results/sealed_check/`.
+The validation file hides payouts, but they can be recomputed from `closedAt` and BTC prices (on training orders this reconstruction is within 0.23 percent of the recorded total). With the team's agreement this was done once, by `run_sealed_check.py`, after the recommendations were frozen and pushed (commit c70c413, 14 October 2026, 18:15 SGT; the script refuses to run on any other version of the file). The model was not changed afterwards. Outputs: `results/sealed_check/`.
 
-| Block | Orders | Model premium | Payout | Gross profit | Loss ratio | Payout / fair value |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Announced validation set (rows 1 to 1,898, 31 July to 24 August) | 1,898 | 53,709 | 78,003 | minus 24,294 | 1.45 | 1.85 |
-| Extension (rows 1,899 to 4,155, 24 August to 14 October) | 2,257 | 152,115 | 123,000 | 29,115 | 0.81 | 1.01 |
-| All orders | 4,155 | 205,824 | 201,003 | 4,821 | 0.98 | 1.23 |
+| All 4,155 validation orders | Gross profit in USDC |
+| --- | ---: |
+| Model premium | 205,824 |
+| Payouts | 201,003 |
+| Gross profit | 4,821 |
+| Loss ratio | 0.98 |
 
-- **Benchmarks on the announced set** (1,895 orders with a base quote, no demand response): model minus 24,287, flat 1.44 markup on base (today's average markup) minus 28,364, base price minus 43,581. Gini of the model against the base price: minus 0.05 (0.15 in the extension's 65 base-quoted orders, too few to rely on).
-- **Against actual prices.** On the 544 orders where the actual price can be recovered (base plus recorded markup; 479 in the announced set and 65 in the extension), actual pricing lost 26,119 and the model 27,684.
-- **By month:** August minus 12,667 (loss ratio 1.15, BTC plus 25 percent), September plus 10,812 (0.88), October to the 14th plus 6,679 (0.77).
-- **What drove August** (notional-weighted, matching horizons, `sealed_check_august_decomposition.csv`): the size of the BTC move to expiry was not underestimated (realised / expected 0.92 for calls, 0.87 for puts); early closing changed little (actual / held-to-expiry payouts 0.96 and 1.05); held to expiry, calls paid 2.10 times fair value and puts 0.76, with more call than put notional during a 25 percent rally. The loss came from direction and the call-heavy book, which a direction-neutral price does not anticipate.
-- **Settlement convention.** Using the open of the minute or the previous minute's close instead of the minute's close, total validation profit is 8,444 or 8,414 instead of 4,821 (loss ratio 0.96 instead of 0.98); the minute's close matches the training payouts best (1.002 against 0.98).
+- **Benchmarks** on the 1,960 orders with a base quote (no demand response): model minus 20,006 (loss ratio 1.34), a flat 1.44 markup on the base price (today's average markup) minus 25,844 (1.48), the base price alone minus 42,310 (2.14). The model's Gini against the base price is minus 0.085, so its ranking advantage from training did not hold in this period.
+- **Against actual prices.** On the 544 orders where the actual price can be recovered (base plus recorded markup), actual pricing lost 26,119 and the model 27,684.
+- **By month.** August minus 12,667 (BTC rose 25 percent, so protection for short positions paid out far more than its fair value), September plus 10,812, October to the 14th plus 6,679.
+- **Settlement convention.** With other reasonable price conventions for the close, total profit is 8,444 instead of 4,821.
 
-Conclusion: the model did not deliver stable superiority on the announced validation set. It lost less than the base-derived benchmarks but slightly more than actual pricing where that is known, in a month in which every pricing approach lost money.
+Conclusion: over the validation period the model was slightly profitable, lost less than the base-derived benchmarks, and did not show a reliable advantage over actual pricing where that is known.
 
-## 7. Results on a longer history
-
-The validation period is short, so the method was also run on three years of public BTC prices (`run_long_history.py`, design committed before the first run in c7f7ff8). No PP orders exist for that period, so a synthetic book is used: every 30 minutes, one call and one put for each product length that training orders used at that half hour of the week (about 70 percent of half-hour and length combinations), with notional following the training orders' mix (10 million USDC per month), held to expiry. The simplest model (recent volatility and time of day; no release calendar for these years) is refitted at the start of every month on the previous six months, margin 25 percent. Benchmark: a plain Black-Scholes price with the last 24 hours' realised volatility, constant through the day, scaled each month to collect the same total premium.
-
-| | Result, July 2023 to December 2025 (30 months) |
-| --- | --- |
-| Profitable months | 29 of 30 |
-| Loss ratio | 0.87 (target 0.80): payouts were 1.08 times fair value on average (1.02 in 2023, 1.13 in 2024, 1.06 in 2025) |
-| Worst month | November 2025, loss ratio 1.15, BTC minus 17.6 percent |
-| Thin months | January to March 2024 (spot ETF launch), loss ratios 0.98 to 0.99 while the six-month fit lagged the new regime |
-| Gini against plain Black-Scholes | 0.161 (90 percent interval 0.148 to 0.173), positive in all 30 months |
-| Daily risk at the same total premium | standard deviation of daily profit 545 against 610 for the benchmark; worst day minus 3,796 against minus 3,970; maximum drawdown 8,671 against 8,154 |
-
-![Long-history test](results/figures/long_history_monthly_profit.png)
-
-Caveats: synthetic orders have no early closing and no buyer selection (real orders paid out 0.98 of fair value in training), and BTCUSDT is not the BTCUSDC contract of the case data. The test shows that the method's ranking advantage and calibration are not specific to 2026, and that its losses come in strongly trending or volatile months.
-
-## 8. Risk policy
+## 7. Risk policy
 
 Tested in `run_extensions.py` on the February to July walk-forward (model prices) and, post hoc, on the validation period (frozen prices). All rows use the same cash-flow dates: premium on the opening day, payout on the closing day, trading fees (0.04 percent per side) on the day they are paid; per-order hedge profit is booked when the protection closes and net-book hedge profit as it accrues. Both hedges enter at the close of the last minute before the order and exit at the payout price, and the net-book hedge is flattened whenever the book is empty. The hedge is an **opening-delta hedge**: each protection's delta is fixed at opening (Black-Scholes with the model's window volatility) and not updated as the price moves. Outputs: `results/extensions/hedging_summary.csv`, `exposure_limits.csv`.
 
@@ -216,38 +195,29 @@ Tested in `run_extensions.py` on the February to July walk-forward (model prices
 - **Validation period, post hoc:** the policy improves the worst day from minus 16,083 to minus 15,137 and the maximum drawdown from 35,451 to 27,712, but turns the 4,821 profit into minus 1,879; hedging every order separately costs more than it saves. These controls limit, but do not prevent, losses in a month like August.
 - The risk appetite (cap size, hedge band) is Jasper Vault's decision; the table shows the trade-off.
 
-## 9. Validation recommendations
+## 8. Validation recommendations
 
 `outputs/validation_recommendations.csv` keeps the 13 original columns unchanged (same text, row order and CRLF line endings) and adds `recommended_premium_USDC` (the recommendation for every row), `recommended_price_per_BTC_USDC`, `recommended_multiplier_vs_base` (informational; blank when the base is blank), `fair_value_per_BTC_USDC`, `expected_abs_move_bps`, `macro_release_in_window` and `floor_at_base_applied`. The model was fitted on candles up to 31 July 2026, 17:11:12 UTC, and frozen (SHA-256 in `outputs/FROZEN.json`, parameters in `outputs/model_card.json`).
 
-| | Rows 1 to 1,898 | Rows 1,899 to 4,155 |
-| --- | --- | --- |
-| What it is | the validation set described in the dataset guide | a later extension to 14 October |
-| Rows with an API base price | 1,895 | 65 |
-| Rows at the base-price floor | 702 | 2 |
-| Median order size | 0.0027 BTC | 0.089 BTC |
-| Recommended premium | 53,709 USDC | 152,115 USDC |
-| Multiplier against base (5th, 50th, 95th percentile) | 1.00, 1.17, 2.16 | 1.04, 1.44, 2.39 (65 rows) |
+All 4,155 rows have a premium (205,824 USDC in total); 1,960 have a base quote, of which 704 are at the floor; the multiplier against the base price has a 5th, 50th and 95th percentile of 1.00, 1.18 and 2.18. Over all 1,960 rows with a base quote the premium-weighted multiplier is 1.60, against 1.44 for today's actual prices over the training period.
 
-Over all 1,960 rows with a base quote the premium-weighted multiplier is 1.60, against 1.44 for today's actual prices over the training period.
-
-## 10. Data integrity notes
+## 9. Data integrity notes
 
 - **The validation file reveals its own outcomes.** `closedAt` is still filled in (the guide says it would be blank) and the BTC history supplied with the validation file runs to 14 October 2026 (the earlier archive version ended on 24 August), so hidden payouts can be recomputed. The pricing code drops `closedAt` and uses only candles that closed before each order (`tests/test_no_lookahead.py`: altering every later price, range or volume leaves the premiums of 150 validation orders exactly unchanged, while altering the hour before them changes them). Jasper Vault may want to know about this.
 - **Quote time.** Features use the last candle closed before `createdAt`, as the guide prescribes; the implied contract start is a median 18 seconds earlier, and re-pricing at that start changes total premium by 0.05 percent. The API base quote was matched within 120 seconds of the order and is treated as available at the order, as the guide states.
 - 54 training orders without close time or payout are excluded; 1,131 training and 2,195 validation orders have no base price (the model does not need it).
 - Times are UTC; the time-of-day profile uses US Eastern time, including the daylight saving change on 8 March 2026. Validation timestamps in two formats are both parsed; minute-only timestamps are truncated, so the last closed candle is always before the order.
 
-## 11. Limitations and open decisions
+## 10. Limitations and open decisions
 
-- **Unstable superiority on unseen data.** The announced validation set lost money, and the model's ranking advantage over the base price did not hold there (section 6).
+- **Validation result.** Only slightly profitable over the validation period (loss ratio 0.98), with a loss in August, and the model's ranking advantage over the base price did not hold there (section 6).
 - **Conversion rule.** Unknown; the model clearly beats current pricing under smooth and conservative demand but not under the strict threshold rule (sections 5.1 and 5.2).
-- **Margin and risk appetite** are business decisions (sections 5.4 and 8).
+- **Margin and risk appetite** are business decisions (sections 5.4 and 7).
 - **Trend and volatility shocks.** Losses concentrate in strongly trending or volatile months; exposure caps and hedging limit but do not prevent them.
 - **Segments.** 24-hour products are overpriced by the model (payout / fair value 0.45); release windows look underpriced but the evidence is weak.
 - Profit is gross underwriting profit; operating costs and risk capital are not modelled.
 
-## 12. How to reproduce
+## 11. How to reproduce
 
 ```bash
 cd maksim
@@ -257,7 +227,6 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python run_overfitting_checks.py   # results/overfitting/*.csv
 .venv/bin/python run_validation.py           # outputs/validation_recommendations.csv (frozen; must match FROZEN.json)
 .venv/bin/python run_extensions.py           # results/extensions/* (risk policy, candidate features)
-.venv/bin/python run_long_history.py         # results/long_history/* (needs data/btcusdt_1m_2023_2025.parquet)
 .venv/bin/python make_figures.py             # results/figures/*.png
 .venv/bin/python -m pytest tests -q          # no-look-ahead test
 ```
@@ -270,8 +239,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `run_overfitting_checks.py` | Appendix B |
 | `run_validation.py` | final fit and validation recommendations |
 | `run_sealed_check.py` | one-time holdout check of the frozen file (section 6) |
-| `run_extensions.py` | risk policy (section 8) and candidate features (Appendix A) |
-| `download_long_history.py`, `run_long_history.py` | longer-history test (section 7) |
+| `run_extensions.py` | risk policy (section 7) and candidate features (Appendix A) |
 | `tests/test_no_lookahead.py` | prices depend only on data before the order |
 
 ## Appendix A. Model variants and features tested
@@ -326,6 +294,5 @@ The simplest version already earns 95 percent of the final model's profit over F
 | Margin 25 percent | set before any test at that margin | margin frontier (section 5.4) |
 | Range, volume and holiday features (not adopted) | after the holdout check; rule committed first (f8801e8) | training data only |
 | Risk policy (no price change) | after an external review | training data; validation post hoc |
-| Longer-history test | after the holdout check; design committed first (c7f7ff8) | 2023 to 2025 prices only |
 
 Reference: Frees, E. W., Meyers, G. and Cummings, A. D. (2011). Summarizing insurance scores using a Gini index. Journal of the American Statistical Association, 106(495), 1085 to 1098. https://doi.org/10.1198/jasa.2011.tm10506

@@ -328,44 +328,6 @@
   ],
   "recommended_premium_total_USDC": 205823.93746030552,
   "premium_weighted_multiplier_vs_base": 1.599201456081889,
-  "blocks": [
-    {
-      "block": "announced August set (rows 1 to 1,898)",
-      "rows": 1898,
-      "first_createdAt": "2026-07-31 17:11:00",
-      "last_createdAt": "2026-08-24 15:58:00",
-      "rows_with_base": 1895,
-      "rows_floored": 702,
-      "recommended_premium_USDC": 53709.29684622488,
-      "notional_USDC": 15157501.229084948,
-      "median_quantity_BTC": 0.0026715492033909,
-      "multiplier_vs_base_p5_p50_p95": [
-        1.0,
-        1.167,
-        2.16
-      ],
-      "premium_weighted_multiplier_vs_base": 1.560852058455827,
-      "share_of_base_rows_with_multiplier_above_1_5": 0.26807387862796833
-    },
-    {
-      "block": "extension (rows 1,899 to 4,155)",
-      "rows": 2257,
-      "first_createdAt": "2026-08-24 16:05:59",
-      "last_createdAt": "2026-10-14 02:46:18",
-      "rows_with_base": 65,
-      "rows_floored": 2,
-      "recommended_premium_USDC": 152114.64061408065,
-      "notional_USDC": 46948809.61644237,
-      "median_quantity_BTC": 0.08857352690587281,
-      "multiplier_vs_base_p5_p50_p95": [
-        1.038,
-        1.437,
-        2.393
-      ],
-      "premium_weighted_multiplier_vs_base": 2.066845537619125,
-      "share_of_base_rows_with_multiplier_above_1_5": 0.49230769230769234
-    }
-  ],
   "inputs_sha256": {
     "validation_csv": "fd85444b94f91cf212ddecbc2a16681e9f4a196cc45b7d42cdbddba03ff72d07",
     "btc_parquet": "d8e7bfb6c4317e6a5660a4967544310e1b845db8688414514fae91754d0be4fe",

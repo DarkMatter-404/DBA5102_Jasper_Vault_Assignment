@@ -143,24 +143,7 @@ def main() -> None:
     print(btc, file=sys.stderr)
 
     # Added after an external review (evaluation of the same frozen file, no model change).
-    # 1. The announced validation set (rows 1 to 1,898) and the later extension, separately.
-    val = val.with_columns(block=pl.when(pl.col("row_id") < 1898).then(pl.lit("announced set, rows 1 to 1,898")).otherwise(pl.lit("extension, rows 1,899 to 4,155")))
-    blocks = val.group_by("block").agg(orders=pl.len(), premium=pl.col("recommended_premium_USDC").sum(), payout=pl.col("payout").sum(),
-                                       fair_value=pl.col("fv_usd").sum()).with_columns(
-        profit=pl.col("premium") - pl.col("payout"), loss_ratio=pl.col("payout") / pl.col("premium"),
-        payout_over_fair_value=pl.col("payout") / pl.col("fair_value")).sort("block")
-    blk_rows = []
-    for name in blocks["block"].to_list():
-        g = val.filter((pl.col("block") == name) & pl.col("base_premium_USDC").is_not_null())
-        if g.height:
-            xg, bg, pg = g["payout"].to_numpy(), g["base_premium_USDC"].to_numpy(), g["recommended_premium_USDC"].to_numpy()
-            blk_rows.append({"block": name, "orders_with_base": g.height, "model_profit": float((pg - xg).sum()),
-                             "flat_markup_profit": float((bg * k_flat - xg).sum()), "base_profit": float((bg - xg).sum()),
-                             "gini_model_vs_base": ordered_lorenz(bg, pg, xg)[2]})
-    blocks.write_csv(OUT / "sealed_check_by_block.csv")
-    pl.DataFrame(blk_rows).write_csv(OUT / "sealed_check_by_block_vs_benchmarks.csv")
-
-    # 2. August explained with matching weights and horizons: notional-weighted payouts if held to
+    # 1. August explained with matching weights and horizons: notional-weighted payouts if held to
     #    expiry against fair value (market move, no user behaviour), and payouts at the actual close
     #    against payouts if held to expiry (effect of early closing).
     sign = np.where(val["optionType"].to_numpy() == 0, 1.0, -1.0)
@@ -176,7 +159,7 @@ def main() -> None:
     ).sort("month", "optionType_label")
     decomp.write_csv(OUT / "sealed_check_august_decomposition.csv")
 
-    # 3. Sensitivity of the validation result to the settlement-price convention.
+    # 2. Sensitivity of the validation result to the settlement-price convention.
     conv = []
     for name, col, shift in [("close of the minute containing closedAt", "close", 0), ("open of that minute", "open", 0),
                              ("close of the previous minute", "close", -1)]:
@@ -190,7 +173,7 @@ def main() -> None:
                      "validation_payout": float(vp.sum()), "validation_profit": float(allp.sum() - vp.sum()),
                      "validation_loss_ratio": float(vp.sum() / allp.sum())})
     pl.DataFrame(conv).write_csv(OUT / "sealed_check_settlement_sensitivity.csv")
-    print(blocks, pl.DataFrame(blk_rows), decomp, pl.DataFrame(conv), sep="\n", file=sys.stderr)
+    print(decomp, pl.DataFrame(conv), sep="\n", file=sys.stderr)
     summary = {"frozen_file": frozen, "payout_reconstruction_on_training": acc, "validation_orders": val.height,
                "orders_with_base": m.height, "flat_markup_on_base": k_flat,
                "gini_model_vs_base": ordered_lorenz(b, p, x)[2], "gini_flat_vs_base": 0.0,

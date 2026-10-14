@@ -263,26 +263,6 @@ def fig_payout_ratio():
     save(fig, "payout_over_fair_value.png")
 
 
-def fig_long_history():
-    path = R / "long_history" / "monthly.csv"
-    if not path.exists():
-        return
-    m = pl.read_csv(path)
-    fig, (ax1, ax2) = figure(12.8, 7.6, 2, 1, sharex=True)
-    x = np.arange(m.height)
-    cols = [CURRENT if v < 0 else MODEL for v in m["gross_profit"]]
-    ax1.bar(x, m["gross_profit"] / 1000, color=cols, width=0.75)
-    ax1.axhline(0, color=INK2, lw=1)
-    ax1.set_ylabel("Gross profit, thousand USDC")
-    title(ax1, "Long-history test: monthly gross profit of a synthetic PP book, July 2023 to December 2025", pad=12)
-    ax2.bar(x, m["btc_change_pct"], color=MUTED, width=0.75)
-    ax2.axhline(0, color=INK2, lw=1)
-    ax2.set_ylabel("BTC change in month, percent")
-    ax2.set_xticks(x[::3], m["month"].to_list()[::3], rotation=0)
-    foot(fig, "Each month priced by a model fitted on the previous six months; 10 million USDC notional per month with the training orders' mix; payouts held to expiry. Orange: losing month.")
-    save(fig, "long_history_monthly_profit.png")
-
-
 def main():
     out_dir().mkdir(parents=True, exist_ok=True)
     wf = pl.read_parquet(R / "walk_forward_orders_priced.parquet")
@@ -296,7 +276,6 @@ def main():
     fig_price_change(test)
     fig_calibration()
     fig_payout_ratio()
-    fig_long_history()
     print("figures:", sorted(p.name for p in out_dir().glob("*.png")))
 
 
