@@ -25,6 +25,9 @@ class Market:
     minute_et_bucket: np.ndarray  # 0..95: 30-minute bucket of the US Eastern day (48) x weekend flag (2)
     event_cum: np.ndarray      # event_cum[k + 1] = number of macro events in minutes 0..k
     event_idx: np.ndarray      # minute index of every scheduled release
+    cum_park: np.ndarray       # prefix sums of the Parkinson (high-low) variance per minute
+    cum_vol: np.ndarray        # prefix sums of traded volume (BTC)
+    cum_taker: np.ndarray      # prefix sums of taker-buy volume (BTC)
 
     @property
     def n(self) -> int:
@@ -56,7 +59,9 @@ CALENDAR_HORIZON_MIN = 2 * 1440  # calendar arrays run two days past the last ca
                                  # window that starts at the latest candle can still be priced
 
 
-def build_market(candles: pl.DataFrame, events: pl.DataFrame) -> Market:
+def build_market(candles: pl.DataFrame, events: pl.DataFrame, holidays: list | None = None) -> Market:
+    """Arrays used by the features. `holidays` (US Eastern dates) are treated like weekend days in
+    the time-of-day profile; None keeps the original calendar (weekdays and weekends only)."""
     ts = candles["ts"].to_numpy()
     t0 = ts[0]
     logp = np.log(candles["close"].to_numpy())
@@ -70,6 +75,8 @@ def build_market(candles: pl.DataFrame, events: pl.DataFrame) -> Market:
     et = minutes.dt.replace_time_zone("UTC").dt.convert_time_zone("America/New_York")
     bucket30 = (et.dt.hour().to_numpy().astype(int) * 2 + et.dt.minute().to_numpy().astype(int) // 30)
     weekend = (et.dt.weekday().to_numpy() >= 6).astype(int)  # polars: Monday=1 .. Sunday=7
+    if holidays:
+        weekend = np.maximum(weekend, et.dt.date().is_in(holidays).to_numpy().astype(int))
     minute_et_bucket = bucket30 + 48 * weekend
 
     flags = np.zeros(n_cal)
@@ -79,8 +86,13 @@ def build_market(candles: pl.DataFrame, events: pl.DataFrame) -> Market:
         idx = idx[(idx >= 0) & (idx < n_cal)]
         flags[idx] = 1.0
     event_cum = np.concatenate([[0.0], np.cumsum(flags)])
+    hl = np.log(candles["high"].to_numpy() / candles["low"].to_numpy())
+    park = hl * hl / (4.0 * np.log(2.0))
+    vol = candles["volume"].to_numpy()
+    taker = candles["taker_buy_base_asset_volume"].to_numpy()
+    prefix = lambda a: np.concatenate([[0.0], np.cumsum(a)])
     return Market(t0=t0, logp=logp, cum_r2=cum_r2, minute_et_bucket=minute_et_bucket, event_cum=event_cum,
-                  event_idx=idx)
+                  event_idx=idx, cum_park=prefix(park), cum_vol=prefix(vol), cum_taker=prefix(taker))
 
 
 @dataclass(frozen=True)
@@ -190,6 +202,12 @@ def features(mkt: Market, seas: Seasonality, k: np.ndarray, t_min: np.ndarray,
              hmm: VolRegimeHMM | None = None) -> dict[str, np.ndarray]:
     """Pre-trade features at last-closed minute k for a protection window of t_min minutes."""
     out = {f"log_var_{h}m": np.log(mkt.trailing_var(k, h)) for h in config.TRAILING_WINDOWS_MIN}
+    window_sum = lambda cum, h: cum[k + 1] - cum[k + 1 - h]
+    out["log_park_60m"] = np.log(np.maximum(window_sum(mkt.cum_park, 60) / 60, EPS_VAR))
+    out["log_park_240m"] = np.log(np.maximum(window_sum(mkt.cum_park, 240) / 240, EPS_VAR))
+    vol60, vol_week = window_sum(mkt.cum_vol, 60), window_sum(mkt.cum_vol, 10080)
+    out["log_rel_volume_60m"] = np.log(np.maximum(vol60 / 60, 1e-9) / np.maximum(vol_week / 10080, 1e-9))
+    out["taker_imbalance_60m"] = np.abs(2.0 * window_sum(mkt.cum_taker, 60) / np.maximum(vol60, 1e-9) - 1.0)
     out["log_seas_window"] = np.log(seas.window_mean(k + 1, k + t_min))
     out["log_seas_last60"] = np.log(seas.window_mean(k - 59, k))
     out["event_in_window"] = mkt.events_in_window(k, t_min)

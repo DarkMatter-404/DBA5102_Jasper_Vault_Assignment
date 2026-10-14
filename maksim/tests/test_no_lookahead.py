@@ -19,21 +19,25 @@ from src.pipeline import fit_pricer  # noqa: E402
 N_ORDERS = 150
 
 
-@pytest.fixture(scope="module")
-def setup():
+@pytest.fixture(scope="module", params=["+ macro releases (final)", "+ range and volume (candidate)"])
+def setup(request):
     mkt = build_market(load_candles(), load_events())
-    pricer = fit_pricer(mkt, config.TRAIN_END)
+    pricer = fit_pricer(mkt, config.TRAIN_END, request.param)
     orders = load_orders(config.VALID_CSV)
     idx = np.linspace(0, orders.height - 1, N_ORDERS).astype(int)
     return mkt, pricer, orders[idx]
 
 
 def perturbed(mkt, mask: np.ndarray, seed: int):
-    """Copy of the market with log prices shifted by noise on the minutes in `mask`."""
+    """Copy of the market with every price-derived series altered on the minutes in `mask`:
+    close prices, high-low ranges, volume and taker volume."""
     rng = np.random.default_rng(seed)
     logp = mkt.logp + np.where(mask, rng.normal(0, 0.02, len(mkt.logp)), 0.0)
     r = np.diff(logp, prepend=logp[0])
-    return dataclasses.replace(mkt, logp=logp, cum_r2=np.concatenate([[0.0], np.cumsum(r * r)]))
+    prefix = lambda a: np.concatenate([[0.0], np.cumsum(a)])
+    scale = lambda cum: prefix(np.diff(cum) * np.where(mask, rng.uniform(0.2, 5.0, len(mask)), 1.0))
+    return dataclasses.replace(mkt, logp=logp, cum_r2=prefix(r * r), cum_park=scale(mkt.cum_park),
+                               cum_vol=scale(mkt.cum_vol), cum_taker=scale(mkt.cum_taker))
 
 
 def test_later_candles_do_not_change_prices(setup):

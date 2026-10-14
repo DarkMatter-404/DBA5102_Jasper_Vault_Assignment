@@ -8,6 +8,7 @@ TRAIN_CSV = REPO / "data" / "with_base_premium" / "pp_transactions_training.csv"
 VALID_CSV = ROOT / "data" / "pp_transactions_validation.csv"
 BTC_PARQUET = ROOT / "data" / "btc_market_history_2026-01-01_to_2026-10-14.parquet"
 EVENTS_CSV = ROOT / "data" / "macro_events_2026.csv"
+HOLIDAYS_CSV = ROOT / "data" / "nyse_holidays_2026.csv"
 
 RESULTS = ROOT / "results"
 FIGURES = RESULTS / "figures"

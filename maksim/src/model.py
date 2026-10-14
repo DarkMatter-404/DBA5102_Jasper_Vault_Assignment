@@ -39,6 +39,8 @@ VARIANTS = {
     "+ macro releases (final)": {"features": RECENT_VOL + TIME_OF_DAY, "events": True},
     "+ HMM regime": {"features": RECENT_VOL + TIME_OF_DAY + ["hmm_p_turbulent"], "events": True},
 }
+RANGE_AND_VOLUME = ["log_park_60m", "log_park_240m", "log_rel_volume_60m", "taker_imbalance_60m"]
+VARIANTS["+ range and volume (candidate)"] = {"features": RECENT_VOL + TIME_OF_DAY + RANGE_AND_VOLUME, "events": True}
 FINAL_VARIANT = "+ macro releases (final)"
 
 

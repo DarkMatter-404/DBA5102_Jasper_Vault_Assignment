@@ -47,7 +47,8 @@ def size_tier(notional: pl.Expr) -> pl.Expr:
 
 def load_candles() -> pl.DataFrame:
     """One-minute BTCUSDC perpetual candles, checked for gaps."""
-    df = pl.read_parquet(config.BTC_PARQUET, columns=["open_time_utc", "open", "high", "low", "close", "volume"])
+    df = pl.read_parquet(config.BTC_PARQUET, columns=["open_time_utc", "open", "high", "low", "close", "volume",
+                                                      "taker_buy_base_asset_volume"])
     df = df.with_columns(ts=pl.col("open_time_utc").str.strptime(pl.Datetime("us"), "%Y-%m-%dT%H:%M:%SZ")).drop("open_time_utc").sort("ts")
     steps = df["ts"].diff().dt.total_seconds().drop_nulls().unique().to_list()
     if steps != [60]:
@@ -71,6 +72,11 @@ def load_events(types: list[str] | None = None) -> pl.DataFrame:
         ts_utc=pl.col("ts_et").dt.replace_time_zone("America/New_York").dt.convert_time_zone("UTC").dt.replace_time_zone(None)
     )
     return ev.select("event_type", "ts_utc").sort("ts_utc")
+
+
+def load_holidays() -> list:
+    """NYSE full-day closures (US Eastern dates), from the exchange's published calendar."""
+    return pl.read_csv(config.HOLIDAYS_CSV)["date"].str.to_date().to_list()
 
 
 def minute_index(ts: np.ndarray, t0: np.datetime64) -> np.ndarray:
