@@ -2,3 +2,5 @@
 data/en/** -text
 data/with_base_premium/** -text
 data/**/*.csv whitespace=cr-at-eol
+data/validation/*.csv -text
+data/validation/*.csv whitespace=cr-at-eol
