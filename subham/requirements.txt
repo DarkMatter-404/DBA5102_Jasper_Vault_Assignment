@@ -1,0 +1,12 @@
+# Tested with Python 3.14.3
+numpy==2.5.4
+pandas==3.0.6
+scipy==1.18.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pyarrow==26.0.0
+requests==2.34.2
+notebook==7.6.3
+nbconvert==7.17.2
+ipykernel==7.4.0
+pytest==9.1.1

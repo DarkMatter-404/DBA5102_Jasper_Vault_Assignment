@@ -1,0 +1,24 @@
+{
+ "orders": 4155,
+ "selected": "hybrid_events",
+ "rebuild_error_august": {
+  "median_abs_error": 0.09128398575848595,
+  "p90_abs_error": 0.21701176974567846,
+  "mean_error": 0.0911153101821602
+ },
+ "known_price_rows": 544,
+ "known_price_median_ratio": 1.1881471715258456,
+ "known_price_share_lower": 0.29963235294117646,
+ "known_price_share_above_1.5": 0.042279411764705885,
+ "premium_total_usd": 216763.65483000202,
+ "expected_payout_total_usd": 160250.67884325646,
+ "calibration_constant": 1.360766491377519,
+ "risk_factors": {
+  "event_in_window": 1.226548521575504,
+  "hours_to_event": 0.9993999556842307,
+  "hours_since_event": 1.000121884190167
+ },
+ "k": 3.0,
+ "cap_lo": 0.85,
+ "cap_hi": 1.6
+}
