@@ -119,6 +119,28 @@ def main() -> None:
         profit=pl.col("premium") - pl.col("payout"), loss_ratio=pl.col("payout") / pl.col("premium"),
         payout_over_fair_value=pl.col("payout") / pl.col("fair_value")).sort("month")
     monthly.write_csv(OUT / "sealed_check_monthly.csv")
+
+    # Diagnostics (to explain the result, not to change the model): direction, BTC trend, and the
+    # realised move on order windows against the model's expected move.
+    t0 = candles["ts"].to_numpy()[0]
+    k0 = minute_index(val["createdAt"].to_numpy(), t0) - 1
+    k1 = minute_index(val["expirationDate"].to_numpy(), t0)
+    logc = np.log(candles["close"].to_numpy())
+    val = val.with_columns(realised_abs_move_bps=pl.Series(np.abs(logc[k1] - logc[k0]) * 1e4),
+                           expected_abs_move_bps=pl.col("expected_abs_move_bps").cast(pl.Float64) if "expected_abs_move_bps" in val.columns else pl.lit(None))
+    exp_move = pl.read_csv(REC, infer_schema_length=0)["expected_abs_move_bps"].cast(pl.Float64)
+    val = val.with_columns(expected_abs_move_bps=exp_move)
+    by_dir = val.group_by("month", "optionType_label").agg(
+        orders=pl.len(), premium=pl.col("recommended_premium_USDC").sum(), payout=pl.col("payout").sum(),
+        payout_over_fair_value=pl.col("payout").sum() / pl.col("fv_usd").sum(),
+        realised_over_expected_move=pl.col("realised_abs_move_bps").mean() / pl.col("expected_abs_move_bps").mean(),
+    ).sort("month", "optionType_label")
+    by_dir.write_csv(OUT / "sealed_check_by_month_and_direction.csv")
+    btc = candles.filter(pl.col("ts") >= np.datetime64("2026-07-01")).group_by(pl.col("ts").dt.strftime("%Y-%m").alias("month")).agg(
+        first=pl.col("open").first(), last=pl.col("close").last()).with_columns(change_pct=(pl.col("last") / pl.col("first") - 1) * 100).sort("month")
+    btc.write_csv(OUT / "btc_monthly_change.csv")
+    print(by_dir, file=sys.stderr)
+    print(btc, file=sys.stderr)
     summary = {"frozen_file": frozen, "payout_reconstruction_on_training": acc, "validation_orders": val.height,
                "orders_with_base": m.height, "flat_markup_on_base": k_flat,
                "gini_model_vs_base": ordered_lorenz(b, p, x)[2], "gini_flat_vs_base": 0.0,

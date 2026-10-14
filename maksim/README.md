@@ -16,6 +16,7 @@ Pricing strategy for Jasper Vault's Perpetual Protect (PP): analysis, code, back
 | Is it better pricing or just higher pricing? | Partly higher. Total premium is 16.5 percent above today's. 61 percent of orders get cheaper, but they are small: orders holding 63 percent of today's premium get dearer (large orders plus 17 percent). Against a flat raise of every current price to the same total, the model has smaller losses on bad days (worst day minus 7,636 against minus 8,530) and earns more when users are price-sensitive (elasticity 1: 39,603 against 38,717; elasticity 2: 37,532 against 33,237; strict rule: 12,280 against 0), but less when users accept any rise up to 25 percent (18,463 against 45,101). |
 | Main risk | If users are lost as soon as a price exceeds what they paid today and cheaper prices win no extra orders, the model earns less than current pricing over the six-month walk-forward (15,401 against 17,437 USDC). It cuts prices that users already accepted while losing some profitable large orders. |
 | Overfitting | Forecast skill 0.208 in sample and 0.187 out of sample; coefficients and the time-of-day profile are stable across refits; the simplest version (recent volatility and time of day, nothing else) gives 95 percent of the final profit. See section 6. |
+| Untouched holdout (validation file, August to October) | Checked once, after the recommendations were frozen and pushed (commit c70c413). The book is profitable but thin: premiums 205,824 USDC, payouts 201,003 USDC, loss ratio 0.98. August lost 12,667 USDC: BTC rose 25 percent and calls paid out 2.0 times fair value, although the size of the moves was forecast correctly (realised / expected move 1.03 for calls, 0.97 for puts). September and October were profitable (loss ratios 0.88 and 0.77). On the August orders with a base quote the model lost less than the base price and than a flat markup at today's average, but its risk ranking did not hold there. See section 6.4. |
 
 ![Loss ratio by quintile of model risk](results/figures/loss_ratio_by_model_quintile.png)
 
@@ -185,20 +186,24 @@ Recent volatility alone is about as informative as the base price, which already
 The five worst days of the model's book in June and July (`results/worst_days_test_period.csv`) were days of large BTC moves: 24 June (BTC range 7.0 percent, model minus 7,636 against current minus 9,630), 31 July (4.8 percent), 14 July (4.6 percent), 18 June (4.2 percent) and 25 June (6.7 percent). On each of these days the model lost less than current pricing. Suggested limits to accompany the pricing, not tested here:
 
 - a daily loss limit (for example 10,000 USDC) that triggers a review of the margin and of the release-window treatment;
-- a cap on open protected notional per direction and product length during scheduled release windows, which remain underpriced (model loss ratio 1.22);
+- a cap on open protected notional per direction, tighter during scheduled release windows (which remain underpriced, model loss ratio 1.22) and after a large one-way move;
 - monthly monitoring of the loss ratio by product length and hour, with a review if a segment exceeds 1.0 for a month.
 
 ## 6. Overfitting checks
 
 Two kinds of overfitting are possible here. The first is fitting noise with too many parameters. The second is choosing the design after looking at the test results, so that the test period stops being a fair test. Both were checked with `run_overfitting_checks.py` (outputs in `results/overfitting/`).
 
-**Parameters.** The model has 7 regressions with 7 coefficients each, a 96-value time-of-day profile and one release parameter, all fitted on market data (40,000 to 60,000 windows per regression). No parameter is fitted on order payouts, and the margin is a business target.
+### 6.1 Parameters
+
+The model has 7 regressions with 7 coefficients each, a 96-value time-of-day profile and one release parameter, all fitted on market data (40,000 to 60,000 windows per regression). No parameter is fitted on order payouts, and the margin is a business target.
 
 - *In sample against out of sample.* The move model was refitted at five monthly cut-offs (1 March to 1 July) and scored on the following month. Skill, the reduction in forecast error against a model that only knows the average move, is 0.208 in sample and 0.187 out of sample on average. By product length the gap is small (30 minutes 0.26 against 0.24, 4 hours 0.20 against 0.20) and largest for the rare 12-hour product (0.19 against 0.13). Out of sample the forecasts are slightly too high on average (realised / predicted 0.955), which errs on the safe side for pricing.
 - *Stability.* Across six fits, the coefficient on last-hour volatility varies by 0.01 to 0.03 around values of 0.05 to 0.27. The weekday time-of-day profile fitted on January to March correlates 0.93 with the one fitted on April to July (weekend profile 0.55, less stable). The release effect is the least stable parameter: 0, 31, 49, 45, 51 and 57 basis points as more releases enter the fit.
 - *Agreement with theory.* The expected absolute move should scale with the square root of variance, so the four volatility coefficients should add up to about 0.5. They add up to 0.50 for 30-minute windows and 0.43 to 0.48 for the other lengths, without this being imposed.
 
-**Design decisions.** Several choices were made during development after looking at results that include June and July. The table re-runs the walk-forward test (each month priced by a model fitted on earlier data only) for each step, separately for February to May and June and July. Profit in USDC.
+### 6.2 Design decisions
+
+Several choices were made during development after looking at results that include June and July. The table re-runs the walk-forward test (each month priced by a model fitted on earlier data only) for each step, separately for February to May and June and July. Profit in USDC.
 
 | Variant | Feb to May, no demand response | Feb to May, elasticity 1 | Feb to May, keep if not dearer | Jun and Jul, no demand response | Jun and Jul, elasticity 1 | Jun and Jul, keep if not dearer |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -214,7 +219,7 @@ Two kinds of overfitting are possible here. The first is fitting noise with too 
 - The later choices (releases, floor, leaving out PCE) each add little and point the same way in February to May as in June and July. Size tiers were dropped because they hurt in June and July, and at elasticity 1 and under the strict rule in February to May.
 - Under the strict rule every variant earns less than current pricing in February to May (section 5.3). This weakness is not caused by any of the later choices.
 
-**Decision log.**
+### 6.3 Decision log
 
 | Decision | Made after seeing | Re-checked on |
 | --- | --- | --- |
@@ -226,6 +231,25 @@ Two kinds of overfitting are possible here. The first is fitting noise with too 
 | Margin 25 percent | set before any test at that margin | margin table in section 5.4 |
 
 February to May is not a fully untouched period either, because the whole training period was explored at the start. The only data that played no part in any decision are the outcomes of the validation period (August to October 2026).
+
+### 6.4 Untouched holdout: the validation period
+
+The validation file hides payouts, but they can be recomputed from `closedAt` and the BTC prices (on training orders this reconstruction is within 0.23 percent of the recorded total). With the team's agreement this was done once, by `run_sealed_check.py`, after the recommendations were frozen and pushed to GitHub (commit c70c413, 14 October 2026, 18:15 SGT; the script refuses to run on any other version of the file). The model was not changed afterwards. Outputs: `results/sealed_check/`.
+
+| Period | Orders | Model premium | Payout | Profit | Loss ratio | Payout / fair value |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| August (BTC plus 25 percent) | 2,129 | 86,266 | 98,933 | minus 12,667 | 1.15 | 1.45 |
+| September (BTC plus 6 percent) | 1,340 | 90,144 | 79,332 | 10,812 | 0.88 | 1.10 |
+| October to the 14th (BTC flat) | 568 | 29,365 | 22,687 | 6,679 | 0.77 | 0.97 |
+| All 4,155 orders (including 118 on 31 July) | 4,155 | 205,824 | 201,003 | 4,821 | 0.98 | 1.23 |
+
+- **The volatility forecast held.** On August order windows the realised size of the BTC move was 1.03 times the forecast for calls and 0.97 times for puts.
+- **The trend did not.** In August calls (protection for short positions) paid out 2.01 times fair value and puts 0.80 times. A price that ignores direction cannot cover a one-way move of 25 percent in a month. Pricing direction from the training data would have made this worse, since the training period favoured charging more for puts.
+- **Against the benchmarks** on the 1,960 orders with a base quote (almost all in August), with no demand response: model minus 20,006 USDC (loss ratio 1.34), a flat 1.44 markup on the base (today's average markup) minus 25,844 (1.48), the base price alone minus 42,310 (2.14). With elasticity measured against the base price the model and the flat markup are close (elasticity 1: minus 18,272 against minus 17,918; elasticity 2: minus 15,560 against minus 12,423); keeping only orders priced at most 1.5 times the base: minus 19,486 against minus 25,844.
+- **Ranking.** On these orders the model's Gini against the base price is minus 0.085: the risk ranking that held in training (0.15) did not hold in a month driven by direction rather than volatility.
+- **Against actual prices.** On the 544 validation orders where the actual price can be recovered (base plus recorded markup), actual pricing lost 26,119 USDC and the model 27,684 USDC.
+
+The lesson for the strategy is risk control rather than a different model: a cap on open protected notional per direction (section 5.6) is the tool that limits a one-way month like August, because no direction-neutral price can.
 
 ## 7. Alternatives tested and not used
 
@@ -279,6 +303,7 @@ Over all 1,960 rows with a base quote, the premium-weighted multiplier is 1.60, 
 - **Release windows** were still underpriced in the June and July test (payout / fair value 1.53 on 192 orders), and the release effect is estimated from few events.
 - **Remaining mispriced segments.** 24-hour products (payout / fair value 0.40 on 96 test orders) and orders between 16:00 and 24:00 UTC (0.75 to 0.77) are overpriced by the model; orders under 1,000 USDC pay out 0.79 of fair value.
 - **The validation extension** (rows 1,899 to 4,155) has much larger orders than the training data and almost no base quotes, so the floor does not protect it.
+- **Trend risk.** The model prices the size of the move, not its direction. In a strongly trending month (August 2026, BTC plus 25 percent) protection on the losing side pays out far more than its fair value (section 6.4). This needs an exposure limit, not a pricing change.
 - The model treats every at-the-money product the same way; deductibles other than zero are priced by the formula but were not in the data.
 
 ## 11. How to reproduce
@@ -304,7 +329,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `run_backtest.py` | June and July test, walk-forward, benchmarks, segments, margin grid, worst days |
 | `run_overfitting_checks.py` | in-sample against out-of-sample skill, parameter stability, design decisions by sub-period |
 | `run_validation.py` | final fit and validation recommendations |
-| `run_sealed_check.py` | one-time check of the frozen recommendations against August to October outcomes (runs only on the committed, frozen file) |
+| `run_sealed_check.py` | one-time check of the frozen recommendations against August to October outcomes (runs only on the committed, frozen file; outputs in `results/sealed_check/`) |
 | `make_figures.py` | figures in `results/figures/` |
 | `results/` | every table behind the numbers above |
 
