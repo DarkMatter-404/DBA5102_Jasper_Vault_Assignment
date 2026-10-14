@@ -61,7 +61,8 @@ class Pricer:
         )
 
 
-def fit_pricer(mkt: Market, fit_end: str, variant: str = FINAL_VARIANT, margin: float | None = None) -> Pricer:
+def fit_pricer(mkt: Market, fit_end: str, variant: str = FINAL_VARIANT, margin: float | None = None,
+               exclude_release_windows: bool = False, fit_start: str | None = None) -> Pricer:
     """Fit every component on candles that closed before `fit_end` (a UTC timestamp string).
 
     The time-of-day profile, the regime HMM, the release jump variance and the move model all
@@ -71,9 +72,10 @@ def fit_pricer(mkt: Market, fit_end: str, variant: str = FINAL_VARIANT, margin: 
     """
     spec = VARIANTS[variant]
     k_end = int(minute_index(np.array([np.datetime64(fit_end)]), mkt.t0)[0]) - 1
-    seas = fit_seasonality(mkt, k_end)
+    k_start = 0 if fit_start is None else max(int(minute_index(np.array([np.datetime64(fit_start)]), mkt.t0)[0]), 0)
+    seas = fit_seasonality(mkt, k_end, k_start)
     hmm = fit_hmm(mkt, k_end) if "hmm_p_turbulent" in spec["features"] else None
-    move = MoveModel(feature_names=spec["features"]).fit(mkt, seas, 0, k_end, hmm)
+    move = MoveModel(feature_names=spec["features"]).fit(mkt, seas, k_start, k_end, hmm, exclude_release_windows)
     jump_var, n_ev = fit_event_jump_var(mkt, k_end) if spec["events"] else (0.0, 0)
     m = margin_from_target_loss_ratio() if margin is None else margin
     return Pricer(variant, seas, hmm, move, jump_var, n_ev, m, fit_end)

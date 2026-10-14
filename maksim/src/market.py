@@ -86,10 +86,14 @@ def build_market(candles: pl.DataFrame, events: pl.DataFrame, holidays: list | N
         idx = idx[(idx >= 0) & (idx < n_cal)]
         flags[idx] = 1.0
     event_cum = np.concatenate([[0.0], np.cumsum(flags)])
-    hl = np.log(candles["high"].to_numpy() / candles["low"].to_numpy())
-    park = hl * hl / (4.0 * np.log(2.0))
-    vol = candles["volume"].to_numpy()
-    taker = candles["taker_buy_base_asset_volume"].to_numpy()
+    n = len(logp)
+    if {"high", "low"} <= set(candles.columns):
+        hl = np.log(candles["high"].to_numpy() / candles["low"].to_numpy())
+        park = hl * hl / (4.0 * np.log(2.0))
+    else:  # close-only price files (long-history test): range features unavailable
+        park = np.zeros(n)
+    vol = candles["volume"].to_numpy() if "volume" in candles.columns else np.zeros(n)
+    taker = candles["taker_buy_base_asset_volume"].to_numpy() if "taker_buy_base_asset_volume" in candles.columns else np.zeros(n)
     prefix = lambda a: np.concatenate([[0.0], np.cumsum(a)])
     return Market(t0=t0, logp=logp, cum_r2=cum_r2, minute_et_bucket=minute_et_bucket, event_cum=event_cum,
                   event_idx=idx, cum_park=prefix(park), cum_vol=prefix(vol), cum_taker=prefix(taker))
