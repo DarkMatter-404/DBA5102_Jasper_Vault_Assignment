@@ -10,6 +10,86 @@
     "total_rule_at_close": 231193.2935880016,
     "total_rule_at_expiry": 237205.89732639652
   },
+  "early_close": {
+    "duration": [
+      {
+        "duration": "0.5h",
+        "orders": 3090,
+        "share_closed_early": 0.5967637540453075,
+        "close_over_expiry": 0.9219406914733762
+      },
+      {
+        "duration": "1.0h",
+        "orders": 531,
+        "share_closed_early": 0.7212806026365348,
+        "close_over_expiry": 0.9735643280429871
+      },
+      {
+        "duration": "12.0h",
+        "orders": 46,
+        "share_closed_early": 0.6304347826086957,
+        "close_over_expiry": 0.9279213478730952
+      },
+      {
+        "duration": "2.0h",
+        "orders": 1091,
+        "share_closed_early": 0.7525206232813932,
+        "close_over_expiry": 0.9542786722650936
+      },
+      {
+        "duration": "24.0h",
+        "orders": 161,
+        "share_closed_early": 0.8198757763975155,
+        "close_over_expiry": 0.9519530304286984
+      },
+      {
+        "duration": "4.0h",
+        "orders": 1240,
+        "share_closed_early": 0.7274193548387097,
+        "close_over_expiry": 1.0069516634221358
+      },
+      {
+        "duration": "8.0h",
+        "orders": 991,
+        "share_closed_early": 0.6791120080726539,
+        "close_over_expiry": 0.9873693327931414
+      }
+    ],
+    "optionType_label": [
+      {
+        "optionType_label": "Call",
+        "orders": 3849,
+        "share_closed_early": 0.69316705637828,
+        "close_over_expiry": 0.9690024582557062
+      },
+      {
+        "optionType_label": "Put",
+        "orders": 3301,
+        "share_closed_early": 0.6410178733717056,
+        "close_over_expiry": 0.9805139566223864
+      }
+    ],
+    "tier": [
+      {
+        "tier": "large",
+        "orders": 2017,
+        "share_closed_early": 0.7476450173525038,
+        "close_over_expiry": 0.9789050420711574
+      },
+      {
+        "tier": "medium",
+        "orders": 1429,
+        "share_closed_early": 0.70888733379986,
+        "close_over_expiry": 0.9475502834357434
+      },
+      {
+        "tier": "small",
+        "orders": 3704,
+        "share_closed_early": 0.6109611231101512,
+        "close_over_expiry": 0.8497063802060909
+      }
+    ]
+  },
   "loss_ratio_training": 0.9297149340525178,
   "release_effects_to_train_end": {
     "CPI": {

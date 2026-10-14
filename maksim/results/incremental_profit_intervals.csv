@@ -1,0 +1,17 @@
+sample,scenario,benchmark,difference,ci05,ci95,share_of_days_a_better,days
+June and July test,no demand response,current price (base + CTA markup),34525.29579170705,23142.341186019046,45646.427340600494,0.7868852459016393,61
+June and July test,no demand response,flat raise of current price to the same total (x1.165),1.1368683772161603e-11,-11356.796151163355,10216.481452915144,0.4918032786885246,61
+June and July test,elasticity=1,current price (base + CTA markup),29027.63665680615,17385.6786609194,41408.82747644271,0.7213114754098361,61
+June and July test,elasticity=1,flat raise of current price to the same total (x1.165),886.0497607913242,-7449.001664791625,9259.307792075773,0.4262295081967213,61
+June and July test,conservative_elasticity=1,current price (base + CTA markup),25909.73667120018,13194.141139492887,39219.15944298707,0.6557377049180327,61
+June and July test,conservative_elasticity=1,flat raise of current price to the same total (x1.165),-2231.850224814658,-11434.435268564563,7196.998304152722,0.3770491803278688,61
+June and July test,keep_if_within_0pct,current price (base + CTA markup),1704.8056250462478,-21260.49701448023,28112.111539857437,0.29508196721311475,61
+June and July test,keep_if_within_0pct,flat raise of current price to the same total (x1.165),12280.386336460228,4327.780235315583,20821.637812846344,0.7704918032786885,61
+February to July walk-forward,no demand response,current price (base + CTA markup),45442.23385933937,32431.68692271247,58520.62258244496,0.6094674556213018,169
+February to July walk-forward,no demand response,flat raise of current price to the same total (x1.183),-2.2851054382044822e-11,-11309.056499333961,10697.315229776312,0.3905325443786982,169
+February to July walk-forward,elasticity=1,current price (base + CTA markup),36427.02459386831,23533.49875799262,50789.87372880135,0.5680473372781065,169
+February to July walk-forward,elasticity=1,flat raise of current price to the same total (x1.183),719.2594836559515,-7276.463203643473,8712.800706083832,0.3727810650887574,169
+February to July walk-forward,conservative_elasticity=1,current price (base + CTA markup),32353.150754488775,18954.074083888132,47016.941255195336,0.5207100591715976,169
+February to July walk-forward,conservative_elasticity=1,flat raise of current price to the same total (x1.183),-3354.61435572357,-12784.36116194313,5525.082027247795,0.3254437869822485,169
+February to July walk-forward,keep_if_within_0pct,current price (base + CTA markup),-2035.8789655428138,-26310.02102121608,24710.50651494436,0.2603550295857988,169
+February to July walk-forward,keep_if_within_0pct,flat raise of current price to the same total (x1.183),15401.073118685674,6948.306115727672,23994.86416892448,0.7159763313609467,169

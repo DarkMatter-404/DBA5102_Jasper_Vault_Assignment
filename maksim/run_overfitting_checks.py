@@ -81,6 +81,31 @@ def coefficient_stability(mkt) -> tuple[pl.DataFrame, pl.DataFrame]:
     return coef, prof
 
 
+def release_double_counting(mkt, orders: pl.DataFrame) -> pl.DataFrame:
+    """How much the fair value changes if release-containing windows are left out of the regression.
+
+    The final model fits the baseline on all windows (some contain a release) and then adds the
+    release variance, so part of the release effect may be counted twice. Diagnostic only: the
+    frozen recommendations are not changed.
+    """
+    rows = []
+    for start, end in MONTHS:
+        mo = orders.filter((pl.col("createdAt") >= ts(start)) & (pl.col("createdAt") < ts(end)))
+        a = fit_pricer(mkt, start, FINAL).fair_value(mkt, mo)
+        b = fit_pricer(mkt, start, FINAL, exclude_release_windows=True).fair_value(mkt, mo)
+        rows.append(a.select("productType", "event_in_window", "fair_value_USDC", "premiumAmount_USDC", "realizedProfit_USDC")
+                    .with_columns(fv_excluding=b["fair_value_USDC"], month=pl.lit(start[:7])))
+    d = pl.concat(rows)
+    g = d.group_by(pl.when(pl.col("event_in_window") > 0).then(pl.lit("release in window")).otherwise(pl.lit("no release")).alias("window")).agg(
+        orders=pl.len(), fair_value=pl.col("fair_value_USDC").sum(), fair_value_excluding=pl.col("fv_excluding").sum())
+    tot = d.select(pl.lit("all orders").alias("window"), pl.len().alias("orders"), pl.col("fair_value_USDC").sum().alias("fair_value"),
+                   pl.col("fv_excluding").sum().alias("fair_value_excluding"))
+    out = pl.concat([g, tot]).with_columns(change=pl.col("fair_value_excluding") / pl.col("fair_value") - 1)
+    x, a_ = d["realizedProfit_USDC"].to_numpy(), d["premiumAmount_USDC"].to_numpy()
+    return out.with_columns(gini_vs_current_final=pl.lit(ordered_lorenz(a_, d["fair_value_USDC"].to_numpy(), x)[2]),
+                            gini_vs_current_excluding=pl.lit(ordered_lorenz(a_, d["fv_excluding"].to_numpy(), x)[2]))
+
+
 def tier_loading(pr, mkt, orders: pl.DataFrame, before: str) -> dict[str, float]:
     """Payout / fair value per size tier on orders that expired before `before` (1.0 if none)."""
     cal = orders.filter(pl.col("expirationDate") < ts(before))
@@ -158,6 +183,9 @@ def main() -> None:
     dv.write_csv(OUT / "design_variants_monthly.csv")
     per = by_period(dv)
     per.write_csv(OUT / "design_variants_by_period.csv")
+    dc = release_double_counting(mkt, orders)
+    dc.write_csv(OUT / "release_double_counting.csv")
+    print(dc, file=sys.stderr)
 
     pl.Config.set_tbl_cols(20); pl.Config.set_tbl_width_chars(230); pl.Config.set_tbl_rows(60); pl.Config.set_fmt_str_lengths(48); pl.Config.set_float_precision(3)
     print(skill.group_by("cutoff", "sample").agg(pl.col("skill").mean(), pl.col("calibration_actual_over_pred").mean()).sort("cutoff", "sample"), file=sys.stderr)

@@ -42,6 +42,25 @@ def payout_rule(o: pl.DataFrame, candles: pl.DataFrame) -> dict:
     }
 
 
+def early_close_by_group(o: pl.DataFrame, candles: pl.DataFrame) -> dict:
+    """Payout at the actual close against the payout if held to expiry, by length, direction and size.
+
+    Both use the same price convention, so the ratio isolates the effect of closing early.
+    A ratio below 1 means early closing paid out less than holding would have.
+    """
+    from src.data import size_tier
+    d = o.with_columns(at_close=pl.Series(intrinsic(o, price_at(candles, o["closedAt"].to_numpy()))),
+                       at_expiry=pl.Series(intrinsic(o, price_at(candles, o["expirationDate"].to_numpy()))),
+                       early=pl.col("closedAt") < pl.col("expirationDate") - pl.duration(seconds=30),
+                       duration=(pl.col("productType") / 3600).round(1).cast(pl.Utf8) + "h", tier=size_tier(pl.col("notional_USDC")))
+    out = {}
+    for col in ["duration", "optionType_label", "tier"]:
+        g = d.group_by(col).agg(orders=pl.len(), share_closed_early=pl.col("early").mean(),
+                                close_over_expiry=pl.col("at_close").sum() / pl.col("at_expiry").sum()).sort(col)
+        out[col] = g.to_dicts()
+    return out
+
+
 def release_effects(mkt, events: pl.DataFrame, end_idx: int, window: int = 30, control_days: int = 28) -> dict:
     """Mean |30-minute move| after each release type over the same clock window on release-free weekdays."""
     out = {}
@@ -92,6 +111,7 @@ def main() -> None:
     first, last = o.sort("createdAt").head(1), o.sort("createdAt").tail(1)
     facts = {
         "payout_rule": payout_rule(o, candles),
+        "early_close": early_close_by_group(o, candles),
         "loss_ratio_training": float(o["realizedProfit_USDC"].sum() / o["premiumAmount_USDC"].sum()),
         "release_effects_to_train_end": release_effects(mkt, events_all, end_idx),
         "markup": markup_groups(o),

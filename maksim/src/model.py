@@ -52,10 +52,12 @@ class MoveModel:
     n_windows: dict[int, int] = field(default_factory=dict)
 
     def fit(self, mkt: Market, seas: Seasonality, k_from: int, k_to: int,
-            hmm: VolRegimeHMM | None = None) -> "MoveModel":
+            hmm: VolRegimeHMM | None = None, exclude_release_windows: bool = False) -> "MoveModel":
         for t_s in config.DURATIONS_S:
             t_min = t_s // 60
             k = market_sample(mkt, k_from, k_to, t_min, config.SAMPLE_STEP_MIN)
+            if exclude_release_windows:  # diagnostic: keep the release effect out of the baseline entirely
+                k = k[mkt.events_in_window(k, np.full(len(k), t_min)) == 0]
             x = self._matrix(mkt, seas, k, np.full(len(k), t_min), hmm)
             y = mkt.forward_abs_return(k, np.full(len(k), t_min)) * BPS
             pipe = make_pipeline(StandardScaler(), PoissonRegressor(alpha=0.0, max_iter=1000))

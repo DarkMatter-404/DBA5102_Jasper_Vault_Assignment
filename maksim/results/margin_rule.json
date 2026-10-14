@@ -1,0 +1,20 @@
+{
+  "rule": "The data give a frontier, not a single margin: under the conservative demand rule (price rises lose orders with elasticity 1, price cuts win no extra orders) a higher margin earns more but keeps less of today's business. For a minimum share of today's premium set by management, the margin is the most profitable grid value that keeps at least that share (February to July walk-forward).",
+  "by_retention_floor": {
+    "80%": {
+      "margin": 0.3,
+      "profit": 57197.97896614659,
+      "premium_retained": 0.8159716675822529
+    },
+    "85%": {
+      "margin": 0.2,
+      "profit": 41974.35323346555,
+      "premium_retained": 0.8540591456206827
+    },
+    "90%": {
+      "margin": 0.0,
+      "profit": 7164.7969598600175,
+      "premium_retained": 0.927537410866488
+    }
+  }
+}

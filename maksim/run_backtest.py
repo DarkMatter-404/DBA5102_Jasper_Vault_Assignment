@@ -16,8 +16,8 @@ import polars as pl
 
 from src import config
 from src.data import load_candles, load_events, load_orders, minute_index
-from src.evaluate import (conversion_weight, evaluate, evaluate_scenarios, gini_with_interval,
-                          move_forecast_scores, ordered_lorenz, threshold_weight)
+from src.evaluate import (conservative_weight, conversion_weight, evaluate, evaluate_scenarios, gini_with_interval,
+                          move_forecast_scores, ordered_lorenz, paired_profit_interval, threshold_weight)
 from src.market import build_market, market_sample
 from src.model import FINAL_VARIANT, VARIANTS, add_event_jump
 from src.pipeline import fit_pricer
@@ -158,6 +158,52 @@ def quote_time_sensitivity(pricer, mkt, test: pl.DataFrame, priced: pl.DataFrame
             "total_premium_change_when_priced_at_implied_start": float(alt["model_premium_USDC"].sum() / priced["model_premium_USDC"].sum() - 1)}
 
 
+MARGIN_RULE = ("The data give a frontier, not a single margin: under the conservative demand rule (price rises "
+               "lose orders with elasticity 1, price cuts win no extra orders) a higher margin earns more but keeps "
+               "less of today's business. For a minimum share of today's premium set by management, the margin is "
+               "the most profitable grid value that keeps at least that share (February to July walk-forward).")
+RETENTION_FLOORS = [0.80, 0.85, 0.90]
+
+
+def margin_grid_walk_forward(wf: pl.DataFrame) -> tuple[pl.DataFrame, dict]:
+    """Margins from 0 to 50 percent on the six-month walk-forward, with retained business."""
+    a, x, d = wf["premiumAmount_USDC"].to_numpy(), wf["realizedProfit_USDC"].to_numpy(), wf["day"].to_numpy()
+    fv, base = wf["fair_value_USDC"].to_numpy(), wf["base_premium_USDC"].fill_null(0.0).to_numpy()
+    rows = []
+    for m in config.MARGIN_GRID:
+        p = np.maximum(fv * (1 + m), base) if config.FLOOR_AT_BASE else fv * (1 + m)
+        for scen, w in [("no demand response", np.ones_like(p)), ("conservative_elasticity=1", conservative_weight(p, a, 1.0)),
+                        ("conservative_elasticity=2", conservative_weight(p, a, 2.0)), ("keep_if_within_0pct", threshold_weight(p, a, 0.0)),
+                        ("elasticity=1", conversion_weight(p, a, 1.0))]:
+            rows.append({**evaluate(f"model margin {m:.0%}", p, x, a, d, w, scen), "margin": m})
+    for scen in ["no demand response", "conservative_elasticity=1", "conservative_elasticity=2", "keep_if_within_0pct", "elasticity=1"]:
+        rows.append({**evaluate(CURRENT, a, x, a, d, None, scen), "margin": None})
+    g = pl.DataFrame(rows)
+    cons = g.filter((pl.col("scenario") == "conservative_elasticity=1") & pl.col("margin").is_not_null())
+    rule = {"rule": MARGIN_RULE, "by_retention_floor": {}}
+    for floor in RETENTION_FLOORS:
+        ok = cons.filter(pl.col("current_premium_retained") >= floor).sort("profit", descending=True)
+        rule["by_retention_floor"][f"{floor:.0%}"] = ({"margin": ok["margin"][0], "profit": ok["profit"][0],
+                                                      "premium_retained": ok["current_premium_retained"][0]} if ok.height else None)
+    return g, rule
+
+
+def incremental_profit_intervals(priced: pl.DataFrame, wf: pl.DataFrame) -> pl.DataFrame:
+    """Model minus benchmark, total over days, with a paired day-level 90 percent interval."""
+    rows = []
+    for label, o in [("June and July test", priced), ("February to July walk-forward", wf)]:
+        a, x, d, p = (o[c].to_numpy() for c in ["premiumAmount_USDC", "realizedProfit_USDC", "day", "model_premium_USDC"])
+        level = p.sum() / a.sum()
+        scen = {"no demand response": lambda q: np.ones_like(q), "elasticity=1": lambda q: conversion_weight(q, a, 1.0),
+                "conservative_elasticity=1": lambda q: conservative_weight(q, a, 1.0), "keep_if_within_0pct": lambda q: threshold_weight(q, a, 0.0)}
+        for sname, wfun in scen.items():
+            pm = wfun(p) * (p - x)
+            for bname, bprice in [(CURRENT, a), (f"flat raise of current price to the same total (x{level:.3f})", a * level)]:
+                pb = wfun(bprice) * (bprice - x)
+                rows.append({"sample": label, "scenario": sname, "benchmark": bname, **paired_profit_interval(d, pm, pb)})
+    return pl.DataFrame(rows)
+
+
 def price_change(priced: pl.DataFrame) -> dict:
     """How the model price compares with today's price, by order count and by premium."""
     r = (priced["model_premium_USDC"] / priced["premiumAmount_USDC"]).to_numpy()
@@ -188,7 +234,7 @@ def payout_over_fv_by(priced: pl.DataFrame, col: str) -> pl.DataFrame:
     rows = []
     rng = np.random.default_rng(1)
     for g in sorted(priced[col].unique().to_list()):
-        s = priced.filter(pl.col(col) == g).group_by("day").agg(pl.col("realizedProfit_USDC").sum().alias("x"), pl.col("fair_value_USDC").sum().alias("f"))
+        s = priced.filter(pl.col(col) == g).group_by("day").agg(pl.col("realizedProfit_USDC").sum().alias("x"), pl.col("fair_value_USDC").sum().alias("f")).sort("day")
         x, f = s["x"].to_numpy(), s["f"].to_numpy()
         idx = rng.integers(0, len(x), size=(2000, len(x)))
         boots = x[idx].sum(1) / f[idx].sum(1)
@@ -258,10 +304,17 @@ def main() -> None:
     wf_priced.write_parquet(config.RESULTS / "walk_forward_orders_priced.parquet")
     segments(priced).write_csv(config.RESULTS / "segments_test_period.csv")
     worst_days(priced, candles).write_csv(config.RESULTS / "worst_days_test_period.csv")
-    wf_p = wf_priced.with_columns(tier_and_period=pl.col("tier") + pl.when(pl.col("month") <= "2026-05").then(pl.lit(", Feb to May")).otherwise(pl.lit(", Jun and Jul")))
-    diag = pl.concat([payout_over_fv_by(wf_p, c) for c in ["tier", "optionType_label", "month", "tier_and_period"]]
+    wf_p = wf_priced.with_columns(
+        tier_and_period=pl.col("tier") + pl.when(pl.col("month") <= "2026-05").then(pl.lit(", Feb to May")).otherwise(pl.lit(", Jun and Jul")),
+        duration=(pl.col("productType") / 3600).round(1).cast(pl.Utf8) + "h",
+        release=pl.when(pl.col("event_in_window") > 0).then(pl.lit("release in window")).otherwise(pl.lit("no release")))
+    diag = pl.concat([payout_over_fv_by(wf_p, c) for c in ["tier", "optionType_label", "month", "tier_and_period", "duration", "release"]]
                      + [payout_over_fv_by(wf_p.with_columns(all=pl.lit("all orders")), "all")])
     diag.write_csv(config.RESULTS / "payout_over_fair_value_walk_forward.csv")
+    mg, rule = margin_grid_walk_forward(wf_priced)
+    mg.write_csv(config.RESULTS / "margin_sensitivity_walk_forward.csv")
+    (config.RESULTS / "margin_rule.json").write_text(json.dumps(rule, indent=2, default=float))
+    incremental_profit_intervals(priced, wf_priced).write_csv(config.RESULTS / "incremental_profit_intervals.csv")
     final.move.coefficients().write_csv(config.RESULTS / "move_model_coefficients_dev.csv")
     pl.DataFrame({"et_half_hour": [f"{(i % 48) // 2:02d}:{30 * (i % 2):02d}" for i in range(96)],
                   "day_type": ["weekday"] * 48 + ["weekend"] * 48, "relative_variance": final.seas.profile}).write_csv(

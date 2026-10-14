@@ -21,6 +21,11 @@ def conversion_weight(price: np.ndarray, reference: np.ndarray, elasticity: floa
     return np.minimum(ratio ** (-elasticity), MAX_WEIGHT)
 
 
+def conservative_weight(price: np.ndarray, reference: np.ndarray, elasticity: float) -> np.ndarray:
+    """Price rises lose orders with the given elasticity; price cuts win no extra orders."""
+    return np.minimum(conversion_weight(price, reference, elasticity), 1.0)
+
+
 def threshold_weight(price: np.ndarray, reference: np.ndarray, tolerance: float) -> np.ndarray:
     return (price <= (1.0 + tolerance) * reference).astype(float)
 
@@ -55,6 +60,8 @@ def evaluate(name: str, price: np.ndarray, payout: np.ndarray, reference: np.nda
         "strategy": name,
         "scenario": scenario,
         "expected_orders": float(w.sum()),
+        "orders_vs_today": float(w.sum() / len(w)),
+        "current_premium_retained": float((w * reference).sum() / reference.sum()),
         "premium": revenue,
         "payout": paid,
         "profit": revenue - paid,
@@ -69,12 +76,13 @@ def evaluate(name: str, price: np.ndarray, payout: np.ndarray, reference: np.nda
 
 def evaluate_scenarios(strategies: dict[str, np.ndarray], payout: np.ndarray, reference: np.ndarray,
                        day: np.ndarray, elasticities, tolerances=(0.0, 0.25), base: np.ndarray | None = None,
-                       base_caps=()) -> pl.DataFrame:
+                       base_caps=(), conservative_elasticities=(1.0, 2.0)) -> pl.DataFrame:
     """Metrics per strategy and conversion rule.
 
     Note: under elasticity e <= 1 any uniform price rise raises profit (with e = 1 the revenue per
     order stays at today's price whatever the price), so these scenarios cannot tell better pricing
-    from higher pricing. The threshold rules (keep_if_within_*) and the base-relative rules
+    from higher pricing. The threshold rules (keep_if_within_*), the conservative rules
+    (conservative_elasticity=*: rises lose orders, cuts win none) and the base-relative rules
     (keep_if_at_most_*x_base) can, because a higher price there loses the order.
     """
     rows = []
@@ -85,6 +93,9 @@ def evaluate_scenarios(strategies: dict[str, np.ndarray], payout: np.ndarray, re
         for tol in tolerances:
             w = threshold_weight(price, reference, tol)
             rows.append(evaluate(name, price, payout, reference, day, w, f"keep_if_within_{int(tol * 100)}pct"))
+        for e in conservative_elasticities:
+            w = conservative_weight(price, reference, e)
+            rows.append(evaluate(name, price, payout, reference, day, w, f"conservative_elasticity={e:g}"))
         for cap in base_caps:
             w = (price <= cap * base + 1e-9).astype(float)
             rows.append(evaluate(name, price, payout, reference, day, w, f"keep_if_at_most_{cap:g}x_base"))
@@ -131,3 +142,17 @@ def gini_with_interval(reference: np.ndarray, candidate: np.ndarray, payout: np.
         boots.append(ordered_lorenz(reference[idx], candidate[idx], payout[idx])[2])
     lo, hi = np.percentile(boots, [5, 95])
     return {"gini": g, "gini_ci05": float(lo), "gini_ci95": float(hi), "share_boot_positive": float(np.mean(np.array(boots) > 0))}
+
+
+def paired_profit_interval(day: np.ndarray, pnl_a: np.ndarray, pnl_b: np.ndarray, n_boot: int = 2000,
+                           seed: int = 0) -> dict[str, float]:
+    """Difference in total profit (a minus b) with a 90 percent interval from resampling whole days.
+
+    Both strategies are evaluated on the same days, so day-to-day market swings largely cancel.
+    """
+    df = pl.DataFrame({"day": day, "d": pnl_a - pnl_b}).group_by("day").agg(pl.col("d").sum()).sort("day")  # fixed order: reproducible draws
+    d = df["d"].to_numpy()
+    rng = np.random.default_rng(seed)
+    boots = d[rng.integers(0, len(d), size=(n_boot, len(d)))].sum(1)
+    return {"difference": float(d.sum()), "ci05": float(np.percentile(boots, 5)), "ci95": float(np.percentile(boots, 95)),
+            "share_of_days_a_better": float((d > 0).mean()), "days": len(d)}

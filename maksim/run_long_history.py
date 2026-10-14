@@ -108,7 +108,6 @@ def main() -> None:
         rows.append({"month": m0[:7], "orders": o.height, "premium": float(p.sum()), "payout": float(x.sum()),
                      "gross_profit": float((p - x).sum()), "loss_ratio": float(x.sum() / p.sum()),
                      "payout_over_fair_value": float(x.sum() / fv.sum()),
-                     "benchmark_loss_ratio_same_premium": float(x.sum() / bench.sum()),
                      "gini_model_vs_flat_black_scholes": ordered_lorenz(bench, p, x)[2],
                      "btc_change_pct": float((btc1 / btc0 - 1) * 100)})
         all_orders.append(o.select("month", "day", "createdAt", "productType", "optionType", "model_premium_USDC", "benchmark_premium_USDC",
