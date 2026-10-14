@@ -1,0 +1,9 @@
+{
+  "cost_model": "Duration credibility, 200 prior average-premium order equivalents; selected in separate seven-model April-June study.",
+  "price_rule": "Fixed analytic weight from rho=.95, emax=4, upper raw multiplier1.15. Designed after July diagnostics; parameters are explicit design assumptions, not optimized July weights or an untouched validation result.",
+  "evaluation": "April-June rolling-origin settled-label development; July retrospective because already inspected.",
+  "comparators": "Recorded reference; equal aggregate quoted-premium uniform; equal mean-order-retention uniform. Uniform matches use evaluation quote mix, so are diagnostic, not frozen deployable policies.",
+  "scenario_boundary": "Homogeneous assumed demand, fixed conditional payouts, no extra buyers after discounts, all costs excluded.",
+  "bootstrap": "2000 paired UTC order-creation-day samples, conditional on fitted models, demand assumptions and frozen diagnostic uniform quotes; no model-selection or full cross-day uncertainty.",
+  "capital_boundary": "Creation-cohort losses are not settlement cashflow, mark-to-market or full portfolio risk."
+}

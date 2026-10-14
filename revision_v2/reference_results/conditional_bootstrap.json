@@ -1,0 +1,79 @@
+[
+  {
+    "elasticity": 0,
+    "comparator": "recorded_reference",
+    "gross_margin_difference_USDC": 574.1257990542438,
+    "conditional_95pct_low": 430.74164000907274,
+    "conditional_95pct_high": 721.6778968641529
+  },
+  {
+    "elasticity": 0,
+    "comparator": "uniform_equal_quoted_premium",
+    "gross_margin_difference_USDC": -1.4065193454371183e-11,
+    "conditional_95pct_low": -110.68997857172894,
+    "conditional_95pct_high": 106.8053182935189
+  },
+  {
+    "elasticity": 1,
+    "comparator": "recorded_reference",
+    "gross_margin_difference_USDC": 555.210171323096,
+    "conditional_95pct_low": 375.13821843271825,
+    "conditional_95pct_high": 746.5922386410022
+  },
+  {
+    "elasticity": 1,
+    "comparator": "uniform_equal_order_retention",
+    "gross_margin_difference_USDC": 111.93538295644117,
+    "conditional_95pct_low": 18.2993755117946,
+    "conditional_95pct_high": 211.3171849996218
+  },
+  {
+    "elasticity": 1,
+    "comparator": "uniform_equal_quoted_premium",
+    "gross_margin_difference_USDC": 5.9897652216792565,
+    "conditional_95pct_low": -93.33636661288195,
+    "conditional_95pct_high": 98.17356272642182
+  },
+  {
+    "elasticity": 2,
+    "comparator": "recorded_reference",
+    "gross_margin_difference_USDC": 536.6948586338224,
+    "conditional_95pct_low": 282.4361831516819,
+    "conditional_95pct_high": 811.6021488414821
+  },
+  {
+    "elasticity": 2,
+    "comparator": "uniform_equal_order_retention",
+    "gross_margin_difference_USDC": 114.12126130465361,
+    "conditional_95pct_low": 3.1556418887200017,
+    "conditional_95pct_high": 233.845302693792
+  },
+  {
+    "elasticity": 2,
+    "comparator": "uniform_equal_quoted_premium",
+    "gross_margin_difference_USDC": 12.245474393972223,
+    "conditional_95pct_low": -89.683910496599,
+    "conditional_95pct_high": 108.5488081877427
+  },
+  {
+    "elasticity": 4,
+    "comparator": "recorded_reference",
+    "gross_margin_difference_USDC": 500.8397551571623,
+    "conditional_95pct_low": 16.860430049283945,
+    "conditional_95pct_high": 1014.837061590487
+  },
+  {
+    "elasticity": 4,
+    "comparator": "uniform_equal_order_retention",
+    "gross_margin_difference_USDC": 119.0548619751113,
+    "conditional_95pct_low": -83.87949236862212,
+    "conditional_95pct_high": 318.9497117746142
+  },
+  {
+    "elasticity": 4,
+    "comparator": "uniform_equal_quoted_premium",
+    "gross_margin_difference_USDC": 25.532197323583347,
+    "conditional_95pct_low": -145.64174274174,
+    "conditional_95pct_high": 185.77459830437115
+  }
+]

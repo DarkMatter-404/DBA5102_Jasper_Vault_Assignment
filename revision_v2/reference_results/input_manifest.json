@@ -1,0 +1,10 @@
+{
+  "pp_transactions_training.csv": {
+    "bytes": 931452,
+    "sha256": "8d2023b7d3d0ed7b64021b3f2760b73b7aa156048bd803cc308c125e0c48b930"
+  },
+  "btc_market_history.csv": {
+    "bytes": 44642638,
+    "sha256": "64ac0e482e498df1570cabc6b9ec87d6cc26d884080d7b660d7cd239b2267b2c"
+  }
+}
