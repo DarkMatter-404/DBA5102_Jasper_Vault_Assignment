@@ -1,0 +1,27 @@
+{
+  "poll_seconds": 300,
+  "max_health_age_seconds": 600,
+  "feeds": [
+    {
+      "name": "CoinDesk",
+      "url": "https://www.coindesk.com/arc/outboundfeeds/rss/",
+      "required": true,
+      "scope": "crypto",
+      "rights": "Publisher RSS; retain attribution and URL; check terms before redistributing text"
+    },
+    {
+      "name": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/feeds/press_all.xml",
+      "required": true,
+      "scope": "macro",
+      "rights": "US federal government release; retain attribution"
+    },
+    {
+      "name": "SEC",
+      "url": "https://www.sec.gov/news/pressreleases.rss",
+      "required": true,
+      "scope": "regulation",
+      "rights": "US federal government release; retain attribution"
+    }
+  ]
+}

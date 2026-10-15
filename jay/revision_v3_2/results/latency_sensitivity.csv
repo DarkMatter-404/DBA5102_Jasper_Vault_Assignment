@@ -1,0 +1,4 @@
+latency_minutes,fresh_social_orders,social_layer_applied,quotes_changed_vs_5min,matched_reference_rows,matched_quoted_total_USDC
+5,447,374,0,474,31996.57692824136
+60,266,214,382,474,31995.968986376633
+1440,0,0,1023,474,32031.90615722371

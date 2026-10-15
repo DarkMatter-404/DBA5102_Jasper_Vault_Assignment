@@ -1,0 +1,15 @@
+field,description,data_type,unit_or_timezone,training_dataset,validation_dataset,source_notes
+premiumAmount_USDC,Premium amount recorded for the order,decimal,USDC,Original value retained,Original value retained,Options sheet in the source workbook
+createdAt,Order creation timestamp,datetime,UTC,Original value retained,Original value retained,Used for the chronological 80/20 split
+closedAt,Actual order closing or settlement timestamp,datetime,UTC,Original value retained,Blank,Outcome field hidden in the validation dataset
+expirationDate,Contractual order expiration timestamp,datetime,UTC,Original value retained,Original value retained,Options sheet in the source workbook
+optionType,Option direction code,integer,0=Call; 1=Put,Original value retained,Original value retained,Consistent with optionType_label
+productType,Product duration,integer,seconds,Original value retained,Original value retained,For example: 1800 = 0.5 hours
+quantity_BTC,Order notional quantity in BTC,decimal,BTC,Original value retained,Original value retained,Options sheet in the source workbook
+strikePrice,Strike or protection price,decimal,USDC/BTC,Original value retained,Original value retained,Options sheet in the source workbook
+realizedProfit_USDC,Actual payout or realized outcome amount,decimal,USDC,Original value retained,Blank,Outcome field hidden in the validation dataset
+optionType_label,Option direction label,category,Call/Put,Original value retained,Original value retained,0=Call; 1=Put
+orderPrice_per_BTC_USDC,Order premium normalized to one BTC,decimal,USDC/BTC,Derived value,Derived value,premiumAmount_USDC / quantity_BTC
+apiBasePrice_per_BTC_USDC,API Base price for one BTC from the nearest matching 0DTE quote,decimal,USDC/BTC,Matched quote value,Matched quote value,Same optionType and productType; order createdAt converted from UTC to UTC+8; nearest quote within 120 seconds
+markup_per_BTC_USDC,Effective residual above the API Base price for one BTC; may include moneyness PP conversion or subsidy effects and is not necessarily the configured platform_premium,decimal,USDC/BTC,Derived value,Derived value,orderPrice_per_BTC_USDC - apiBasePrice_per_BTC_USDC; rows with a negative value are excluded from both datasets
+

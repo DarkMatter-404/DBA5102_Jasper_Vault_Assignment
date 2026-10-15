@@ -1,0 +1,93 @@
+{
+  "new_weekly_files": 11,
+  "new_all_asset_rows": 24180,
+  "new_btc_snapshots": 103,
+  "combined_btc_snapshots": 351,
+  "post_cutover_btc_snapshots": 322,
+  "original_news": 88,
+  "new_headlines": 65,
+  "combined_news": 153,
+  "new_social_last_snapshot": "2026-10-11 20:42:08.328000+00:00",
+  "new_news_last_publisher_bound": "2026-10-12 10:20:00+00:00",
+  "new_social_sources": [
+    {
+      "filename": "2026-08-02_tier1.csv",
+      "rows": 2382,
+      "btc_rows": 10,
+      "sha256": "549d0d461ee758df7d10c252322b6118579cfbd7fb474a0cc0aec89585af0fff",
+      "git_blob_sha": "78fa8da0aa63b9f6ac7559b4414cf4c7113f4796"
+    },
+    {
+      "filename": "2026-08-09_tier1.csv",
+      "rows": 2559,
+      "btc_rows": 10,
+      "sha256": "09bb7334417aa314cb32ae4bd0dfafe825591fb90ee30d82c435ff6689ea6ac2",
+      "git_blob_sha": "b955abd0179d6594c3368eb7fa3b9e5af7371eb8"
+    },
+    {
+      "filename": "2026-08-16_tier1.csv",
+      "rows": 2534,
+      "btc_rows": 10,
+      "sha256": "db6b0f1af462c08c1e5ccdb780329ba2e5c31ab04b8d85843aedfe93ce8306aa",
+      "git_blob_sha": "7b1cdcdfc2753b4eea7c925150c28cf5e15f7372"
+    },
+    {
+      "filename": "2026-08-23_tier1.csv",
+      "rows": 2137,
+      "btc_rows": 9,
+      "sha256": "11fe9483503163439133f57226285677692a1316b988f87ef589c3cf594ef017",
+      "git_blob_sha": "4c75cb311996c28f02d35ef0ef3fc21d1836e79a"
+    },
+    {
+      "filename": "2026-08-30_tier1.csv",
+      "rows": 2150,
+      "btc_rows": 9,
+      "sha256": "f7ea3e26f155c6475ccd4010fa5a1ab8b13bdf8f15c59f890cb781e30d7e878e",
+      "git_blob_sha": "1cc9df022839ce94d330751f67fa52523c154f3c"
+    },
+    {
+      "filename": "2026-09-06_tier1.csv",
+      "rows": 2152,
+      "btc_rows": 9,
+      "sha256": "b99bd91b86fb0d370b67271a4371ffda325ad97825c14a14d283e6f8d7cbf844",
+      "git_blob_sha": "5aa613660a62706100ed8598c4a6ab82a15aeb31"
+    },
+    {
+      "filename": "2026-09-13_tier1.csv",
+      "rows": 2241,
+      "btc_rows": 9,
+      "sha256": "dcdaf911f6d946ba5363a72b34a5cc134bf0691e6573c2f51874d727d731f3cc",
+      "git_blob_sha": "f69d48931a1503ec4ac49ef4db96a512f93bd3d9"
+    },
+    {
+      "filename": "2026-09-20_tier1.csv",
+      "rows": 2073,
+      "btc_rows": 10,
+      "sha256": "93e35381db160edad98fad0a33eebca1a6c20fc165b25577f8bc78ffeb49122d",
+      "git_blob_sha": "f57083bf4ec5f22edd07059a88ce3d366f74ec04"
+    },
+    {
+      "filename": "2026-09-27_tier1.csv",
+      "rows": 1937,
+      "btc_rows": 9,
+      "sha256": "b376d63d280d6fdab3c450f536d174d2e4453399c7355ec77bbc0c35dc3de34a",
+      "git_blob_sha": "36fcb89d63ec95731a55fefe94b8be3b6d18a394"
+    },
+    {
+      "filename": "2026-10-04_tier1.csv",
+      "rows": 1993,
+      "btc_rows": 9,
+      "sha256": "983fb07914ca5166cd1f058abbd5583c71ed67b97c04c948b49965bca59dbef3",
+      "git_blob_sha": "bd77ea81964da63ada393896d8cffdeb30bb0aa2"
+    },
+    {
+      "filename": "2026-10-11_tier1.csv",
+      "rows": 2022,
+      "btc_rows": 9,
+      "sha256": "5a8fa9a37fe8e8002721179906a12bf96bffc576e69e4777ed26c54975f186e9",
+      "git_blob_sha": "f53ae2b9145f4fd5d4a646ecd93a3148d0870fbc"
+    }
+  ],
+  "provider_ref": "c97da362f0d2e48a3dc3d87ee7d45889ee806b0d",
+  "historical_receipt_verified": false
+}
