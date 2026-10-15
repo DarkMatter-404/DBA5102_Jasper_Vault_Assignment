@@ -1,0 +1,56 @@
+{
+  "built": "2026-10-15 23:39 SGT",
+  "maksim": {
+    "commit": "65daf8c840db98f336b29d2eaa4a9d9585e7c603",
+    "ref": "origin/maksim/pp-pricing-strategy",
+    "files": {
+      "maksim_walk_forward": {
+        "source": "maksim/results/walk_forward_orders_priced.parquet",
+        "rows": 7150
+      },
+      "maksim_test_pre_june_fit": {
+        "source": "maksim/results/test_orders_priced.parquet",
+        "rows": 4841
+      }
+    },
+    "cutoffs": "walk-forward: market-only fit on candles before each month start (Feb-Jul); test file: one fit on candles before 2026-06-01, priced on June-July orders",
+    "model_as_submitted": "premium = max(fair value x 1.25, API base) per BTC x quantity",
+    "selection_exposure": "variant list and 25% margin were chosen with June-July test results visible",
+    "later_commits_on_main": "d76caeb dynamic delta hedge overlay, da4d867 docs (not used here)"
+  },
+  "subham": {
+    "commit": "d717f9945357686e5813a1e484e04eb7f4d71c04",
+    "ref": "origin/main",
+    "selected_config": "hybrid_events",
+    "files": {
+      "subham_backtest_selected": {
+        "source": "subham/outputs/backtest_prices.parquet",
+        "rows": 5806,
+        "folds": {
+          "2026-05": 965,
+          "2026-06": 2270,
+          "2026-07": 2571
+        }
+      }
+    },
+    "cutoffs": "each month fitted on orders created and EXPIRED before the month starts",
+    "selection_exposure": "configuration chosen after seeing the May-July backtest folds"
+  },
+  "jay": {
+    "commit": "d717f9945357686e5813a1e484e04eb7f4d71c04",
+    "ref": "origin/main",
+    "row_level_history": "none saved: v3.2 keeps July aggregates only, and v1/v2 row results use the EN release (7,831 rows) with relative factors needing a compatible reference price -> N/A in our scorecard"
+  },
+  "prior_validation_exposure": [
+    "Maksim: run_sealed_check.py and results/sealed_check/ rebuild validation-period payouts from candles; validation rows also appear in results/extensions/exposure_limits.csv and hedging_summary.csv",
+    "Subham: validation_premiums.csv and validation summaries (premiums and expected payouts, no realised outcomes)",
+    "Jay: revision_v3_2/results/validation_predictions.csv (relative factors)",
+    "Aman/Claude, 14-15 Oct: profiled validation INPUTS only; while reading Maksim's two extension CSVs in full on 15 Oct, their post-hoc validation-period rows were displayed. They are not stored or used here."
+  ],
+  "excluded_on_purpose": [
+    "maksim/results/sealed_check/*",
+    "validation rows of maksim/results/extensions/*",
+    "subham/outputs/*valid*",
+    "jay/revision_v3_2/results/validation_predictions.csv"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "selected": "F1",
+  "status": "selected",
+  "underpowered_profit_test": false,
+  "delta_USDC": 2541.0634832,
+  "placebo_p5": 9579.52099208057,
+  "placebo_p95": 11174.433909446312,
+  "f1h": "infeasible (fails training-total calibration)",
+  "tests": [
+    {
+      "candidate": "F1",
+      "(a) ranking": "True",
+      "(b) calibration": "True",
+      "(c) profit vs R0": "True",
+      "(d) no clear harm vs C0": "True",
+      "scenarios with clear harm": "-",
+      "passes": "True"
+    },
+    {
+      "candidate": "F0",
+      "(a) ranking": "True",
+      "(b) calibration": "True",
+      "(c) profit vs R0": "False",
+      "(d) no clear harm vs C0": "True",
+      "scenarios with clear harm": "-",
+      "passes": "False"
+    }
+  ]
+}

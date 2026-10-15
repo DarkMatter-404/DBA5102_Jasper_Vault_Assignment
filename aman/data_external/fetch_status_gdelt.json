@@ -1,0 +1,7 @@
+{
+ "gdelt_bitcoin_hourly": {
+  "status": "failed",
+  "message": "no answer for 2026-01-01 after retries",
+  "calls": 1
+ }
+}
