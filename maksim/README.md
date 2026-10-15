@@ -17,7 +17,7 @@ All profit figures are **gross underwriting profit**: premiums minus payouts. Op
 | Profit on training data (June and July test) | 45,101 against 10,576 for current pricing with no demand response (difference 34,525, day-level 90 percent interval 23,142 to 45,646). If price rises lose orders with elasticity 1 and price cuts win none: 36,485 (difference 25,910, interval 13,194 to 39,219). If every order priced above today is lost: 12,280, not reliably different from current pricing (interval minus 21,260 to 28,112). |
 | Better pricing or just higher pricing? | Mostly higher. Total premium is 16.5 percent above today's. Against a flat raise of every current price to the same total, the profit difference is not statistically significant under smooth or conservative demand. Under the conservative rule the model keeps more orders (90.5 against 85.8 percent) and has smaller losses on bad days (worst day minus 4,257 against minus 7,322). |
 | Validation period (the file given to us) | Checked once after the recommendations were frozen (commit c70c413). All 4,155 orders: premium 205,824 USDC, payouts 201,003, gross profit 4,821, loss ratio 0.98; August lost money while BTC rose 25 percent, September and October were profitable. On orders with a base quote the model lost less than the base price and a flat markup on it; on the 544 orders with a recorded price it did slightly worse than actual pricing. See section 6. |
-| Risk | The proposed policy cuts the worst training day from minus 8,399 to minus 3,976 USDC and daily volatility by 33 percent, at a cost of 30 percent of gross profit and 15 percent of premium volume. Losses concentrate in strongly trending months such as August 2026. See section 7. |
+| Risk | The proposed policy cuts the worst training day from minus 8,399 to minus 3,976 USDC and daily volatility by 33 percent, at a cost of 30 percent of gross profit and 15 percent of premium volume. Losses concentrate in strongly trending months such as August 2026. A hedge updated every minute halved daily volatility in training but lost more in fees than it saved over the validation period, so it is not adopted (section 7.1). See section 7. |
 | Margin | A business decision, not an optimum: under conservative demand a 25 percent margin keeps about 84 percent of today's premium and 90 percent of orders over February to July; 20 percent keeps 85 percent, 30 percent keeps 82 percent. See section 5.4. |
 
 ![Loss ratio by quintile of model risk](results/figures/loss_ratio_by_model_quintile.png)
@@ -195,6 +195,24 @@ Tested in `run_extensions.py` on the February to July walk-forward (model prices
 - **Validation period, post hoc:** the policy improves the worst day from minus 16,083 to minus 15,137 and the maximum drawdown from 35,451 to 27,712, but turns the 4,821 profit into minus 1,879; hedging every order separately costs more than it saves. These controls limit, but do not prevent, losses in a month like August.
 - The risk appetite (cap size, hedge band) is Jasper Vault's decision; the table shows the trade-off.
 
+### 7.1 Dynamic delta hedge (tested after the validation check, not adopted)
+
+After the validation check suggested that August's loss came mainly from the direction of BTC's move (section 6), a hedge that is updated every minute was tested (`run_dynamic_hedge.py`, `src/hedge.py`). Each protection's Black-Scholes delta is recomputed from the price and the time left, and the book's net delta is traded back when it drifts more than a band. Fifteen round-number settings were scored on training data only (mean over standard deviation of daily profit after fees of 0.04 percent per side). The rule and the chosen setting (check every minute, band 1 BTC) were committed and pushed (d76caeb) before a single run on the validation period. All rows below are scored on the same calendar days, so standard deviations differ slightly from the table above. Outputs: `results/dynamic_hedge/`.
+
+| Gross profit in USDC | Profit after fees | Hedge fees | Standard deviation of daily profit | Worst day | Maximum drawdown |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Training, no hedge | 62,879 | 0 | 1,232 | minus 8,399 | 10,688 |
+| Training, current policy | 44,194 | 10,755 | 828 | minus 3,976 | 7,815 |
+| Training, dynamic hedge | 41,322 | 26,613 | 598 | minus 1,974 | 2,647 |
+| Validation, no hedge | 4,821 | 0 | 3,061 | minus 16,083 | 35,451 |
+| Validation, current policy | minus 1,879 | 7,422 | 2,204 | minus 15,137 | 27,712 |
+| Validation, dynamic hedge | minus 10,360 | 26,754 | 2,139 | minus 14,265 | 26,936 |
+
+- On the validation period the hedge earned 11,573 before fees and paid 26,754 in fees; with fees of 0.02 percent per side the profit is 3,017. It lowered daily volatility by 30 percent and the drawdown by 24 percent, but did not prevent the August loss (minus 13,312 against minus 12,667 unhedged).
+- August was not only a direction problem. On the 1,960 orders with a base quote, hedging each protection on its own every minute (before fees) lowers their cost from 79,534 to 71,906, still 1.21 times their premium of 59,528: about 60 percent of the loss on those orders remains after hedging, so it came from prices that were too low for that period. Measured on hedged cost, the model's Gini against the base price is still negative (minus 0.046).
+- Funding payments on the perpetual hedge are not modelled; with an average hedge of 0.19 BTC in training and 0.29 BTC in validation they are bounded at about 650 and 460 USDC.
+- Conclusion: not adopted. The policy above remains the proposal, and the frozen prices are unchanged.
+
 ## 8. Validation recommendations
 
 `outputs/validation_recommendations.csv` keeps the 13 original columns unchanged (same text, row order and CRLF line endings) and adds `recommended_premium_USDC` (the recommendation for every row), `recommended_price_per_BTC_USDC`, `recommended_multiplier_vs_base` (informational; blank when the base is blank), `fair_value_per_BTC_USDC`, `expected_abs_move_bps`, `macro_release_in_window` and `floor_at_base_applied`. The model was fitted on candles up to 31 July 2026, 17:11:12 UTC, and frozen (SHA-256 in `outputs/FROZEN.json`, parameters in `outputs/model_card.json`).
@@ -213,7 +231,7 @@ All 4,155 rows have a premium (205,824 USDC in total); 1,960 have a base quote, 
 - **Validation result.** Only slightly profitable over the validation period (loss ratio 0.98), with a loss in August, and the model's ranking advantage over the base price did not hold there (section 6).
 - **Conversion rule.** Unknown; the model clearly beats current pricing under smooth and conservative demand but not under the strict threshold rule (sections 5.1 and 5.2).
 - **Margin and risk appetite** are business decisions (sections 5.4 and 7).
-- **Trend and volatility shocks.** Losses concentrate in strongly trending or volatile months; exposure caps and hedging limit but do not prevent them.
+- **Trend and volatility shocks.** Losses concentrate in strongly trending or volatile months; exposure caps and hedging limit but do not prevent them. A hedge updated every minute did not pay for its trading costs over the validation period, and most of the August loss on base-quoted orders remained after hedging (section 7.1).
 - **Segments.** 24-hour products are overpriced by the model (payout / fair value 0.45); release windows look underpriced but the evidence is weak.
 - Profit is gross underwriting profit; operating costs and risk capital are not modelled.
 
@@ -227,6 +245,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python run_overfitting_checks.py   # results/overfitting/*.csv
 .venv/bin/python run_validation.py           # outputs/validation_recommendations.csv (frozen; must match FROZEN.json)
 .venv/bin/python run_extensions.py           # results/extensions/* (risk policy, candidate features)
+.venv/bin/python run_dynamic_hedge.py        # results/dynamic_hedge/* (training decision; 'validation' runs the one-time check)
 .venv/bin/python make_figures.py             # results/figures/*.png
 .venv/bin/python -m pytest tests -q          # no-look-ahead test
 ```
@@ -240,6 +259,8 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `run_validation.py` | final fit and validation recommendations |
 | `run_sealed_check.py` | one-time holdout check of the frozen file (section 6) |
 | `run_extensions.py` | risk policy (section 7) and candidate features (Appendix A) |
+| `run_dynamic_hedge.py`, `src/hedge.py` | dynamic delta hedge (section 7.1) |
+| `tests/test_hedge.py` | hedge mechanics on small hand-made books |
 | `tests/test_no_lookahead.py` | prices depend only on data before the order |
 
 ## Appendix A. Model variants and features tested
@@ -294,5 +315,6 @@ The simplest version already earns 95 percent of the final model's profit over F
 | Margin 25 percent | set before any test at that margin | margin frontier (section 5.4) |
 | Range, volume and holiday features (not adopted) | after the holdout check; rule committed first (f8801e8) | training data only |
 | Risk policy (no price change) | after an external review | training data; validation post hoc |
+| Dynamic delta hedge (not adopted) | after the validation check; rule committed first (d76caeb) | training data; validation once |
 
 Reference: Frees, E. W., Meyers, G. and Cummings, A. D. (2011). Summarizing insurance scores using a Gini index. Journal of the American Statistical Association, 106(495), 1085 to 1098. https://doi.org/10.1198/jasa.2011.tm10506
