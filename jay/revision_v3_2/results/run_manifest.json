@@ -1,0 +1,33 @@
+{
+  "inputs": {
+    "validation": {
+      "path": "data/assignment_inputs/pp_transactions_validation.csv",
+      "sha256": "fd85444b94f91cf212ddecbc2a16681e9f4a196cc45b7d42cdbddba03ff72d07"
+    },
+    "market": {
+      "path": "data/assignment_inputs/btc_market_history.csv.gz",
+      "sha256": "5dbfb026579acf781c106ab2661a9af7985c881696cef6683b8c02de5a1e9146"
+    },
+    "training": {
+      "path": "data/assignment_inputs/pp_transactions_training.csv.gz",
+      "sha256": "6ffeb511fcd993d777b5a168700bc38c564f1a1be5da6effce042df34d5a37bd"
+    },
+    "news": {
+      "path": "data/news_combined_2026.jsonl",
+      "sha256": "34dd99b0ad314301a555de853b9888243495c2505daa1a579a087dccd3dd1483"
+    },
+    "social": {
+      "path": "data/btc_social_snapshots.csv",
+      "sha256": "ab9a3a7a219ded308d3288ed8b18bfe9739a5779efe4bd5d53011aaf447fa5cd"
+    },
+    "model": {
+      "path": "models/frozen_components.json",
+      "sha256": "16a3640abd4c8e039814b5926f54e4e5871197539778a020143fd213fbc13fb9"
+    },
+    "protocol": {
+      "path": "PROTOCOL.md",
+      "sha256": "baaf5c2b1b207dd6e5fcae937214ca61393cd6dc7e0062f4dfacaf28e95bb88f"
+    }
+  },
+  "clock": "research_proxy"
+}

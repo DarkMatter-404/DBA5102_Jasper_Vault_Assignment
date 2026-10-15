@@ -1,0 +1,42 @@
+{
+  "framework": "V3.2 combined duration + market + news NLP + X sentiment experiment",
+  "selected_experiment": "combined_sentiment",
+  "clock": "research_proxy",
+  "model_cutoff_utc": "2026-07-01T00:00:00+00:00",
+  "models_refitted": false,
+  "validation_rows": 4155,
+  "actual_payouts_available": 0,
+  "recorded_premiums_available": 0,
+  "conditional_reference_rows": 544,
+  "relative_factor_rows": 4148,
+  "full_component_eligible": 1893,
+  "fresh_social_quotes": 447,
+  "social_layer_applied_quotes": 374,
+  "news_4h_quotes": 970,
+  "news_24h_quotes": 2846,
+  "conditional_absolute_fresh_market": 474,
+  "conditional_absolute_including_fallback": 544,
+  "changed_by_collection_extension": 814,
+  "latest_market_candle": "2026-08-24 08:36:59.999000+00:00",
+  "historical_july_rows": 2625,
+  "validation_profit_or_accuracy_measurable": false,
+  "original_validation_sha256": "fd85444b94f91cf212ddecbc2a16681e9f4a196cc45b7d42cdbddba03ff72d07",
+  "frozen_component_sha256": "16a3640abd4c8e039814b5926f54e4e5871197539778a020143fd213fbc13fb9",
+  "official_base_mapping_confirmed": false,
+  "price_cap": {
+    "raw_lower": 0.85,
+    "raw_upper": 1.15,
+    "assumed_max_elasticity": 4.0,
+    "assumed_min_retention": 0.95,
+    "weight": 0.08603929986640063,
+    "train_normalizer": 1.0101932060335697,
+    "minimum_multiplier": 0.9870941050200399,
+    "maximum_multiplier": 1.01290589497996
+  },
+  "status_counts": {
+    "duration_component_fallback_missing_market_or_observed_news_health": 2255,
+    "market_news_component_social_missing_or_stale": 1519,
+    "combined_news_social_experiment": 374,
+    "withheld_contract_time_or_cutoff": 7
+  }
+}
