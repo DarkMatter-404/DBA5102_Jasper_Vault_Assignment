@@ -10,7 +10,7 @@ All profit figures are **gross underwriting profit**: premiums minus payouts. Op
 
 | Question | Answer and evidence |
 | --- | --- |
-| How profitable is current pricing? | Barely. February to July 2026: premiums 248,089 USDC, payouts 230,652 USDC, gross profit 17,437, loss ratio 0.93. |
+| How profitable is current pricing? | Barely. Training data, 2 February to 31 July 2026 (the 7,150 orders with a recorded payout; not the validation period, which is reported below): premiums 248,089 USDC, payouts 230,652 USDC, gross profit 17,437, loss ratio 0.93. |
 | Does today's markup over the base price follow risk? | No reliable relation in this sample. The effective markup (today's price minus the API base price, which includes the CTA layer and other effects) has an ordered Lorenz Gini of 0.01 against the base price (90 percent interval minus 0.05 to 0.07). |
 | Does the model follow risk? | Yes, in training. On the 3,947 June and July test orders with a base quote, Gini 0.175 against the current price (0.10 to 0.24) and 0.151 against the base price (0.10 to 0.20). Payouts were 0.98 of fair value over February to July (0.88 to 1.10). |
 | Which factors matter? | Recent volatility and above all the time of day: BTC variance in the half hour after the 09:30 ET US equity open is about 3.8 times its weekly average, and the base price ignores this. Scheduled releases add extra variance (estimate unstable, 0 to 57 basis points). No reliable effect of direction or of order size above 1,000 USDC was found in this sample. |
