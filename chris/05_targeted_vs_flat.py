@@ -34,4 +34,4 @@ for period, df in [('Feb-Jun', d[d.createdAt < '2026-07-01']), ('Jul', d[d.creat
 print('\n=== July: loss ratio by class under actual prices (is the signal still there out of sample?)')
 j = d[(d.createdAt >= '2026-07-01') & (d.open_total_btc >= 1)].copy(); j['cls'] = pd.cut(j.s_add, [-1.01, -0.15, 0.15, 1.01], labels=['reduces', 'neutral', 'adds'])
 g = j.groupby('cls', observed=True).agg(n=('prem', 'size'), prem=('prem', 'sum'), pay=('pay', 'sum'), fair=('fair_har', 'sum')); g['LR'] = g.pay/g.prem; g['pay/fair'] = g.pay/g.fair; print(g)
-R.to_csv('results_targeted_vs_flat.csv', index=False)
+R.to_csv('results/targeted_vs_flat.csv', index=False)

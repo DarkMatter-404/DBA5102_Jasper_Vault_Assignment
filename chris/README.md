@@ -10,6 +10,9 @@ outcomes, so any use of it would not be a blind test.
 
 ## What was done
 
+0. `00_prepare_features.py` builds the per-order table from the supplied files: spot and trailing volatility from the
+   one-minute candles, and a direction-neutral fair value (Black-Scholes with a HAR-style volatility forecast fitted
+   on February to June orders, scaled to their payouts). `run_all.sh` runs every step and writes `results/`.
 1. `01_build_book.py` reconstructs the open book before every order: open call and put notional (orders created
    earlier and not yet closed), imbalance `imb = (call - put) / (call + put)` in [-1, 1], JV's net delta, and the
    net flow of the last 4 and 24 hours. Whether an earlier protection is still open is known at quote time; no
@@ -24,9 +27,8 @@ outcomes, so any use of it would not be a blind test.
    (parameters chosen on February to June, reported on July) against a flat raise of the same total.
 5. `06_crowd_right_days.py` measures how often the crowd was right and what those days cost.
 
-Fair value per order comes from a Black-Scholes price with a HAR-style volatility forecast fitted on February to
-June orders (same as the earlier diagnostic work); it is direction-neutral, which is what a payout / fair value
-ratio needs.
+Fair value per order is direction-neutral by construction (it depends on volatility, duration and strike, not on
+whether the order is a call or a put), which is what a payout / fair value ratio needs.
 
 ## Findings
 
@@ -106,12 +108,15 @@ produces the crowd-right losses.
 
 | File | Output |
 | --- | --- |
-| `01_build_book.py` | book state per order (pickle) |
-| `02_test_imbalance.py` | tables in finding 1 and 3 |
-| `03_robustness.py` | robustness and mechanism tables |
-| `04_backtest_skew.py` | `results_grid_febjun.csv`, `results_july_policies.csv`, `results_july_skew_orders.csv` |
-| `05_targeted_vs_flat.py` | `results_targeted_vs_flat.csv` |
-| `06_crowd_right_days.py` | `results_crowd_right_days.csv` |
+| `run_all.sh` | runs everything below from `../data/with_base_premium/` (a few minutes) |
+| `00_prepare_features.py` | `work/orders.pkl`: per-order features and fair value |
+| `01_build_book.py` | `work/book.pkl`: book state per order; `results/console_01_book.txt` |
+| `02_test_imbalance.py` | tables in findings 1 and 3; `results/console_02_imbalance.txt` |
+| `03_robustness.py` | robustness and mechanism tables; `results/console_03_robustness.txt` |
+| `04_backtest_skew.py` | `results/grid_febjun.csv`, `results/july_policies.csv`, `results/july_skew_orders.csv` |
+| `05_targeted_vs_flat.py` | `results/targeted_vs_flat.csv` |
+| `06_crowd_right_days.py` | `results/crowd_right_days.csv` |
 
-Inputs: the cleaned training table with features from the earlier diagnostic work (7,123 orders: 54 without a
-recorded outcome and 27 with an expiry earlier than creation or a duration far from the product length excluded).
+Inputs: `../data/with_base_premium/pp_transactions_training.csv` and `btc_market_history.csv`, unchanged. 7,123 of the
+7,204 training orders are used: 54 have no recorded outcome and 27 have an expiry earlier than creation or a duration
+far from the product length. Requirements: pandas, numpy, scipy, scikit-learn (`requirements.txt`).

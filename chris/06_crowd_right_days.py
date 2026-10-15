@@ -28,4 +28,4 @@ print('\nmean |24h return| (pct) at order time: crowd-right days %.2f vs other d
 # does a simple trend filter flag them in advance? share of crowd-right days among days where |ret24h| > 2% at the median order
 day['trend_flag'] = day.abs_ret24h > 2
 print(pd.crosstab(day.trend_flag, day.crowd_right, margins=True))
-day.to_csv('results_crowd_right_days.csv')
+day.to_csv('results/crowd_right_days.csv')

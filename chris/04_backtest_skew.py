@@ -70,4 +70,4 @@ print('\n=== July, layer on a fair-value base instead of actual prices'); print(
 # ---- 4. where the loading lands: share of July orders / premium touched
 touched = (m_contra > 1); print(f'\ncontrarian loading applied to {touched.mean():.1%} of July orders, {t.prem[touched].sum()/t.prem.sum():.1%} of premium; their realised LR under actual prices: {t.pay[touched].sum()/t.prem[touched].sum():.2f} vs {t.pay[~touched].sum()/t.prem[~touched].sum():.2f} for the rest')
 out = t[['createdAt', 'productType', 'is_call', 'q', 'prem', 'pay', 'open_total_btc', 'imb', 's_add']].copy(); out['mult_contra'] = m_contra; out['mult_sym'] = m_sym
-out.to_csv('results_july_skew_orders.csv', index=False); R.to_csv('results_july_policies.csv', index=False); G.to_csv('results_grid_febjun.csv', index=False)
+out.to_csv('results/july_skew_orders.csv', index=False); R.to_csv('results/july_policies.csv', index=False); G.to_csv('results/grid_febjun.csv', index=False)

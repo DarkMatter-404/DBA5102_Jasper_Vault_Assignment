@@ -1,0 +1,28 @@
+=== days split by whether the crowded side paid out (training, days with >= 100 USDC of crowd premium)
+             days       prem        pnl  ...  mean_pnl  LR_adds  LR_reduces
+crowd_right                              ...                               
+False          38 147,271.78  24,266.32  ...    638.59     0.42        1.33
+True           12  50,865.73 -20,450.18  ... -1,704.18     1.57        0.91
+
+[2 rows x 7 columns]
+
+share of days crowd-right: 24%; share of total P&L on those days: -20,450 of 3,816
+
+=== the 8 worst days overall: were they crowd-right days?
+            prem_all   pnl_all  LR_adds  LR_reduces  crowd_right
+date                                                            
+2026-06-24  6,672.65 -9,629.88     1.98        0.29         True
+2026-07-14  5,907.96 -5,072.86     0.88        0.50        False
+2026-07-31  3,872.14 -4,293.04     3.74        1.48         True
+2026-06-18  4,453.55 -3,213.79     0.58        6.27        False
+2026-06-25  5,528.81 -3,199.23     0.02        3.97        False
+2026-07-01  4,637.69 -2,696.90     1.58        1.87         True
+2026-07-24  4,155.22 -1,385.85     0.00        3.75        False
+2026-07-20  4,112.20 -1,264.09     2.29        0.21         True
+
+mean |24h return| (pct) at order time: crowd-right days 1.92 vs other days 1.62
+crowd_right  False  True  All
+trend_flag                   
+False           26     9   35
+True            12     3   15
+All             38    12   50
