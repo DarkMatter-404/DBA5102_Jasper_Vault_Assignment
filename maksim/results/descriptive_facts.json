@@ -1,0 +1,240 @@
+{
+  "payout_rule": {
+    "orders": 7150,
+    "share_with_payout": 0.46,
+    "share_closed_early": 0.6690909090909091,
+    "paid_orders_median_abs_error_usdc_per_btc": 16.74999999999693,
+    "paid_orders_median_relative_error": 0.08223177606099351,
+    "correlation_per_btc": 0.9944746965449041,
+    "total_recorded": 230652.0530147715,
+    "total_rule_at_close": 231193.2935880016,
+    "total_rule_at_expiry": 237205.89732639652
+  },
+  "early_close": {
+    "duration": [
+      {
+        "duration": "0.5h",
+        "orders": 3090,
+        "share_closed_early": 0.5967637540453075,
+        "close_over_expiry": 0.9219406914733762
+      },
+      {
+        "duration": "1.0h",
+        "orders": 531,
+        "share_closed_early": 0.7212806026365348,
+        "close_over_expiry": 0.9735643280429871
+      },
+      {
+        "duration": "12.0h",
+        "orders": 46,
+        "share_closed_early": 0.6304347826086957,
+        "close_over_expiry": 0.9279213478730952
+      },
+      {
+        "duration": "2.0h",
+        "orders": 1091,
+        "share_closed_early": 0.7525206232813932,
+        "close_over_expiry": 0.9542786722650936
+      },
+      {
+        "duration": "24.0h",
+        "orders": 161,
+        "share_closed_early": 0.8198757763975155,
+        "close_over_expiry": 0.9519530304286984
+      },
+      {
+        "duration": "4.0h",
+        "orders": 1240,
+        "share_closed_early": 0.7274193548387097,
+        "close_over_expiry": 1.0069516634221358
+      },
+      {
+        "duration": "8.0h",
+        "orders": 991,
+        "share_closed_early": 0.6791120080726539,
+        "close_over_expiry": 0.9873693327931414
+      }
+    ],
+    "optionType_label": [
+      {
+        "optionType_label": "Call",
+        "orders": 3849,
+        "share_closed_early": 0.69316705637828,
+        "close_over_expiry": 0.9690024582557062
+      },
+      {
+        "optionType_label": "Put",
+        "orders": 3301,
+        "share_closed_early": 0.6410178733717056,
+        "close_over_expiry": 0.9805139566223864
+      }
+    ],
+    "tier": [
+      {
+        "tier": "large",
+        "orders": 2017,
+        "share_closed_early": 0.7476450173525038,
+        "close_over_expiry": 0.9789050420711574
+      },
+      {
+        "tier": "medium",
+        "orders": 1429,
+        "share_closed_early": 0.70888733379986,
+        "close_over_expiry": 0.9475502834357434
+      },
+      {
+        "tier": "small",
+        "orders": 3704,
+        "share_closed_early": 0.6109611231101512,
+        "close_over_expiry": 0.8497063802060909
+      }
+    ]
+  },
+  "loss_ratio_training": 0.9297149340525178,
+  "release_effects_to_train_end": {
+    "CPI": {
+      "releases": 7,
+      "move_bps": 38.98461744305542,
+      "control_move_bps": 27.41519997007907,
+      "ratio": 1.4220074077739067
+    },
+    "NFP": {
+      "releases": 7,
+      "move_bps": 50.74799567538487,
+      "control_move_bps": 28.460153400799463,
+      "ratio": 1.7831244603888652
+    },
+    "FOMC": {
+      "releases": 5,
+      "move_bps": 59.20726138888455,
+      "control_move_bps": 22.845011499020146,
+      "ratio": 2.591693218951719
+    },
+    "PCE": {
+      "releases": 8,
+      "move_bps": 26.02987451878036,
+      "control_move_bps": 28.430851072375955,
+      "ratio": 0.9155503102076168
+    }
+  },
+  "markup": {
+    "quintiles_of_markup": [
+      {
+        "q": 1,
+        "mean_multiplier": 1.1468416717183358,
+        "loss_ratio": 1.1836030074792407,
+        "payout_over_base": 1.3636816711045208
+      },
+      {
+        "q": 2,
+        "mean_multiplier": 1.387448812742147,
+        "loss_ratio": 0.9951498180774516,
+        "payout_over_base": 1.3901971184594661
+      },
+      {
+        "q": 3,
+        "mean_multiplier": 1.5192231060907109,
+        "loss_ratio": 0.9815392942933963,
+        "payout_over_base": 1.47324637154894
+      },
+      {
+        "q": 4,
+        "mean_multiplier": 1.864258740416149,
+        "loss_ratio": 0.7937911363599105,
+        "payout_over_base": 1.4666292712614226
+      },
+      {
+        "q": 5,
+        "mean_multiplier": 2.500931988983465,
+        "loss_ratio": 0.5590600729244544,
+        "payout_over_base": 1.3004035236085414
+      }
+    ],
+    "payout_over_base_total": 1.402804066386266
+  },
+  "implied_vs_realised_vol": {
+    "median_by_product": [
+      {
+        "productType": 1800,
+        "iv": 0.3589363718194538,
+        "rv_last_hour": 0.44208200714597984
+      },
+      {
+        "productType": 3600,
+        "iv": 0.32554034743697263,
+        "rv_last_hour": 0.41254891571797514
+      },
+      {
+        "productType": 7200,
+        "iv": 0.3198106882094171,
+        "rv_last_hour": 0.32060253129552513
+      },
+      {
+        "productType": 14400,
+        "iv": 0.3208257973082361,
+        "rv_last_hour": 0.3098298263217827
+      },
+      {
+        "productType": 28800,
+        "iv": 0.3113638251429749,
+        "rv_last_hour": 0.31669179349822585
+      },
+      {
+        "productType": 43200,
+        "iv": 0.3202409660326201,
+        "rv_last_hour": 0.3240642619825914
+      },
+      {
+        "productType": 86400,
+        "iv": 0.3283359673794482,
+        "rv_last_hour": 0.340257262621759
+      }
+    ],
+    "median_by_month": [
+      {
+        "month": "2026-02",
+        "iv": 0.5024575803509794,
+        "rv_last_hour": 0.7145180814235483
+      },
+      {
+        "month": "2026-03",
+        "iv": 0.5053704649985479,
+        "rv_last_hour": 0.4427397198120596
+      },
+      {
+        "month": "2026-04",
+        "iv": 0.38131460109377435,
+        "rv_last_hour": 0.43179112052722385
+      },
+      {
+        "month": "2026-05",
+        "iv": 0.3201202841972895,
+        "rv_last_hour": 0.3608000545748683
+      },
+      {
+        "month": "2026-06",
+        "iv": 0.3519492262695263,
+        "rv_last_hour": 0.3960724541317644
+      },
+      {
+        "month": "2026-07",
+        "iv": 0.30825420723686736,
+        "rv_last_hour": 0.31964224367235994
+      }
+    ]
+  },
+  "btc_price": {
+    "first_training_order": {
+      "time": "2026-02-02 01:41:47",
+      "price": 77626.0
+    },
+    "last_training_order": {
+      "time": "2026-07-31 17:11:11",
+      "price": 62798.4
+    },
+    "last_candle_in_price_file": {
+      "time": "2026-10-14 03:59:00",
+      "price": 83593.2
+    }
+  }
+}
