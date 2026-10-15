@@ -1,0 +1,49 @@
+{
+  "family": [
+    {
+      "anchor": "base",
+      "prior": 0
+    },
+    {
+      "anchor": "base",
+      "prior": 200
+    },
+    {
+      "anchor": "base",
+      "prior": 1000
+    },
+    {
+      "anchor": "blend",
+      "prior": 0
+    },
+    {
+      "anchor": "blend",
+      "prior": 200
+    },
+    {
+      "anchor": "blend",
+      "prior": 1000
+    },
+    {
+      "anchor": "paid",
+      "prior": 0
+    },
+    {
+      "anchor": "paid",
+      "prior": 200
+    },
+    {
+      "anchor": "paid",
+      "prior": 1000
+    }
+  ],
+  "development_months": [
+    "2026-04",
+    "2026-05",
+    "2026-06"
+  ],
+  "score": "Mean fold weighted-Poisson deviance divided by calibrated-paid benchmark; one winner frozen before July report",
+  "july_status": "Retrospective re-evaluation; July already inspected in prior model study",
+  "base_semantics": "Order-sized API amount (quantity times API quote); requires PP conversion/timestamp confirmation",
+  "pricing": "Predefined multipliers 0.90-1.10; train-price-neutral normalizer; eta 0.5; all scenarios shown, not conversion estimates"
+}

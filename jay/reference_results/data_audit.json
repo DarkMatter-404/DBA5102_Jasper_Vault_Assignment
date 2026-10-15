@@ -1,0 +1,29 @@
+{
+  "raw_order_rows": 7831,
+  "label_nonmissing": 7767,
+  "missing_outcome_and_close": 64,
+  "zero_payouts_raw": 4364,
+  "closes_before_creation": 86,
+  "expirations_before_creation": 67,
+  "nominal_duration_gap_over_120s": 181,
+  "valid_analysis_rows": 7603,
+  "excluded_union": 228,
+  "valid_zero_payout_share": 0.5608312508220439,
+  "close_over_60s_before_expiry_share": 0.6413257924503486,
+  "raw_nonmissing_outcome_premium_USDC": 251152.66843199998,
+  "valid_premium_USDC": 247715.49339100003,
+  "valid_payout_USDC": 231820.1247916627,
+  "valid_gross_margin_USDC": 15895.36859933731,
+  "market_rows": 338917,
+  "market_first_close": "2026-01-01 00:00:59.999000+00:00",
+  "market_last_close": "2026-08-24 08:36:59.999000+00:00",
+  "quote_feature_rule": "Only bars with close_time_utc <= createdAt. Max market age 60 seconds.",
+  "timestamp_rule": "expiry>created; 0<=productType-(expiry-created)<=120 seconds; close>=created for labelled analysis.",
+  "target_definition": "Gross payout per notes; conditional on historical buyer/early-close mix.",
+  "assumptions": [
+    "All ATM per class notes",
+    "premiumAmount_USDC is observed paid premium, not verified internal Base Premium",
+    "createdAt approximates quote time; up to 120 seconds of nominal-time discrepancy accepted",
+    "No fees, funding, hedge P&L, capacity or capital included in gross margin"
+  ]
+}

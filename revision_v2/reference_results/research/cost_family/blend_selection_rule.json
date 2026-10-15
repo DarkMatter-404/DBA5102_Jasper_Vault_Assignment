@@ -1,0 +1,12 @@
+{
+  "weights": [
+    0,
+    0.25,
+    0.5,
+    1
+  ],
+  "retention_constraint": "Each April-June development month retains at least95% of historical order count under assumed e=4.",
+  "objective": "Maximize sum of April-June scenario gross margins at assumed e=4 among feasible weights.",
+  "selected_weight": 0.5,
+  "limitations": "Proposed commercial assumption; e is not estimated. July retrospective only. Never pick another weight from July outcomes."
+}

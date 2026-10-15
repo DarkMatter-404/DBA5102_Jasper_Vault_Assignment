@@ -1,0 +1,3 @@
+model,quote_clock,n,actual_payout_USDC,predicted_payout_USDC,calibration_ratio_predicted_to_actual,MAE_USDC,RMSE_USDC,notional_weighted_MAE_bps,notional_weighted_poisson_deviance
+June_selected_spec_nominal_start,"min(createdAt, expirationDate-productType)",2625,101796.8217864483,84290.32068799829,0.8280250719892263,46.3401812880536,144.8390449423745,39.752184884841235,79.20370909400586
+Calibrated_paid_price_nominal_start,"min(createdAt, expirationDate-productType)",2625,101796.8217864483,97059.11113871796,0.9534591496611827,44.813947506297026,135.09314578779976,38.442929595295816,66.70408979341697

@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "input_files_match_original_en_release": true,
+    "blank_outcomes_and_close_leave_all_7831_quotes_unchanged": true,
+    "invalid_reference_and_contracts_emit_no_quote_and_market_fallback_is_distinct": true,
+    "future_market_truncation_leaves_features_unchanged_for_three_dates": true,
+    "deployment_gate_disabled_returns_reference_only_for_valid_contracts": true,
+    "frozen_model_roundtrip_reproduces_saved_holdout_cost_predictions": true,
+    "original_model_selection_splits_and_july_metrics_reproduced": true
+  },
+  "timestamp_sensitivity": "Fixed June-selected specification, retrained on pre-July settled labels using a conservative inferred opening-time clock; not tuned on July.",
+  "python": "3.12.14",
+  "package_versions": {
+    "pandas": "2.2.3",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8"
+  },
+  "input_sha256": {
+    "pp_transactions_training.csv": "8d2023b7d3d0ed7b64021b3f2760b73b7aa156048bd803cc308c125e0c48b930",
+    "btc_market_history.csv": "64ac0e482e498df1570cabc6b9ec87d6cc26d884080d7b660d7cd239b2267b2c"
+  },
+  "source_sha256": {
+    "verify_pricing.py": "d14f9a2735e64dfc05853d9811bc1028f0aa2dd175090e61bbe296237ef2cfb8",
+    "pp_pricing.py": "73b8e057660218b6e2dce03497c0dd2b164f9c1b6fc5c1043b33990dbde90ceb",
+    "build_figures.py": "da9722a724517fbb2ce9d2d092255d3e7aa74620a967d732de9bfd014b7c1974"
+  }
+}

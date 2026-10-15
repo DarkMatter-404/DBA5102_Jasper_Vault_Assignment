@@ -1,0 +1,51 @@
+{
+  "anchor": "anchor_bps",
+  "feature_set": "state",
+  "features": [
+    "log_tenor",
+    "put",
+    "log_vol_ratio",
+    "signed_momentum_60"
+  ],
+  "alpha": 0.1,
+  "center": [
+    -0.3055571474916798,
+    0.4590954773869347,
+    -0.0014815553062931988,
+    0.20865068399993708
+  ],
+  "scale": [
+    1.1329141184812639,
+    0.4983240110909741,
+    0.4187625855950861,
+    1.0048985396483798
+  ],
+  "beta": [
+    0.01384388964426446,
+    -0.028253519816396837,
+    0.3343520799892487,
+    -0.1313713601542713,
+    -0.14141729104372902
+  ],
+  "train_rows": 4975,
+  "fit_last_createdAt": "2026-06-30 23:06:27+00:00",
+  "fit_last_closedAt": "2026-06-30 23:20:06+00:00",
+  "optimizer_success": true,
+  "selected_by": "June notional-weighted quasi-Poisson deviance, candidate set fixed before July evaluation",
+  "selected_name": "anchor_bps_state_ridge0.1",
+  "pricing": {
+    "eta": 0.5,
+    "lower": 0.85,
+    "upper": 1.15,
+    "normalizer": 1.0668864482708715,
+    "training_claims_to_recorded_premium": 0.9170461005832304,
+    "calibration_rows": 4975,
+    "premium_neutral_on": "fit sample only",
+    "description": "Paid-price proxy. Caps and eta are design assumptions, not estimated demand constraints."
+  },
+  "analysis_cutoff": "2026-07-01T00:00:00Z",
+  "max_timestamp_gap_seconds": 120,
+  "feature_clock": "createdAt",
+  "overlay_weight": 1.0,
+  "deployment_warning": "Experimental July evaluation artifact only. Deployment model disables overlay after failed July gate."
+}

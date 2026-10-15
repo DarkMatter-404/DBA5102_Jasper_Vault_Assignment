@@ -1,0 +1,3 @@
+-r ../requirements.txt
+# Only the four shallow-tree research challengers require this package.
+scikit-learn==1.8.0
