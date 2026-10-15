@@ -1,0 +1,8 @@
+month,no_hedge,dynamic_hedge,sample
+2026-02,-166.4615473324797,-166.4615473324797,"training, Feb to Jul, model price"
+2026-03,128.69225390366276,128.69225390366276,"training, Feb to Jul, model price"
+2026-04,4097.922373349263,4097.922373349263,"training, Feb to Jul, model price"
+2026-05,9812.979088120423,5869.176600247875,"training, Feb to Jul, model price"
+2026-06,22500.21057887056,12665.933640519326,"training, Feb to Jul, model price"
+2026-07,26505.843196656428,18859.097503245768,"training, Feb to Jul, model price"
+2026-08,0.0,-132.59420059993806,"training, Feb to Jul, model price"
