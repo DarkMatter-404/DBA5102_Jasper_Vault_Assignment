@@ -1,0 +1,19 @@
+# Versions actually used to run pp_pricing.ipynb (Python 3.12.14). Install with:
+#   uv venv --python 3.12 aman/.venv
+#   uv pip install --python aman/.venv/bin/python -r aman/requirements.txt
+numpy==2.5.4
+pandas==3.0.6
+scipy==1.18.1
+scikit-learn==1.9.1
+statsmodels==0.15.0
+matplotlib==3.11.2
+
+# fetch_external.py only (teammates' parquet files; external series in Phase 4)
+pyarrow==26.0.0
+requests==2.34.2
+
+# running the notebook from the command line
+ipykernel==7.4.0
+nbclient==0.11.0
+nbconvert==7.17.2
+nbformat==5.11.1

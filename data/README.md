@@ -1,6 +1,12 @@
 # Jasper Vault data inventory
 
-Both supplied dataset releases are extracted here without changing file contents. Each release retains its own guide, dictionary, and metadata. The original ZIPs are in [materials/archives](../materials/archives/).
+All three supplied packages are extracted here without changing file contents: the two training releases (`with_base_premium/`, `en/`) and the blind validation release (`validation/`). Each training release retains its own guide, dictionary, and metadata. The original ZIPs are in [materials/archives](../materials/archives/).
+
+| Folder | Use it for |
+| --- | --- |
+| [with_base_premium/](with_base_premium/) | **Training orders** (7,204) with the base price |
+| [validation/](validation/) | **Blind validation orders** (4,155) and **the BTC market file to use** (to 14 Oct) — read its [README](validation/README.md) |
+| [en/](en/) | The original 7,831-row training release, kept for reference |
 
 ## Included files
 
@@ -14,7 +20,7 @@ Both supplied dataset releases are extracted here without changing file contents
 
 Counts above were checked against the extracted CSVs. The identical market-history file is retained in both release folders so each supplied package remains self-contained.
 
-Training order timestamps run from **2026-02-02 01:41:47 UTC** through **2026-07-31 17:11:11 UTC**. The supplied market file's first and last candle opening timestamps are **2026-01-01 00:00:00 UTC** and **2026-08-24 08:36:00 UTC**. These endpoints do not establish that every intervening minute is present.
+Training order timestamps run from **2026-02-02 01:41:47 UTC** through **2026-07-31 17:11:11 UTC**. The training-release market file's first and last candle opening timestamps are **2026-01-01 00:00:00 UTC** and **2026-08-24 08:36:00 UTC**; that last candle was cut while still open. The validation-release market file (`validation/btc_market_history.csv`) runs to **2026-10-14 03:59 UTC** with no missing or duplicate minutes, and supersedes it.
 
 ## Choosing a release
 
@@ -30,11 +36,22 @@ The [EN release](en/) retains the original 7,831 training rows and 10 order fiel
 
 Refer to the [base-premium guide](with_base_premium/research_dataset_guide.md), [dictionary](with_base_premium/data_dictionary.csv), and [metadata](with_base_premium/pp_research_datasets_metadata.json) for the source definitions. Equivalent documents are available in the EN folder.
 
-## Validation availability
+## Validation release
 
-Neither archive contains `pp_transactions_validation.csv`. The source guides describe a later validation period from **2026-07-31 17:11:48 UTC** through **2026-08-24 15:58:54 UTC**, containing 1,958 orders in the EN release or 1,898 after the base-premium release's negative-markup filter.
+The blind validation file arrived separately on 14 October 2026 and is extracted in
+[validation/](validation/), with its own [README](validation/README.md). It does **not** match
+what the guides above describe (1,898 orders, 31 Jul – 24 Aug, with `closedAt` hidden):
 
-Those are supplier-documented counts, not locally verified files. The documented blind-validation format hides `closedAt` and `realizedProfit_USDC`. The case calls for a pricing multiplier or premium recommendation for each validation observation.
+- **4,155 orders, 31 July – 14 October 2026.** The first 1,898 rows are the documented release
+  (timestamps cut to the minute); the remaining 2,257 are new.
+- **2,195 orders (53%) have no base price**, nearly all in the new rows.
+- `premiumAmount_USDC`, `orderPrice_per_BTC_USDC` and `realizedProfit_USDC` are blank;
+  **`closedAt` is filled in** and must not be used as a feature.
+- It ships with a new `btc_market_history.csv` (412,080 candles to 2026-10-14 03:59 UTC). It
+  matches the training-release file on every shared candle except that file's last,
+  half-finished minute. **Use the new file for all market features.**
+
+The case calls for a pricing multiplier or premium recommendation for each validation observation.
 
 ## Modeling notes
 

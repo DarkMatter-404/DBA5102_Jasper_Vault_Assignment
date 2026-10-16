@@ -45,14 +45,17 @@ DBA5106_Jasper_Vault_Assignment/
 ├── README.md
 ├── data/
 │   ├── README.md
-│   ├── with_base_premium/       # Release with API base prices and markup fields
+│   ├── with_base_premium/       # Training release with API base prices and markup fields
+│   ├── validation/              # Blind validation orders + BTC candles to 14 Oct
 │   └── en/                      # Original English release
 ├── materials/
 │   ├── README.md
 │   ├── SHA256SUMS.txt           # Checksums for supplied files and extracted data
+│   ├── guides/                 # Team project guide — start here
 │   ├── briefs/                 # Blockchain group assignment PDF
 │   ├── case-study/             # Jasper Vault problem statement DOCX
-│   ├── archives/               # Both original dataset ZIPs
+│   ├── lectures/               # Summary of Option 2 slides from Blockchain Lectures 6–7
+│   ├── archives/               # All three original dataset ZIPs
 │   └── workshop/               # Coding with AI Copilot handout
 ├── maksim/
 ├── subham/
@@ -70,10 +73,13 @@ Start with the [Jasper Vault case statement](materials/case-study/Jasper%20Vault
 | --- | ---: | ---: | --- |
 | [With base premium](data/with_base_premium/) | 7,204 | 13 | Includes per-BTC order price, API base price, and effective markup; suitable for investigating base-price adjustments |
 | [Original EN](data/en/) | 7,831 | 10 | Original order fields, retained for reference and comparisons |
+| [Validation](data/validation/) | 4,155 *(blind)* | 13 | Same columns; premium and payout blank; BTC candles to 14 Oct 2026 (412,080 rows) |
 
-Both releases include the same **338,917 one-minute BTCUSDC market candles**, plus a data dictionary, dataset guide, and metadata. Training orders span **2 February–31 July 2026 (UTC)**. The base-premium release removes 627 training orders with negative effective markup and retains orders with unmatched base quotes; **1,131 training orders have a blank API base price**.
+Both training releases include the same **338,917 one-minute BTCUSDC market candles**, plus a data dictionary, dataset guide, and metadata. Training orders span **2 February–31 July 2026 (UTC)**. The base-premium release removes 627 training orders with negative effective markup and retains orders with unmatched base quotes; **1,131 training orders have a blank API base price**.
 
-**The validation CSV is not included in either supplied archive.** The guides describe it, and the case says a separate validation dataset will be provided later. Do not treat the documented validation counts as files already available here.
+**The blind validation file arrived on 14 October 2026** and is in [data/validation](data/validation/). It has **4,155 orders from 31 July to 14 October** (not the 1,898 the guides describe), **53% of them have no base price**, and `closedAt` is filled in even though it is an outcome. It also ships with BTC candles extended to 14 October — use that file for all market features. Read [data/validation/README.md](data/validation/README.md) first.
+
+**New to the project? Read the [project guide](materials/guides/project-guide.md).** It has the reference numbers to reproduce, the shared rules, and a common way to compare our models.
 
 ## Working approach
 
@@ -83,7 +89,7 @@ These are suggested steps for the team, rather than additional assignment requir
 2. Audit the data and build pricing features using information available when each order was created.
 3. Compare the existing pricing baseline with candidate adjustments or independent models using chronological backtests.
 4. Assess profitability, downside risk, and conversion assumptions together; record assumptions that cannot yet be validated.
-5. Produce one recommendation per validation observation when that dataset is released, then assemble the deck, video, code, and supporting evidence.
+5. Produce one recommendation per validation observation — a premium for every row, since most rows have no base price — then assemble the deck, video, code, and supporting evidence.
 
 Keep supplied data unchanged and save derived features, notebooks, code, and results in your member folder. Record dependencies, run instructions, data paths, and key assumptions with each contribution. Use branches and pull requests for shared changes.
 
