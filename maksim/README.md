@@ -2,6 +2,8 @@
 
 Pricing strategy for Jasper Vault's Perpetual Protect (PP): analysis, code, backtests and a recommended premium for every order in the validation file. This folder is a working strategy for the team, not a final submission document.
 
+**Further research (16 October):** [Unused research directions](research/unused_ideas_2026-10-16.md) audits the latest team work and proposes five concrete extensions, with primary sources and evaluation protocols. These are research proposals, not changes to the locked prices.
+
 **Recommended rule.** `premium = quantity x fair value per BTC x 1.25`, never below Jasper Vault's API base price when that quote exists. The fair value is half the expected size of the BTC move over the protection window, forecast from recent volatility, the time of day (US Eastern) and scheduled US releases (CPI, jobs report, FOMC). The model is fitted on BTC market data only; no order outcome is used to fit it. **Proposed risk policy:** cap open protected notional at 250,000 USDC per direction and hedge the book's net delta within 0.5 BTC.
 
 All profit figures are **gross underwriting profit**: premiums minus payouts. Operating costs, hedging capital and required risk capital are not included unless stated.
