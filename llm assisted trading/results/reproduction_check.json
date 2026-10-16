@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-10-16T03:15:03.604864+00:00",
+  "method": "Extract standalone ZIP into a clean directory; run supplied script with its included inputs and tested environment.",
+  "outcome": "PASS",
+  "files": {
+    "metrics.json": "exact match",
+    "paired_day_bootstrap.json": "exact match",
+    "price_policy.json": "exact match",
+    "validation_summary.json": "exact match",
+    "data_audit.json": "exact match",
+    "event_audit.json": "exact match",
+    "scored_predictions.csv": "exact match after CSV parsing",
+    "validation_predictions.csv": "exact match after CSV parsing",
+    "research_cost_sensitivity.csv": "exact match after CSV parsing"
+  }
+}

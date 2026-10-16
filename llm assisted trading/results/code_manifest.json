@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-10-16T03:15:03.715743+00:00",
+  "sha256": {
+    "src/etl/__init__.py": "2a279376ba905e62631d4038675a1c843195e66e540aaea55f15b0082850cbac",
+    "src/etl/agents.py": "499bbc4d182a5fa2d3e1499ea799ad5a057b3cca15948ce90b28432d53a4636d",
+    "src/etl/data.py": "68b57bff49e7becbdfe79d4db7c6f6b703e5258404268e45ec4b7cb6d8bbf83e",
+    "src/etl/evaluation.py": "05d68573835c3fe5d8f5d6984c8562040093c2dbea2495eecf3d4387168fa811",
+    "src/etl/events.py": "344390dfe109972a863b2ef53d41127bc09d1f2c527289abd2ab40e5a8b6b96b",
+    "src/etl/hazard.py": "c05ef7540859fe150bfa461552fdb26b45340da9de168778d9c7dcabf514c9ea",
+    "src/etl/simulator.py": "9042b1793de112df7e415aa2858ccecda5f646a4623322bbb42222b91b2e4798",
+    "scripts/build_recorded_corpus.py": "d84f573daa056761db765beac0d9183aec92b2c8b2046a49e9376da12a44b7c9",
+    "scripts/build_report.py": "7044cbbf95bc8a1b89baa7aaa5eb6c64854e79b53e7c85c877b7e4a6d4b6172b",
+    "scripts/collect_news.py": "3125db4dc9cf2e6ff97b40d748a005f54821906881d279f96de4d18d6580cfdf",
+    "scripts/quote.py": "9524f662aaa6c93a8bd09d415bf0f875331e9a2bb4a8c6e7ee07b55d2d7d3ddf",
+    "scripts/run_agents.py": "146a1d0123dfdb0d583d5019dca3f919ed06384a733fbd7aefc0843df6ae714a",
+    "scripts/run_study.py": "d1d682c1f43b63ad6fa218e3d668beaf0871279467ed219088552f709ca741d4",
+    "tests/test_agents.py": "4e7a4e5fecdf5a55978f945f7437af3392adaee7d1e5cf901c540cac15abdd73",
+    "tests/test_integrity.py": "26df46a3fd0fe14ee2d283c222299fa4a120cd8047bd59582be981d670efe8f0"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "keyword_rules": {
+    "orders": 4155,
+    "fresh_market_orders": 1893,
+    "fallback_orders": 2262,
+    "quoted_total": 188860.35470934559,
+    "median_quote": 3.9835384780146104,
+    "changed_by_event": 43,
+    "max_event_weight": 0.340036179403762,
+    "outcome_metrics_available": false
+  },
+  "market_only": {
+    "orders": 4155,
+    "fresh_market_orders": 1893,
+    "fallback_orders": 2262,
+    "quoted_total": 188908.74563153792,
+    "median_quote": 3.9835384780146104,
+    "changed_by_event": 0,
+    "max_event_weight": 0.0,
+    "outcome_metrics_available": false
+  },
+  "single_research": {
+    "orders": 4155,
+    "fresh_market_orders": 1893,
+    "fallback_orders": 2262,
+    "quoted_total": 188860.35470934559,
+    "median_quote": 3.9835384780146104,
+    "changed_by_event": 43,
+    "max_event_weight": 0.340036179403762,
+    "outcome_metrics_available": false
+  },
+  "verified_research": {
+    "orders": 4155,
+    "fresh_market_orders": 1893,
+    "fallback_orders": 2262,
+    "quoted_total": 188882.80283620837,
+    "median_quote": 3.9835384780146104,
+    "changed_by_event": 43,
+    "max_event_weight": 0.20402170764225722,
+    "outcome_metrics_available": false
+  }
+}

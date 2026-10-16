@@ -1,0 +1,9 @@
+{
+  "source_records": 44,
+  "unique_events": 42,
+  "verified_admitted_sources": 38,
+  "verified_rejected_sources": 6,
+  "label_provenance": "Two recorded passes in an interactive assistant session, not independent external API calls.",
+  "clock": "publication_proxy",
+  "coverage": "Purposive sample; macro release occurrences plus selected crypto announcements."
+}

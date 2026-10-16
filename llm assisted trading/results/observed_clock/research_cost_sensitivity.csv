@@ -1,0 +1,7 @@
+incremental_cost_per_order_USDC,july_orders,news_uplift_before_cost,news_uplift_after_cost
+0.0,2559,0.0,0.0
+0.005,2559,0.0,-12.795
+0.01,2559,0.0,-25.59
+0.02,2559,0.0,-51.18
+0.05,2559,0.0,-127.95
+0.1,2559,0.0,-255.9

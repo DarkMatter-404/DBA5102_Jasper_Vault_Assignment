@@ -1,0 +1,10 @@
+{
+  "m": 0.1,
+  "lambda": 0.1,
+  "development_gate_passed": true,
+  "selection": "market-only May/June; no test retuning",
+  "operating_cost_assumed": 0,
+  "policy_available_from": "2026-07-01 00:00:00+00:00",
+  "development_rows": 3222,
+  "last_policy_outcome": "2026-06-30 23:20:06+00:00"
+}

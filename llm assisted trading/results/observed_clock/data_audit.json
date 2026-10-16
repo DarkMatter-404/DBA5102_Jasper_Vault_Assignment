@@ -1,0 +1,27 @@
+{
+  "training_rows": 7204,
+  "scorable_rows": 7078,
+  "missing_training_outcomes": 54,
+  "invalid_training_chronology": 72,
+  "training_created_min": "2026-02-02 01:41:47+00:00",
+  "training_created_max": "2026-07-31 17:11:11+00:00",
+  "validation_rows": 4155,
+  "valid_validation_quotes": 4155,
+  "validation_hidden_payouts": 4155,
+  "validation_populated_closedAt_ignored": 4155,
+  "validation_created_min": "2026-07-31 17:11:00+00:00",
+  "validation_created_max": "2026-10-14 02:46:18+00:00",
+  "training_missing_api_base": 1131,
+  "validation_missing_api_base": 2195,
+  "market_rows": 338917,
+  "market_first_close": "2026-01-01 00:00:59.999000+00:00",
+  "market_last_close": "2026-08-24 08:36:59.999000+00:00",
+  "market_gaps_over_90_seconds": 0,
+  "validation_current_market_coverage": 1893,
+  "release_notes": [
+    "The dictionary says validation closedAt is blank, but this file populates it. It is never passed to pricing.",
+    "The enriched release excludes negative residual-markup orders upstream; results apply to this selected population.",
+    "API base quotes are nearest-time matches within 120 seconds according to the guide; exact match clocks are not supplied.",
+    "Class notes specify ATM. External spot is not treated as verified contract moneyness."
+  ]
+}
