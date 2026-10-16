@@ -1,0 +1,31 @@
+{
+  "days": 31,
+  "bootstrap_samples": 2000,
+  "confidence_level": 0.9,
+  "method": "paired UTC-day bootstrap; overlapping multi-day shocks can reduce effective sample size",
+  "crps_delta": {
+    "estimate": 0.0,
+    "low90": 0.0,
+    "high90": 0.0
+  },
+  "brier_delta": {
+    "estimate": 0.0,
+    "low90": 0.0,
+    "high90": 0.0
+  },
+  "profit_delta_e0": {
+    "estimate": 0.0,
+    "low90": 0.0,
+    "high90": 0.0
+  },
+  "profit_delta_e2": {
+    "estimate": 0.0,
+    "low90": 0.0,
+    "high90": 0.0
+  },
+  "profit_delta_e4": {
+    "estimate": 0.0,
+    "low90": 0.0,
+    "high90": 0.0
+  }
+}

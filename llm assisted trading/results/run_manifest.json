@@ -1,0 +1,16 @@
+{
+  "run_started_utc": "2026-10-16T03:01:46.515563726+00:00",
+  "duration_seconds": 21.68,
+  "clock": "publication_proxy",
+  "seed": 417,
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "pandas": "2.2.3",
+  "scipy": "1.17.0",
+  "sklearn": "1.8.0",
+  "frozen_files": {
+    "docs/EXPERIMENT_PROTOCOL.md": "ae17306c193e550a58183eb573c53121a083f5207cb72ef8c8d97ec5b55f8281",
+    "docs/IMPLEMENTATION_DECISIONS.md": "d7d41c81f555a3f2bb3b6738aed5381aa3cac409e997d9437a9a6cd2a88bb914",
+    "data/events/recorded_events.jsonl": "c08110ee775e7fb86b97829e5d0ea4177b4cac7e06a13b9f8fffdddfda2fd9a2"
+  }
+}

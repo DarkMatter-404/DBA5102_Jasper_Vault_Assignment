@@ -1,0 +1,4 @@
+[
+  {"name":"Federal Reserve press releases", "url":"https://www.federalreserve.gov/feeds/press_all.xml", "source_kind":"primary"},
+  {"name":"SEC press releases", "url":"https://www.sec.gov/news/pressreleases.rss", "source_kind":"primary"}
+]
