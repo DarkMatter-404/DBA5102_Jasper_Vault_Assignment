@@ -1,5 +1,8 @@
 # Subham: hybrid pricing model for Perpetual Protect
 
+> **The team's final solution is in [`final/`](final/)** (Maksim's model with the team's tested layers; report:
+> [`final/final_report.html`](final/final_report.html)). The rest of this folder is my earlier hybrid experiment.
+
 This folder has my pricing model for Jasper Vault's Perpetual Protect (PP). The model starts from Jasper Vault's base price. It corrects that price with the payouts in the training data. Then it adds a margin that keeps the price near what customers pay today.
 
 For each of the 4,155 validation orders, the model gives **both** outputs:
