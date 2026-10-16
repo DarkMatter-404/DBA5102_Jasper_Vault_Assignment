@@ -1,0 +1,38 @@
+{
+  "adopted": false,
+  "decision": {
+    "c1_july_gain": true,
+    "c2_febjun_gain": true,
+    "c3_july_beats_flat": false,
+    "adopt": false
+  },
+  "frozen_sha256_matches": true,
+  "frozen_sha256": "9958441287151693fb97d389c8cb206525cd4c856a0310b6bca4f7ff318f0a25",
+  "submission_sha256": "810eae3a1c007c9443616afc97e7f11c7c8fcf60d3e79807e571a4c717110dcf",
+  "rows": 4155,
+  "premium_total_frozen": 205823.93743700002,
+  "premium_total_with_loading": 211552.8609394255,
+  "premium_total_final": 205823.93743700002,
+  "loaded_share": 0.2490974729241877,
+  "mean_load_on_loaded": 1.0722090635308046,
+  "revealed_rows": 544,
+  "revealed_ratio_frozen": 0.9571689137719429,
+  "revealed_ratio_with_loading": 0.9784280604340067,
+  "revealed_ratio_final": 0.9571689137719429,
+  "cap_paused_share_orders": 0.09434416365824305,
+  "cap_paused_share_premium": 0.29861683545828027,
+  "settings": {
+    "k_loading": 0.3,
+    "min_book_btc": 1.0,
+    "margin": 0.25,
+    "cap_per_direction_usdc": 250000
+  },
+  "repo_commit_at_run": "b9eccc9",
+  "inputs_sha256": {
+    "panel": "29e04ae3f0fdf406b59b2911aca18c97468be328e8bc0903b440b2f758fc5701",
+    "training": "3f046081325c40eaee5139429dbf85e668f98b281c26f2f7bb523eb9781ccbd5",
+    "validation": "fd85444b94f91cf212ddecbc2a16681e9f4a196cc45b7d42cdbddba03ff72d07",
+    "frozen": "9958441287151693fb97d389c8cb206525cd4c856a0310b6bca4f7ff318f0a25",
+    "rebuilt_base": "d70b3bf024ee55d455b8dfa03b8e74248424510fb937be9aa5f74c68230b6cfb"
+  }
+}
