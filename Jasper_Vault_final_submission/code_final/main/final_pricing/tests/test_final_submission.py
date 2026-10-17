@@ -8,16 +8,23 @@ import pytest
 
 import solution as s
 
-REPO = s.find_repo_root()
-OUT = REPO / "subham" / "final" / "outputs"
-VALID_CSV = REPO / "data" / "validation" / "pp_transactions_validation.csv"
-FROZEN_CSV = REPO / "maksim" / "outputs" / "validation_recommendations.csv"
+DATA = s.find_data_root()
+OUT = s.MAIN / "final_pricing" / "outputs"
+VALID_CSV = DATA / "data" / "validation" / "pp_transactions_validation.csv"
+FROZEN_CSV = s.ENGINE / "outputs" / "validation_recommendations.csv"
+SUBMITTED_SHA256 = "810eae3a1c007c9443616afc97e7f11c7c8fcf60d3e79807e571a4c717110dcf"  # the file the team submitted
 
 
 def outputs():
     sub_path, summary_path = OUT / "final_submission.csv", OUT / "summary.json"
-    assert sub_path.exists() and summary_path.exists(), "run subham/final/final_solution.ipynb first"
+    assert sub_path.exists() and summary_path.exists(), "run main/final_pricing/final_solution.ipynb first"
     return pd.read_csv(sub_path), json.loads(summary_path.read_text()), sub_path
+
+
+def test_submission_file_is_byte_identical_to_the_submitted_file():
+    _, summary, sub_path = outputs()
+    assert hashlib.sha256(sub_path.read_bytes()).hexdigest() == SUBMITTED_SHA256
+    assert summary["submission_sha256"] == SUBMITTED_SHA256
 
 
 def test_one_row_per_validation_order_in_the_original_order():
@@ -65,7 +72,7 @@ def test_summary_records_the_file_hash_and_every_key():
 
 
 def test_loading_reproduces_the_audit_on_the_blind_file():
-    # chris/audit/AUDIT_MEMO.md: the expiry-proxy loading loads 25-26% of blind orders by +7.7% on average and
+    # experiments/team_audit/AUDIT_MEMO.md: the expiry-proxy loading loads 25-26% of blind orders by +7.7% on average and
     # raises the blind premium total by 2.7-2.8%. Bands allow for small differences in the book's start.
     _, summary, _ = outputs()
     assert 0.22 <= summary["loaded_share"] <= 0.30
@@ -79,6 +86,6 @@ def test_blind_pricing_ignores_closedAt(tmp_path):
     raw["closedAt"] = "2030-01-01 00:00:00"  # any value: the pipeline must not read it
     changed = tmp_path / "valid_changed_closedAt.csv"
     raw.to_csv(changed, index=False)
-    a, _ = s.price_blind_file(REPO, adopted=True)
-    b, _ = s.price_blind_file(REPO, adopted=True, valid_path=changed)
+    a, _ = s.price_blind_file(DATA, adopted=True)
+    b, _ = s.price_blind_file(DATA, adopted=True, valid_path=changed)
     pd.testing.assert_frame_equal(a, b)

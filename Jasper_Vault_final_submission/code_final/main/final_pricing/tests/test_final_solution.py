@@ -1,4 +1,6 @@
 """Unit tests for solution.py: the open book, the loading, the adoption rule and the submission builder."""
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -14,18 +16,50 @@ def orders(rows):
     return pd.DataFrame(rows, columns=["createdAt", "expirationDate", "optionType", "quantity_BTC"])
 
 
-# --- repo root -------------------------------------------------------------------------------------------------
+# --- where things are ------------------------------------------------------------------------------------------
 
-def test_find_repo_root_walks_up_to_the_folder_with_maksim_src():
-    root = s.find_repo_root()
-    assert (root / "maksim" / "src").is_dir() and (root / "subham" / "final").is_dir()
+def test_main_holds_the_engine_and_the_evidence_next_to_final_pricing():
+    assert s.MAIN == Path(s.__file__).resolve().parents[1]
+    assert s.ENGINE == s.MAIN / "fair_value_engine" and (s.ENGINE / "src" / "model.py").is_file()
+    assert (s.ENGINE / "outputs" / "validation_recommendations.csv").is_file()
+    assert s.EVIDENCE == s.MAIN / "evidence" and s.EVIDENCE.is_dir()
 
 
-def test_find_repo_root_falls_back_to_jv_repo_env(tmp_path, monkeypatch):
+def test_find_data_root_walks_up_to_the_folder_with_data():
+    root = s.find_data_root()
+    assert (root / "data" / "with_base_premium").is_dir() and (root / "data" / "validation").is_dir()
+
+
+def test_find_data_root_falls_back_to_jv_repo_env(tmp_path, monkeypatch):
     repo = tmp_path / "repo"
-    (repo / "maksim" / "src").mkdir(parents=True)
+    (repo / "data" / "with_base_premium").mkdir(parents=True)
     monkeypatch.setenv("JV_REPO", str(repo))
-    assert s.find_repo_root(tmp_path / "elsewhere") == repo
+    assert s.find_data_root(tmp_path / "elsewhere") == repo
+
+
+def test_engine_code_is_imported_from_main_not_from_a_member_folder():
+    s._use_engine_code()
+    import run_extensions
+    import src.model
+    for module in (run_extensions, src.model):
+        assert Path(module.__file__).resolve().is_relative_to(s.ENGINE.resolve())
+
+
+EVIDENCE_FILES = sorted(p for p in s.EVIDENCE.rglob("*") if p.is_file() and p.name != "README.md")
+
+
+def test_evidence_holds_the_ten_saved_results_the_notebooks_read():
+    assert len(EVIDENCE_FILES) == 10
+
+
+@pytest.mark.parametrize("path", EVIDENCE_FILES, ids=lambda p: p.relative_to(s.EVIDENCE).as_posix())
+def test_each_evidence_file_equals_its_experiment_copy(path):
+    twin = s.MAIN.parent / "experiments" / path.relative_to(s.EVIDENCE)
+
+    def lf(p):  # a Windows checkout may turn LF into CRLF in one copy and not the other
+        return p.read_bytes().replace(b"\r\n", b"\n")
+
+    assert lf(path) == lf(twin)
 
 
 # --- reading orders --------------------------------------------------------------------------------------------

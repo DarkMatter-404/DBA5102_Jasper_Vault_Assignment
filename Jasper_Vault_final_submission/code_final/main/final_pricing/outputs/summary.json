@@ -27,7 +27,7 @@
     "margin": 0.25,
     "cap_per_direction_usdc": 250000
   },
-  "repo_commit_at_run": "b9eccc9",
+  "repo_commit_at_run": "b7ac940",
   "inputs_sha256": {
     "panel": "29e04ae3f0fdf406b59b2911aca18c97468be328e8bc0903b440b2f758fc5701",
     "training": "3f046081325c40eaee5139429dbf85e668f98b281c26f2f7bb523eb9781ccbd5",

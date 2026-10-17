@@ -6,6 +6,9 @@ Risk rule: Maksim's exposure cap per direction (reported, not priced).
 
 Nothing here fits a model. The functions combine saved team outputs, so every number traces back to a teammate's
 folder at a fixed commit.
+
+Layout (code_final/main): this folder is final_pricing/. Maksim's engine and its frozen prices are in
+fair_value_engine/, and the saved experiment results that the notebooks read are in evidence/.
 """
 from __future__ import annotations
 
@@ -31,22 +34,27 @@ SUMMARY_KEYS = ["adopted", "decision", "frozen_sha256_matches", "submission_sha2
                 "cap_paused_share_orders", "cap_paused_share_premium"]
 BOOK_COLUMNS = ["createdAt", "expirationDate", "optionType", "quantity_BTC"]
 
+MAIN = Path(__file__).resolve().parents[1]   # code_final/main
+ENGINE = MAIN / "fair_value_engine"          # Maksim's engine: src/, run_extensions.py, outputs/ (frozen prices)
+EVIDENCE = MAIN / "evidence"                 # saved experiment results, as <experiment>/<path in the experiment>
 
-def find_repo_root(start: Path | None = None) -> Path:
-    """The first parent folder that contains maksim/src; else the folder in the JV_REPO environment variable."""
+
+def find_data_root(start: Path | None = None) -> Path:
+    """The first parent folder that holds data/with_base_premium; else the folder in the JV_REPO environment
+    variable. In the repository and in the unzipped package, this is the folder with data/."""
     here = Path(start).resolve() if start else Path(__file__).resolve().parent
     for p in (here, *here.parents):
-        if (p / "maksim" / "src").is_dir():
+        if (p / "data" / "with_base_premium").is_dir():
             return p
     env = os.environ.get("JV_REPO")
-    if env and (Path(env) / "maksim" / "src").is_dir():
+    if env and (Path(env) / "data" / "with_base_premium").is_dir():
         return Path(env)
-    raise FileNotFoundError("No repository root (a folder with maksim/src) above this folder. Set JV_REPO.")
+    raise FileNotFoundError("No folder with data/with_base_premium above this folder. Set JV_REPO.")
 
 
-def _use_maksim_code() -> None:
-    """Put maksim/ on the import path, so that `src.*` and `run_extensions` import Maksim's code."""
-    p = str(find_repo_root() / "maksim")
+def _use_engine_code() -> None:
+    """Put fair_value_engine/ on the import path, so that `src.*` and `run_extensions` import Maksim's code."""
+    p = str(ENGINE)
     if p not in sys.path:
         sys.path.insert(0, p)
 
@@ -134,26 +142,27 @@ def build_submission(valid: pd.DataFrame, frozen: pd.DataFrame, loading, adopted
     return sub[SUBMISSION_COLUMNS]
 
 
-def price_blind_file(repo: Path, adopted: bool, valid_path: Path | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
+def price_blind_file(data_root: Path, adopted: bool,
+                     valid_path: Path | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Price every validation order: Maksim's frozen premium, times the order-flow loading when adopted.
 
-    The open book before each validation order holds earlier training and validation orders that have not expired.
-    Returns (submission, book state per validation order).
+    data_root is the folder that holds data/ (see find_data_root). The open book before each validation order holds
+    earlier training and validation orders that have not expired. Returns (submission, book state per validation order).
     """
-    repo = Path(repo)
-    train = read_orders(repo / "data" / "with_base_premium" / "pp_transactions_training.csv")
-    valid = read_orders(valid_path or repo / "data" / "validation" / "pp_transactions_validation.csv")
-    frozen = read_orders(repo / "maksim" / "outputs" / "validation_recommendations.csv")
+    data_root = Path(data_root)
+    train = read_orders(data_root / "data" / "with_base_premium" / "pp_transactions_training.csv")
+    valid = read_orders(valid_path or data_root / "data" / "validation" / "pp_transactions_validation.csv")
+    frozen = read_orders(ENGINE / "outputs" / "validation_recommendations.csv")
     book = book_state(pd.concat([train[BOOK_COLUMNS], valid[BOOK_COLUMNS]], ignore_index=True), valid)
     loading = orderflow_loading(book["s_add"], book["book_btc"])
     return build_submission(valid, frozen, loading, adopted), book
 
 
 def exposure_cap_accepts(orders: pd.DataFrame, cap: float = CAP_PER_DIRECTION_USDC) -> np.ndarray:
-    """Maksim's exposure cap per direction (maksim/run_extensions.py). Each protection counts until its expiry, so no
-    outcome is used. Returns True where the order would be accepted."""
+    """Maksim's exposure cap per direction (fair_value_engine/run_extensions.py). Each protection counts until its
+    expiry, so no outcome is used. Returns True where the order would be accepted."""
     import polars as pl
-    _use_maksim_code()
+    _use_engine_code()
     from run_extensions import exposure_cap
 
     o = pl.DataFrame({"createdAt": orders["createdAt"].to_numpy("datetime64[ns]"),
@@ -165,7 +174,7 @@ def exposure_cap_accepts(orders: pd.DataFrame, cap: float = CAP_PER_DIRECTION_US
 
 def moneyness_table(abs_move: float, spot: float, distances, margin: float = MARGIN) -> pd.DataFrame:
     """Fair value and premium per BTC when the strike moves out of the money, from Maksim's Black-Scholes pricer."""
-    _use_maksim_code()
+    _use_engine_code()
     from src.model import fair_value_per_btc
 
     def fv(strike: float, option_type: int) -> float:

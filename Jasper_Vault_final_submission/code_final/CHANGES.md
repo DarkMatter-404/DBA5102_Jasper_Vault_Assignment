@@ -62,3 +62,15 @@ Applied once by `tools/path_edits.py`. The tool refuses an edit unless its old t
 | `experiments/jv_reference_f1/fetch_external.py` | It reads teammates' files from git history at fixed commits (`git show <commit>:maksim/...`). That still works anywhere inside the repository. It needs internet and git. |
 | `experiments/fair_value_model/run_sealed_check.py`, `run_dynamic_hedge.py` | One-time checks of the validation period, already run. They compare files with git `HEAD`, and they are not re-run. |
 | Paths in the text of copied READMEs, docstrings and notebook text | They name the original folders. The table in `README.md` maps each old folder to its new place. |
+
+## 3. main/final_pricing (Subham's own code; tests written first)
+
+| File (inside code_final) | Change |
+|---|---|
+| `main/final_pricing/solution.py` | `find_repo_root()` looked for `maksim/src`. It is now `find_data_root()`, which looks for `data/with_base_premium` (the `JV_REPO` variable still works). New constants `MAIN`, `ENGINE` (= `main/fair_value_engine`) and `EVIDENCE` (= `main/evidence`). `_use_maksim_code()` is now `_use_engine_code()`. `price_blind_file` reads the frozen prices from `fair_value_engine/outputs/`. No pricing logic changed. |
+| `main/final_pricing/tests/conftest.py` | The import path is `fair_value_engine/` instead of `maksim/`. |
+| `main/final_pricing/tests/test_final_solution.py` | The 2 tests for the old root finder are replaced by 4 location tests (the engine code must be imported from `main`, never from a member folder). 11 new tests: `evidence/` holds 10 files, and each one equals its copy in `experiments/`. |
+| `main/final_pricing/tests/test_final_submission.py` | New paths. New test: `final_submission.csv` is byte-identical to the submitted file (SHA-256 `810eae3a…`). |
+| `main/final_pricing/final_solution.ipynb`, `final_report.ipynb` | Input paths now point to `fair_value_engine/`, `evidence/` and the data root. 3 text mentions of old folders now use the new names. Both notebooks were re-run. |
+| `main/final_pricing/final_report.html` | Rebuilt. All 3,166 words and all 498 numbers are the same as in the report the deck used. The only text change is `chris/audit/` → `experiments/team_audit/`. |
+| `main/final_pricing/outputs/` | From the re-run. `final_submission.csv` is byte-identical (SHA-256 `810eae3a…`). In `summary.json`, only `repo_commit_at_run` changed. `training_scores.csv` and `training_intervals.csv` differ only by float rounding (below 1e-9 relative). |
