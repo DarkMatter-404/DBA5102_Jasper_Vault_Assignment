@@ -1,0 +1,21 @@
+{
+  "frozen_file": {
+    "sha256": "9958441287151693fb97d389c8cb206525cd4c856a0310b6bca4f7ff318f0a25",
+    "commit": "c70c413199c38da4ad33785f6d0c1b0ae4bfb8b6",
+    "commit_time": "2026-10-14T18:15:18+08:00"
+  },
+  "payout_reconstruction_on_training": {
+    "training_orders": 7150,
+    "sum_reconstructed": 231193.2935880016,
+    "sum_actual": 230652.0530147715,
+    "ratio_reconstructed_over_actual": 1.0023465673344578,
+    "median_abs_error_per_btc": 0.0,
+    "share_within_30_usdc_per_btc": 0.8478321678321679
+  },
+  "validation_orders": 4155,
+  "orders_with_base": 1960,
+  "flat_markup_on_base": 1.442347441080343,
+  "gini_model_vs_base": -0.08470236265745981,
+  "gini_flat_vs_base": 0.0,
+  "payout_over_fair_value_all": 1.2261629254715005
+}

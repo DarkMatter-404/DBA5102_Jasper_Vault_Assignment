@@ -1,0 +1,9 @@
+pricing,payout_multiplier,gross_margin_USDC,worst_day_gross_margin_USDC,loss_days,time_basis
+recorded,1.0,4042.035253551684,-5056.731429692287,9,UTC order-creation cohort; not settlement cashflow or mark-to-market
+recorded,1.25,-21407.170193060396,-7803.069822365358,16,UTC order-creation cohort; not settlement cashflow or mark-to-market
+recorded,1.5,-46856.37563967247,-10549.408215038431,18,UTC order-creation cohort; not settlement cashflow or mark-to-market
+recorded,2.0,-97754.78653289663,-16042.085000384574,22,UTC order-creation cohort; not settlement cashflow or mark-to-market
+proposed_fixed_volume,1.0,744.8449865396931,-5464.399713724944,11,UTC order-creation cohort; not settlement cashflow or mark-to-market
+proposed_fixed_volume,1.25,-24704.36046007238,-8210.738106398016,17,UTC order-creation cohort; not settlement cashflow or mark-to-market
+proposed_fixed_volume,1.5,-50153.56590668446,-10957.076499071087,19,UTC order-creation cohort; not settlement cashflow or mark-to-market
+proposed_fixed_volume,2.0,-101051.97679990862,-16449.75328441723,23,UTC order-creation cohort; not settlement cashflow or mark-to-market

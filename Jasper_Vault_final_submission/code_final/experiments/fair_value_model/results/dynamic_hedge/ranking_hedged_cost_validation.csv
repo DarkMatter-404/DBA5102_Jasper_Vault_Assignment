@@ -1,0 +1,2 @@
+sample,reference,orders,gini_on_payout,gini_on_hedged_cost,payout_total,hedged_cost_total,premium_total
+"validation, Aug to Oct, frozen v1 price (post hoc)",base_premium_USDC,1960,-0.08470236265745981,-0.04572389275573466,79533.60261664524,71906.31417052983,59527.857080999995

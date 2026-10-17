@@ -1,0 +1,19 @@
+{
+  "rule": "highest mean / SD of daily profit after fees (0.04 percent per side) on the Feb-Jul walk-forward; must beat no hedge and the current policy",
+  "scores_to_beat": {
+    "no hedge": 0.27886746971058074,
+    "current policy: cap 250,000 + opening delta within 0.5 BTC": 0.29170208620459376
+  },
+  "best": {
+    "hedge": "dynamic, every 1 min, band 1 BTC",
+    "interval_min": 1,
+    "band_btc": 1.0,
+    "score_mean_over_sd": 0.3776735154787807,
+    "profit": 41321.76662333348,
+    "worst_day": -1974.1743642294043,
+    "max_drawdown": 2646.866306595555
+  },
+  "adopted": true,
+  "interval_min": 1,
+  "band_btc": 1.0
+}

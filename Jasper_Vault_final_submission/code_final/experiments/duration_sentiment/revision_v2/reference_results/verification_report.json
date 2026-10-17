@@ -1,0 +1,26 @@
+{
+  "checks": {
+    "original_EN_input_hashes": true,
+    "settled_label_cutoff_and_timezone_equivalence": true,
+    "all_7831_quotes_invariant_to_missing_outcomes_and_row_order_preserved": true,
+    "invalid_contracts_block_and_unsupported_quotes_explicitly_fallback": true,
+    "future_market_removal_does_not_change_quote": true,
+    "training_premium_neutrality": true,
+    "earlier_than_model_cutoff_quotes_labeled_historical": true,
+    "extreme_risk_still_respects_analytic_assumed_retention_bound": true,
+    "model_serialization_and_fractional_twenty_percent_tail": true,
+    "frozen_model_and_headline_results_reproduced": true
+  },
+  "python": "3.12.14",
+  "package_versions": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0"
+  },
+  "source_sha256": {
+    "pricing.py": "68ce900c76ae878fd472241fc44fa5f57380e8321871461dc514606d7a50714d",
+    "verify.py": "e3cbc40fe4fa9e1a35b8dc7d72e0e8e0dce6c3ccd0b2a1cd478825f7717ef6de",
+    "pp_pricing.py": "73b8e057660218b6e2dce03497c0dd2b164f9c1b6fc5c1043b33990dbde90ceb"
+  },
+  "scope": "Implementation and retrospective reproduction checks, not proof of demand or out-of-sample superiority."
+}

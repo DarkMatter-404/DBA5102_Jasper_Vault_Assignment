@@ -1,0 +1,24 @@
+{
+  "frozen_components": {
+    "original_path": "repo_work/jay/revision_v3_1/reference_results/frozen_july_model.json",
+    "sha256": "16a3640abd4c8e039814b5926f54e4e5871197539778a020143fd213fbc13fb9"
+  },
+  "market": {
+    "bundled_path": "data/assignment_inputs/btc_market_history.csv.gz",
+    "uncompressed_bytes": 44642638,
+    "uncompressed_sha256": "64ac0e482e498df1570cabc6b9ec87d6cc26d884080d7b660d7cd239b2267b2c",
+    "bundled_sha256": "5dbfb026579acf781c106ab2661a9af7985c881696cef6683b8c02de5a1e9146"
+  },
+  "training": {
+    "bundled_path": "data/assignment_inputs/pp_transactions_training.csv.gz",
+    "uncompressed_bytes": 931452,
+    "uncompressed_sha256": "8d2023b7d3d0ed7b64021b3f2760b73b7aa156048bd803cc308c125e0c48b930",
+    "bundled_sha256": "6ffeb511fcd993d777b5a168700bc38c564f1a1be5da6effce042df34d5a37bd"
+  },
+  "validation": {
+    "bundled_path": "data/assignment_inputs/pp_transactions_validation.csv",
+    "uncompressed_bytes": 456558,
+    "uncompressed_sha256": "fd85444b94f91cf212ddecbc2a16681e9f4a196cc45b7d42cdbddba03ff72d07",
+    "bundled_sha256": "fd85444b94f91cf212ddecbc2a16681e9f4a196cc45b7d42cdbddba03ff72d07"
+  }
+}

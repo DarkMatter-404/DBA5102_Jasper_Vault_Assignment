@@ -1,0 +1,2 @@
+# Keep output files byte-for-byte: summary.json records the SHA-256 of final_submission.csv.
+outputs/** -text

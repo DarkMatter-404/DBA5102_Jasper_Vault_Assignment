@@ -1,0 +1,5 @@
+month,no_hedge,dynamic_hedge,sample
+2026-07,0.06706482738476324,0.06706482738476324,"validation, Aug to Oct, frozen v1 price (post hoc)"
+2026-08,-12666.926243420521,-13312.169173342803,"validation, Aug to Oct, frozen v1 price (post hoc)"
+2026-09,10931.357272797235,2771.713481776967,"validation, Aug to Oct, frozen v1 price (post hoc)"
+2026-10,6556.368433160691,180.33375246582833,"validation, Aug to Oct, frozen v1 price (post hoc)"

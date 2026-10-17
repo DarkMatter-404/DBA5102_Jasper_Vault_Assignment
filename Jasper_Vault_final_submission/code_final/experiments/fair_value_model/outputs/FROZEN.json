@@ -1,0 +1,6 @@
+{
+  "file": "validation_recommendations.csv",
+  "sha256": "9958441287151693fb97d389c8cb206525cd4c856a0310b6bca4f7ff318f0a25",
+  "rows": 4155,
+  "note": "Written before any look at outcomes in the validation period. Any later evaluation must use this exact file."
+}

@@ -1,0 +1,10 @@
+{
+  "training": {
+    "max_abs_net_delta_BTC": 2.2798554247714318,
+    "p95_abs_net_delta_BTC": 1.194362042480031
+  },
+  "validation": {
+    "max_abs_net_delta_BTC": 2.6592583917519175,
+    "p95_abs_net_delta_BTC": 1.430272470214283
+  }
+}

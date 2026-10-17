@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A plain-language submission report and ten-minute video outline for the Jasper Vault V3.2 combined PP pricing experiment.">
+<meta name="color-scheme" content="light">
+<title>Jasper Vault PP pricing | V3.2 submission video report</title>
+<style>
+:root { --ink:#173449; --teal:#007d76; --muted:#526676; --line:#dce5e8; --paper:#fff; --soft:#f3f8f7; --amber:#83520a; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:24px; }
+body { margin:0; color:var(--ink); background:#f4f6f7; font-family:Arial,Helvetica,sans-serif; font-size:17px; line-height:1.65; }
+main { max-width:1060px; margin:36px auto; padding:64px 76px 44px; background:var(--paper); }
+h1,h2,h3,p,figure { margin:0; }
+h1 { font-size:48px; line-height:1.12; letter-spacing:-1.4px; max-width:800px; margin:13px 0 21px; }
+h2 { font-size:29px; line-height:1.25; letter-spacing:-.4px; margin:9px 0 20px; }
+h3 { font-size:19px; margin:18px 0 8px; }
+p { margin:0 0 14px; }
+a { color:var(--teal); text-underline-offset:3px; }
+a:hover { text-decoration-thickness:2px; }
+a:focus-visible,summary:focus-visible { outline:3px solid #87bdb5; outline-offset:4px; }
+.eyebrow { color:var(--teal); font-weight:700; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; }
+.subtitle { font-size:21px; color:var(--muted); max-width:770px; }
+.overview { border-left:4px solid var(--teal); padding:4px 0 4px 22px; margin:26px 0 28px; font-size:19px; }
+.overview p { margin:0; }
+.meta { color:var(--muted); font-size:14px; margin-top:24px; }
+.video-map { margin:24px 0 0; padding:20px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.video-map p { font-size:15px; margin-bottom:10px; color:var(--muted); }
+.links { display:flex; flex-wrap:wrap; gap:8px 20px; font-size:15px; }
+.chapter { padding:34px 0 36px; border-bottom:1px solid var(--line); }
+.chapter-meta { display:flex; justify-content:space-between; gap:16px; color:var(--muted); font-size:13px; letter-spacing:.6px; }
+.time { white-space:nowrap; font-variant-numeric:tabular-nums; }
+.finding { margin:16px 0 21px; }
+.number { color:var(--teal); font-size:55px; line-height:1.05; letter-spacing:-1.7px; font-weight:700; font-variant-numeric:tabular-nums; }
+.number-label { font-size:20px; font-weight:700; margin-top:9px; max-width:740px; line-height:1.4; }
+.formula { font-size:25px; font-weight:700; color:var(--teal); padding:19px 0; line-height:1.4; }
+.small { font-size:14px; color:var(--muted); }
+.disclosure { border-left:3px solid #d9b777; padding:2px 0 2px 17px; margin:18px 0 10px; font-size:15px; color:#604a29; }
+.pair { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin:20px 0 24px; }
+.pair .number { font-size:50px; }
+.pair p { margin:7px 0 0; }
+.table-wrap { margin:20px 0; overflow-x:auto; }
+table { border-collapse:collapse; width:100%; font-size:16px; line-height:1.45; }
+th { background:#edf3f4; color:var(--ink); text-align:left; font-size:14px; padding:12px 15px; border-bottom:2px solid #cbdadd; }
+td { padding:12px 15px; border-bottom:1px solid var(--line); vertical-align:top; }
+td.num,th.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+tr.selected td { background:var(--soft); font-weight:700; }
+caption { text-align:left; color:var(--muted); font-size:14px; margin-bottom:10px; }
+ul,ol { margin:10px 0 17px; padding-left:23px; }
+li { margin:6px 0; padding-left:3px; }
+.statement { margin-top:19px; font-size:20px; color:var(--ink); }
+details { margin-top:22px; border-top:1px dashed #cbdadd; padding-top:12px; }
+summary { cursor:pointer; color:var(--teal); font-size:15px; font-weight:700; }
+.script { margin:15px 0 0; padding:2px 0 0 18px; border-left:2px solid var(--line); color:#465b68; font-size:16px; }
+.script p { margin-bottom:8px; }
+.closing { font-size:23px; line-height:1.55; margin:20px 0; color:var(--teal); font-weight:700; }
+footer { padding:30px 0 0; font-size:13px; color:var(--muted); line-height:1.6; }
+footer h2 { font-size:20px; margin:0 0 12px; }
+footer ol { padding-left:20px; }
+.backtop { font-size:14px; margin-top:23px; }
+@media (max-width:720px) {
+  body { font-size:16px; background:#fff; }
+  main { margin:0; padding:32px 23px; }
+  h1 { font-size:37px; letter-spacing:-.8px; }
+  h2 { font-size:25px; }
+  .subtitle { font-size:19px; }
+  .number { font-size:47px; }
+  .number-label { font-size:19px; }
+  .pair { gap:22px; }
+  .pair .number { font-size:43px; }
+  .pair p { font-size:15px; }
+  th,td { padding:11px 9px; }
+  table { font-size:14px; }
+  .formula { font-size:22px; }
+  .chapter { padding:28px 0; }
+  .chapter-meta { font-size:12px; }
+}
+@media print {
+  @page { size:A4; margin:17mm; }
+  body { background:white; font-size:10.5pt; line-height:1.5; }
+  main { margin:0; padding:0; max-width:none; }
+  h1 { font-size:30pt; }
+  h2 { font-size:19pt; break-after:avoid; }
+  .number { font-size:34pt; }
+  .number-label { font-size:14pt; }
+  .chapter { padding:20px 0; }
+  .chapter-meta { font-size:9pt; }
+  .finding,.pair,table,details,.disclosure { break-inside:avoid; }
+  .video-map,.backtop { display:none; }
+  details:not([open]) { display:none; }
+  table { font-size:10pt; }
+  th { font-size:9pt; }
+  a { color:inherit; text-decoration:none; }
+  footer { font-size:9pt; }
+}
+</style>
+</head>
+<body>
+<main id="top">
+<header>
+  <p class="eyebrow">DBA5102 · Option 2</p>
+  <h1>Jasper Vault PP pricing</h1>
+  <p class="subtitle">V3.2 combined framework<br>A report for the submission video</p>
+  <div class="overview"><p><strong>Our proposal:</strong> combine contract duration, BTC market conditions, news NLP and social sentiment to estimate payout risk, then make a small, controlled adjustment to a compatible PP reference price.</p></div>
+  <p><strong>Main finding.</strong> The combined framework improves modelled July gross margin by <strong>16.61%</strong> under an assumed customer response. It limits price adjustments to approximately <strong>±1.29%</strong> and produces <strong>4,148 blind validation recommendations</strong>. Validation profitability awaits Jasper’s withheld outcomes.</p>
+  <p class="meta">10-minute video · 11 topics · All six assignment criteria<br>Findings correspond to the completed V3.2 experiment and submission slide deck.</p>
+</header>
+
+<nav class="video-map" aria-label="Assignment criteria">
+  <p>Jump to a submission criterion. Each topic below includes a suggested speaking script.</p>
+  <div class="links">
+    <a href="#profitability">Profitability</a><a href="#factors">Pricing factors</a><a href="#market">Market and moneyness</a><a href="#commercial">Commercial pricing</a><a href="#validation">Unseen data</a><a href="#practical">Practical use</a>
+  </div>
+</nav>
+
+<section class="chapter" id="problem">
+  <div class="chapter-meta"><span>01 · The problem</span><span class="time">00:00–00:30</span></div>
+  <h2>Pricing protection while keeping it attractive</h2>
+  <p>Perpetual Protect gives traders short-duration protection on their positions. Customers pay a premium upfront, and Jasper pays eligible claims. A useful pricing model must balance expected claims with customers’ willingness to buy.</p>
+  <p class="statement"><strong>Our question:</strong> can structured market data and narrative information improve that balance?</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 30 seconds</summary><div class="script"><p>Our proposal is a combined pricing framework for Jasper Vault&#x27;s short-duration PP protection. A customer pays a premium and Jasper pays eligible claims. The challenge is to cover that risk while keeping the price attractive enough to buy. We combine duration, BTC market conditions, news and social sentiment, then limit the final adjustment. We will explain the model and evaluate it against all six assignment requirements.</p></div></details>
+</section>
+
+<section class="chapter" id="model">
+  <div class="chapter-meta"><span>02 · Proposed solution</span><span class="time">00:30–01:30</span></div>
+  <h2>Four information layers, one bounded price</h2>
+  <p class="formula">PP quote = compatible reference premium × pricing multiplier</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Layer</th><th scope="col">What it contributes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Duration</strong></td><td>A starting estimate of claims relative to premiums.</td></tr>
+      <tr><td><strong>Market conditions</strong></td><td>Recent volatility, momentum, time and option direction.</td></tr>
+      <tr><td><strong>News NLP</strong></td><td>Recent headline activity and text patterns.</td></tr>
+      <tr><td><strong>Social sentiment</strong></td><td>BTC discussion activity, sentiment and data availability.</td></tr>
+    </tbody>
+  </table></div>
+  <p>A regularized statistical regression estimates expected payouts. News text becomes numerical features through TF-IDF and three SVD components. The social provider supplies sentiment scores. A separate pricing rule shrinks the risk adjustment towards the reference price and applies the price limit.</p>
+  <p class="disclosure">The model uses a reference compatible with recorded PP premiums. Jasper must confirm how this maps to its official base price before scoring a multiplier.</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 60 seconds</summary><div class="script"><p>Think of this as a small adjustment to a compatible existing PP quote. First, duration sets a starting estimate of claims relative to premiums. The model then checks market conditions, recent headlines and available social sentiment. These inputs alter the estimated payout risk. Finally, a separate pricing rule converts the risk score into a small increase or discount. The technical model is a regularized regression for expected payouts, with a log link and a fixed starting estimate. News text becomes numeric features through TF-IDF and three SVD components. The social dataset already supplies its sentiment scores. We do not ask a language model to set a price. One important implementation detail is that our reference must match the recorded-premium definition used for calibration. Jasper must confirm that mapping before official base-price scoring.</p></div></details>
+</section>
+
+<section class="chapter" id="data">
+  <div class="chapter-meta"><span>03 · Data and approach</span><span class="time">01:30–02:30</span></div>
+  <h2>News and sentiment on the assignment timeline</h2>
+  <div class="pair">
+    <div><div class="number">153</div><p><strong>Timestamped news records</strong><br>65 added for August to October.</p></div>
+    <div><div class="number">351</div><p><strong>BTC social snapshots</strong><br>103 added from 11 weekly files.</p></div>
+  </div>
+  <p>We reviewed the assignment requirements and data definitions, built features using information available before each quote, then compared the model’s components on identical rows.</p>
+  <p><strong>The coefficients and news vocabulary remain frozen at 1 July 2026.</strong> The extension supplies new inputs without refitting the model on validation outcomes. The blind dataset covers 4,155 orders from 31 July to 14 October.</p>
+  <p class="small">News and social are research samples, not continuous feeds. Social snapshots aggregate posts and are not 351 individual tweets. Historical availability uses conservative time proxies rather than verified receipt logs.</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 60 seconds</summary><div class="script"><p>We started with the assignment data, dictionary and class notes, then added external information on the same timeline. The collection now contains 153 news records and 351 BTC social snapshots. The extension adds 65 headlines and 103 BTC observations from eleven weekly social files. Headlines cover crypto markets and relevant macro, regulatory and security events. The social provider aggregates X or Twitter discussion and supplies sentiment scores. These are snapshots, not individual tweets. We kept the July-first coefficients and text vocabulary frozen, so the new months change inputs rather than retrain the model. We join only information available before each quote, using conservative historical availability proxies. The dataset demonstrates integration, but the news sample and weekly social feed do not provide continuous coverage.</p></div></details>
+</section>
+
+<section class="chapter" id="profitability">
+  <div class="chapter-meta"><span>04 · Criterion 1</span><span class="time">02:30–03:45</span></div>
+  <h2>Improve profitability</h2>
+  <div class="finding"><div class="number">+16.61%</div><p class="number-label">July scenario gross-margin improvement</p></div>
+  <div class="table-wrap"><table>
+    <caption>2,625 eligible July orders, with assumed price elasticity of 4.</caption>
+    <thead><tr><th scope="col">Pricing approach</th><th class="num" scope="col">Gross margin, USDC</th></tr></thead>
+    <tbody>
+      <tr><td>Recorded-premium reference</td><td class="num">4,042.04</td></tr>
+      <tr class="selected"><td>Combined V3.2 framework</td><td class="num">4,713.57</td></tr>
+      <tr><td><strong>Improvement</strong></td><td class="num"><strong>+671.53</strong></td></tr>
+    </tbody>
+  </table></div>
+  <p>The scenario allows purchases to decline when prices rise. It gives average assumed retention of <strong>97.95%</strong>. The result supports further evaluation of the pricing approach.</p>
+  <p class="disclosure">This is a July retrospective scenario, before fees, hedging and capital costs. Customer reactions were not observed. The worst creation-day margin remains <strong>−4,798.38 USDC</strong>, so stable daily returns are not established.</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 75 seconds</summary><div class="script"><p>For the profitability requirement, the main result is a 671.53 USDC increase in the July scenario, or 16.61 percent relative to recorded premiums. On 2,625 eligible orders, modelled gross margin rises from 4,042.04 to 4,713.57 USDC. The calculation applies the proposed quote to each historical payout and assumes customers become less likely to buy when prices increase. We use the pre-specified elasticity-four scenario, which gives average assumed retention of 97.95 percent. This is encouraging evidence for the pricing experiment. Its meaning is limited to that scenario: we did not observe customers responding to these prices, and the calculation excludes fees, hedging and capital costs. July also appeared in earlier project iterations, so it is a retrospective check. The worst day still loses about 4,798 USDC. We therefore cannot claim stable daily profitability or verified superiority to Jasper&#x27;s internal base model.</p></div></details>
+</section>
+
+<section class="chapter" id="factors">
+  <div class="chapter-meta"><span>05 · Criterion 2</span><span class="time">03:45–04:45</span></div>
+  <h2>Identify meaningful pricing factors</h2>
+  <div class="finding"><div class="number">814</div><p class="number-label">Validation quote multipliers change after extending the data</p></div>
+  <p>Duration defines the exposure window. Volatility and momentum describe recent market behaviour. Option direction identifies the relevant price risk. News measures headline activity and text patterns, while social features capture discussion and sentiment.</p>
+  <p>The extended data changes decisions with the model held fixed. This demonstrates responsiveness. It does not, by itself, prove that every feature improves prediction.</p>
+  <details><summary>What did the added layers contribute?</summary>
+    <div class="table-wrap"><table>
+      <caption>Same July orders and elasticity-4 scenario.</caption>
+      <thead><tr><th scope="col">Component</th><th class="num" scope="col">Gross margin, USDC</th></tr></thead>
+      <tbody><tr><td>Duration</td><td class="num">4,542.88</td></tr><tr><td>Market and news</td><td class="num">4,710.86</td></tr><tr><td>Plus social activity</td><td class="num">4,713.35</td></tr><tr class="selected"><td>Combined sentiment experiment</td><td class="num">4,713.57</td></tr></tbody>
+    </table></div>
+    <p class="small">The combined social layer adds about 2.71 USDC over market and news in this scenario. The small increment does not establish an economically meaningful improvement. We present sentiment as an experiment in additional information.</p>
+  </details>
+  <details class="speaking-notes"><summary>Suggested speaking script · 60 seconds</summary><div class="script"><p>The model uses factors with a clear connection to the pricing problem. Duration changes the exposure window. Market volatility and momentum describe recent price behaviour. Direction tells the model which kind of move matters. News features measure recent activity and patterns in headline text, while social features capture discussion intensity, sentiment and whether a score is available. When we add the extended collection, 814 validation quote multipliers change with the coefficients held fixed. This shows that the information enters the model and affects its decisions. It does not prove that every factor predicts claims reliably. The saved coefficients and component comparisons let us inspect the learned associations. We treat the news and sentiment layer as an experiment in incremental information, and leave predictive significance to further outcome testing.</p></div></details>
+</section>
+
+<section class="chapter" id="market">
+  <div class="chapter-meta"><span>06 · Criterion 3</span><span class="time">04:45–05:35</span></div>
+  <h2>Account for market conditions and moneyness</h2>
+  <div class="finding"><div class="number">100% ATM</div><p class="number-label">The assignment’s stated contract scope</p></div>
+  <p>The class notes specify at-the-money contracts, with <strong>0% deductible and 100% coverage</strong>. At the money means the strike matches the contract’s entry reference price.</p>
+  <p>Within this scope, the model allows risk to vary with volatility, momentum, time, direction and the seven protection durations from <strong>0.5 to 24 hours</strong>. It uses completed candles and past information.</p>
+  <p class="disclosure">The assignment data does not establish performance across different strike distances. An OTM extension requires verified moneyness and relevant contracts.</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 50 seconds</summary><div class="script"><p>The assignment asks us to account for market conditions and moneyness. The class notes are important here: all assignment contracts are at the money, with zero deductible and full coverage. At the money means the strike equals the contract&#x27;s entry reference price. So we should not invent a comparison between at-the-money and out-of-the-money products from differences against an external exchange candle. Within this ATM scope, risk still changes with volatility, momentum, time, option direction and duration. The seven durations range from half an hour to twenty-four hours. We use completed market candles and past information only. Testing other strike distances would require contracts with verified moneyness and outcomes.</p></div></details>
+</section>
+
+<section class="chapter" id="commercial">
+  <div class="chapter-meta"><span>07 · Criterion 4</span><span class="time">05:35–06:35</span></div>
+  <h2>Maintain commercially reasonable pricing</h2>
+  <div class="finding"><div class="number">±1.29%</div><p class="number-label">Maximum adjustment around a compatible reference premium</p></div>
+  <p>The final multiplier lies between approximately <strong>0.9871 and 1.0129</strong>. Under the assumed elasticity-4 response, the upper bound implies at least 95% retention per quote.</p>
+  <div class="table-wrap"><table>
+    <caption>Same 474 validation rows with market support and conditional reference prices.</caption>
+    <thead><tr><th scope="col">Commercial check</th><th class="num" scope="col">Combined result</th></tr></thead>
+    <tbody><tr><td>Quotes receiving a discount</td><td class="num">44.09%</td></tr><tr><td>Change in total quoted premiums</td><td class="num">+0.291%</td></tr><tr><td>Mean assumed retention</td><td class="num">98.22%</td></tr></tbody>
+  </table></div>
+  <p>The model makes selective increases and discounts. Total quoted premiums move from <strong>31,903.79 to 31,996.58 USDC</strong> on this subset.</p>
+  <p class="disclosure">These are quoted prices, not earned revenue or realised profit. Retention is a scenario assumption, not a measured customer response or Jasper’s confirmed scoring rule.</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 60 seconds</summary><div class="script"><p>Commercial pricing is controlled through a strict limit. The final multiplier lies between about 0.9871 and 1.0129, so the largest increase or discount is about 1.29 percent. Under the assumed elasticity-four customer response, the upper limit corresponds to at least 95 percent retention per quote. That is a modelling assumption, not a customer guarantee. On the same 474 validation rows with market coverage and conditionally reconstructed reference prices, 44.09 percent of quotes receive a discount. The total quoted premium rises only 0.291 percent, from about 31,903.79 to 31,996.58 USDC. These numbers show that the proposal makes selective, bounded changes rather than simply raising every price. They describe quoted prices. Actual revenue and profit still depend on purchases and subsequent claims.</p></div></details>
+</section>
+
+<section class="chapter" id="validation">
+  <div class="chapter-meta"><span>08 · Criterion 5</span><span class="time">06:35–07:55</span></div>
+  <h2>Evaluate performance on unseen data</h2>
+  <div class="finding"><div class="number">4,148</div><p class="number-label">Relative pricing recommendations from 4,155 validation rows</p></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Available model components</th><th class="num" scope="col">Orders</th></tr></thead>
+    <tbody><tr><td>Market and news with the social layer</td><td class="num">374</td></tr><tr><td>Market and news without fresh social data</td><td class="num">1,519</td></tr><tr><td>Duration fallback</td><td class="num">2,255</td></tr><tr><td>Flagged timing inconsistencies, no recommendation</td><td class="num">7</td></tr><tr class="selected"><td>Total validation rows retained</td><td class="num">4,155</td></tr></tbody>
+  </table></div>
+  <p><strong>No actual payouts are disclosed.</strong> We can assess timing, coverage and price limits, while validation accuracy and profitability await Jasper’s scoring. Conditional absolute quotes are available for 544 rows.</p>
+  <p>The supplied market candles end on <strong>24 August</strong>, which prevents the expanded market model from operating on September and October orders. The duration fallback keeps those limitations explicit.</p>
+  <p class="disclosure">July also identifies a calibration issue: combined predicted payouts exceed actual payouts by <strong>27.47%</strong>. Its payout RMSE is <strong>141.19 USDC</strong>. Better unseen prediction remains an open test.</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 80 seconds</summary><div class="script"><p>The frozen model produces 4,148 relative pricing recommendations for the 4,155 validation orders and flags seven contract-duration or timing inconsistencies. The coverage chart is essential to interpreting that number. We can apply the social layer to 374 rows, use the market-and-news component without fresh social data on 1,519, and fall back to duration on 2,255. The supplied candles stop on August twenty-fourth, so the September and October rows lack the market data needed for the expanded model. The validation export withholds both actual payouts and recorded premiums. Consequently, we can check timing, coverage and price bounds, but cannot compute validation profitability or forecast accuracy. The July retrospective also reveals a calibration issue: the combined model predicts total payouts 27.47 percent above actuals. We retain that finding and all component diagnostics. Our submission supplies auditable blind recommendations, while the claim of better unseen performance remains an open test for Jasper&#x27;s scoring.</p></div></details>
+</section>
+
+<section class="chapter" id="practical">
+  <div class="chapter-meta"><span>09 · Criterion 6</span><span class="time">07:55–08:55</span></div>
+  <h2>Use the framework for a future PP quote</h2>
+  <div class="finding"><div class="number">0 LLM calls</div><p class="number-label">Needed in the pricing calculation</p></div>
+  <ol>
+    <li><strong>Collect current information.</strong> Record completed market candles, headlines and social observations, including their arrival times.</li>
+    <li><strong>Check availability.</strong> Use only information available before the quote and within the freshness limits.</li>
+    <li><strong>Calculate the quote.</strong> Apply saved model parameters and the price limit. Use explicit fallbacks when inputs are missing.</li>
+    <li><strong>Measure the outcome.</strong> Record the offered price, the purchase decision and any payout.</li>
+  </ol>
+  <p class="small">Real-world evaluation needs continuous feeds, a confirmed reference price and actual conversion data. It must also assess hedging, fees, capital and tail losses. The weekly public social sample demonstrates integration.</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 60 seconds</summary><div class="script"><p>For tomorrow&#x27;s quote, the system first collects current completed candles, headlines and social observations, recording when each actually arrives. At quote time it uses only fresh information that was already available. Saved coefficients calculate the expected-risk adjustment and the pricing rule applies the cap. If social data is missing, that layer becomes neutral. If market inputs are missing or stale, the system uses the duration fallback. Invalid contract timing causes an abstention. The system can then log the offered price, the customer&#x27;s decision and any payout, which are needed for a meaningful commercial evaluation. There is no LLM call in the pricing path. The current public weekly social sample is suitable for demonstration, while live use needs a timely feed, verified reference-price semantics and an evaluation that includes fees, hedging, capital and tail risk.</p></div></details>
+</section>
+
+<section class="chapter" id="example">
+  <div class="chapter-meta"><span>10 · Worked example</span><span class="time">08:55–09:40</span></div>
+  <h2>A 30-minute put from the validation data</h2>
+  <div class="finding"><div class="number">0.9972×</div><p class="number-label">Final multiplier, approximately a 0.28% discount</p></div>
+  <p>The order was created on <strong>2 August 2026 at 12:13 UTC</strong>. The available inputs include one recent headline and a social snapshot summarising 35 posts.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Inputs included</th><th class="num" scope="col">Multiplier</th></tr></thead>
+    <tbody><tr><td>Duration</td><td class="num">0.9871</td></tr><tr><td>Market and news</td><td class="num">1.0009</td></tr><tr><td>Plus social activity</td><td class="num">0.9979</td></tr><tr class="selected"><td>Combined sentiment</td><td class="num">0.9972</td></tr></tbody>
+  </table></div>
+  <p>These are successive component outputs, rather than separate markups to multiply together. The reference premium is missing on this row, so the result stays a multiplier and no absolute USDC quote is invented.</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 45 seconds</summary><div class="script"><p>This real validation example shows how the pieces work together. The contract is a thirty-minute put quoted on August second at 12:13 UTC. Before the quote, the data includes one recent headline and a social snapshot summarising thirty-five posts. The duration component gives a multiplier of about 0.9871. Market and news bring it near one. Adding social activity and sentiment gives the final multiplier of 0.9972, or roughly a 0.28 percent discount. These are sequential component outputs, not four independent markups. The row does not disclose its compatible reference premium, so we retain the multiplier and do not invent an absolute USDC price.</p></div></details>
+</section>
+
+<section class="chapter" id="submission">
+  <div class="chapter-meta"><span>11 · Submission and conclusion</span><span class="time">09:40–10:00</span></div>
+  <h2>The combined framework is our submission experiment</h2>
+  <p class="closing">We combine market and narrative information to estimate PP risk, make bounded price adjustments, and test where those inputs can be used.</p>
+  <p>The July scenario provides encouraging margin evidence. The blind run produces auditable recommendations and exposes the limits of data coverage. Jasper’s withheld scoring, confirmed base-price mapping and complete market data are the next steps in evaluating the proposal.</p>
+  <details class="speaking-notes"><summary>Suggested speaking script · 20 seconds</summary><div class="script"><p>We submit V3.2 as the combined pricing experiment, supported by reproducible code, input data and row-level recommendations. It demonstrates bounded pricing and an auditable way to use market and narrative information. The next decisive step is Jasper&#x27;s withheld scoring after confirming the base-price mapping.</p></div></details>
+</section>
+
+<footer id="sources">
+  <h2>Evidence behind the video</h2>
+  <ol>
+    <li><strong>Requirements and product scope:</strong> Blockchain Group Assignment, Jasper Vault Options Pricing Optimisation, and the class notes dated 10 September 2026.</li>
+    <li><strong>Model findings:</strong> the saved V3.2 July commercial scenarios, component comparisons, validation coverage, payout diagnostics and worked-example outputs. All figures above describe that completed experiment.</li>
+    <li><strong>News:</strong> timestamped headline records with retained source URLs and publication/update clocks. The extension includes dated CoinDesk articles and is a research sample.</li>
+    <li><strong>Social:</strong> <a href="https://github.com/SiCkGFX/instrumetriq-public">Instrumetriq public samples</a>, <a href="https://doi.org/10.5281/zenodo.18508636">DOI 10.5281/zenodo.18508636</a>, under CC BY 4.0. The provider supplies the sentiment scores.</li>
+  </ol>
+  <p>The main findings use two distinct populations: 2,625 historical July orders for the margin scenario, and 4,155 blind validation orders for coverage and recommendations. The 474-row price comparison is a subset of validation. These results should not be combined into a single performance score.</p>
+  <p class="backtop"><a href="#top">Back to the beginning</a></p>
+</footer>
+</main>
+</body>
+</html>

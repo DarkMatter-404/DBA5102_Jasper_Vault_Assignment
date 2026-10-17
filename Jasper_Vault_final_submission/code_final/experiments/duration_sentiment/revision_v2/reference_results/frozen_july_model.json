@@ -1,0 +1,43 @@
+{
+  "schema": "jasper-pp-duration-credibility-v2",
+  "reference_kind": "recorded_premium_proxy",
+  "model_status": "research_candidate_not_approved_for_live_deployment",
+  "pooled_payout_to_premium": 0.9170461005832304,
+  "prior_order_equivalents": 200.0,
+  "prior_premium_exposure_USDC": 5699.890783035175,
+  "tenor_ratios": {
+    "1800": 0.645535704935079,
+    "3600": 1.0045532235793506,
+    "7200": 0.8992621123416298,
+    "14400": 1.0544168425188893,
+    "28800": 1.207799308427621,
+    "43200": 0.9170461005832304,
+    "86400": 0.8740621891754851
+  },
+  "training_rows": 4975,
+  "cutoff_utc": "2026-07-01 00:00:00+00:00",
+  "latest_training_creation": "2026-06-30 23:06:27+00:00",
+  "latest_training_settlement": "2026-06-30 23:20:06+00:00",
+  "feature_clock": "createdAt",
+  "max_timestamp_gap_seconds": 120,
+  "pricing": {
+    "raw_lower": 0.85,
+    "raw_upper": 1.15,
+    "assumed_max_elasticity": 4.0,
+    "assumed_min_retention": 0.95,
+    "weight": 0.08603929986640063,
+    "train_normalizer": 1.0101932060335697,
+    "minimum_multiplier": 0.9870941050200399,
+    "maximum_multiplier": 1.01290589497996
+  },
+  "assumptions": [
+    "Reference must be an observable current quote at inference; historical paid premium is a proxy.",
+    "q(m,e)=min(1,m^-e), 0<=e<=emax, is assumed, not identified from accepted orders.",
+    "Discounts introduce no new customers in the conservative scenario.",
+    "Conditional payouts and behavior are held fixed; adverse selection is unmeasured.",
+    "Caps and retention floor are proposed design choices, not Jasper scoring rules.",
+    "Training premium neutrality does not imply future premium neutrality.",
+    "No funding, fees, hedges, inventory, capital or operating costs are included.",
+    "July was previously inspected; results are retrospective research evidence."
+  ]
+}

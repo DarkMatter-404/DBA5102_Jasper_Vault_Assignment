@@ -1,0 +1,6 @@
+,placebo (mean of 200),F1,label
+"central gain vs R0, with floor",10434.028548724606,8257.542902647347,"post-hoc diagnostic, not part of the selection rule"
+"central gain vs R0, without floor",-5926.748448407626,3756.292406822915,"post-hoc diagnostic, not part of the selection rule"
+total quote / R0 total,1.0584796745106848,0.9917353963541216,"post-hoc diagnostic, not part of the selection rule"
+share of orders raised by the floor,0.3468160741885626,0.1542503863987635,"post-hoc diagnostic, not part of the selection rule"
+Gini (May+June pooled),0.2023117306151598,0.24215148828698074,"post-hoc diagnostic, not part of the selection rule"

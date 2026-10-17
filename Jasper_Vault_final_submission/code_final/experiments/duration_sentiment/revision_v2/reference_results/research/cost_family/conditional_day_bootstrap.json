@@ -1,0 +1,34 @@
+[
+  {
+    "model": "tenor200",
+    "RMSE_diff": 0.7496124009892924,
+    "conditional_day_bootstrap_95pct": [
+      -1.547292142037294,
+      4.017595693303428
+    ]
+  },
+  {
+    "model": "tenor500",
+    "RMSE_diff": 0.2300658475586772,
+    "conditional_day_bootstrap_95pct": [
+      -1.38301814249959,
+      2.6162216820949995
+    ]
+  },
+  {
+    "model": "recency60",
+    "RMSE_diff": -0.04216369813622123,
+    "conditional_day_bootstrap_95pct": [
+      -0.23407528429870084,
+      0.2288433956338495
+    ]
+  },
+  {
+    "model": "state_no_side_ridge100",
+    "RMSE_diff": -0.013262329935201933,
+    "conditional_day_bootstrap_95pct": [
+      -0.7758834377468652,
+      0.8987744411594543
+    ]
+  }
+]
