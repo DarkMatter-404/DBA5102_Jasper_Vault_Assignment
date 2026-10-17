@@ -1,0 +1,8 @@
+setup,deviance better (months),profit better (months),deviance better (pooled),profit better (pooled),passes,profit_moderate
+hybrid_events,2,3,True,True,True,34123.54090379483
+hybrid_events_fear_greed,1,2,False,True,False,33812.982326351106
+hybrid_fear_greed,1,1,False,False,False,32414.818683423797
+hybrid_market,0,1,False,False,False,32309.703890910994
+hybrid_size_capped,2,2,False,False,False,31488.20083516424
+hybrid_all_gbm,1,0,False,False,False,28980.693931626018
+hybrid_all_glm,1,1,False,False,False,24111.00874793394

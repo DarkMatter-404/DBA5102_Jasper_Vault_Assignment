@@ -1,0 +1,51 @@
+{
+  "anchor": "anchor_bps",
+  "feature_set": "state",
+  "features": [
+    "log_tenor",
+    "put",
+    "log_vol_ratio",
+    "signed_momentum_60"
+  ],
+  "alpha": 0.1,
+  "center": [
+    -0.19351215475596764,
+    0.46565589980224126,
+    -0.006453477017555999,
+    0.16734626873430125
+  ],
+  "scale": [
+    1.1490233842590476,
+    0.4988190882289954,
+    0.4163693245387786,
+    1.017427427898446
+  ],
+  "beta": [
+    0.12363612896803333,
+    -0.007722907951586559,
+    0.09375679867836355,
+    -0.14266855941027232,
+    -0.043539581395757886
+  ],
+  "train_rows": 7585,
+  "fit_last_createdAt": "2026-07-31 16:40:50+00:00",
+  "fit_last_closedAt": "2026-07-31 17:10:27+00:00",
+  "optimizer_success": true,
+  "selected_name": "anchor_bps_state_ridge0.1",
+  "selected_by": "June notional-weighted quasi-Poisson deviance, candidate set fixed before July evaluation",
+  "pricing": {
+    "eta": 0.5,
+    "lower": 0.85,
+    "upper": 1.15,
+    "normalizer": 1.0220550767959085,
+    "training_claims_to_recorded_premium": 0.9347455392984318,
+    "calibration_rows": 7585,
+    "premium_neutral_on": "fit sample only",
+    "description": "Paid-price proxy. Caps and eta are design assumptions, not estimated demand constraints."
+  },
+  "analysis_cutoff": "2026-07-31T17:11:48Z",
+  "max_timestamp_gap_seconds": 120,
+  "feature_clock": "createdAt",
+  "overlay_weight": 0.0,
+  "gate_reason": "July selected challenger underperforms calibrated recorded-price cost benchmark and worsens gross-margin retention scenarios. No demonstrated improvement."
+}

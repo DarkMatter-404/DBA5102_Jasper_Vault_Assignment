@@ -1,0 +1,21 @@
+{
+  "candidates": [
+    "baseline",
+    "recency60",
+    "tenor200",
+    "tenor500",
+    "state_no_side_ridge10",
+    "state_no_side_ridge100",
+    "state_no_side_ridge10_blend25"
+  ],
+  "training": "Expanding prior orders with createdAt AND closedAt before each monthly cutoff.",
+  "development": [
+    "2026-04",
+    "2026-05",
+    "2026-06"
+  ],
+  "validation_labels": "Only within-month orders settled before the following monthly cutoff.",
+  "selection": "Lowest equal-month mean weighted-Poisson-deviance ratio to baseline, among models with worst-fold deviance ratio <=1.10 and average RMSE ratio <=1; ties use baseline.",
+  "July": "Retrospective sensitivity only. This period was examined during previous work; no untouched holdout remains.",
+  "pricing": "Cost estimates are not prices. A cost prediction win alone does not establish commercial improvement."
+}

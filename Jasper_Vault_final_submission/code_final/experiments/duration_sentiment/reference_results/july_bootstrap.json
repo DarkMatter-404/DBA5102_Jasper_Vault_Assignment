@@ -1,0 +1,15 @@
+{
+  "method": "2000 paired UTC-day resamples, seed 271828; conditional on fitted model; 31 days, not independent trades",
+  "RMSE_difference_champion_minus_calibrated_recorded_95pct": [
+    2.780415977148691,
+    16.20987133325763
+  ],
+  "MAE_difference_champion_minus_calibrated_recorded_95pct": [
+    -1.0737993891702784,
+    4.5843352050824935
+  ],
+  "champion_calibration_ratio_95pct": [
+    0.6715562971206781,
+    1.0460122322221657
+  ]
+}

@@ -1,0 +1,6 @@
+# Restored inputs of the LLM study: keep them byte for byte (their SHA-256 values are in its SHA256SUMS.txt).
+experiments/llm_event_research/data/raw/** -text
+# Shell scripts need LF line endings, also in a Windows checkout.
+*.sh text eol=lf
+# Evidence read by main: keep it byte for byte, so that summary.json records the hash of the committed bytes.
+main/evidence/** -text

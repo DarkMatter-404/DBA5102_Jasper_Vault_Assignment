@@ -1,0 +1,31 @@
+{
+  "days": 31,
+  "bootstrap_samples": 2000,
+  "confidence_level": 0.9,
+  "method": "paired UTC-day bootstrap; overlapping multi-day shocks can reduce effective sample size",
+  "crps_delta": {
+    "estimate": -0.010506447960447198,
+    "low90": -0.03380077591637824,
+    "high90": 0.0028298338595872025
+  },
+  "brier_delta": {
+    "estimate": -5.7668406583166004e-05,
+    "low90": -0.00021450840124514705,
+    "high90": 4.69878337616525e-05
+  },
+  "profit_delta_e0": {
+    "estimate": 37.64105552068397,
+    "low90": -44.48315011419644,
+    "high90": 166.1017833804184
+  },
+  "profit_delta_e2": {
+    "estimate": 58.21277369704713,
+    "low90": -20.923410089747065,
+    "high90": 194.20217868434372
+  },
+  "profit_delta_e4": {
+    "estimate": 57.49794034915989,
+    "low90": -16.389492350838353,
+    "high90": 177.58977194773826
+  }
+}

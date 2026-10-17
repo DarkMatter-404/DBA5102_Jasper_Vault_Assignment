@@ -1,0 +1,8 @@
+{
+  "html_parsed": true,
+  "internal_links_resolve": true,
+  "external_dependencies": false,
+  "code_listings": false,
+  "visual_browser_render_performed": false,
+  "reason": "Headless browser binary unavailable; HTML structure and data checked."
+}

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "no_refitting": true,
+  "rows_preserved": true,
+  "future_outcomes_ignored": true,
+  "past_only_features": true,
+  "stale_social_neutral_increment": true,
+  "missing_market_explicit_fallback": true,
+  "price_limits_hold": true,
+  "relative_algebra_matches_original": true,
+  "inputs_and_models_unchanged": true
+}

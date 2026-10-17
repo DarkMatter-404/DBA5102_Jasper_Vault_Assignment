@@ -1,0 +1,3 @@
+sample,reference,orders,gini_on_payout,gini_on_hedged_cost,payout_total,hedged_cost_total,premium_total
+"training, Feb to Jul, model price",premiumAmount_USDC,7150,0.1884950384042043,0.1189811593528968,230652.05301477155,226823.5414612154,293531.2389583394
+"training, Feb to Jul, model price",base_premium_USDC,6019,0.14867832465386518,0.08926922933071677,195500.9869942263,185376.6413331598,240809.90597808015

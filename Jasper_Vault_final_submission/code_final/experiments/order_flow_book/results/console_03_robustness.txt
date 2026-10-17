@@ -1,0 +1,72 @@
+=== A. realised vs European counterfactual, by class
+            n       prem    LR  LR_european  pay/fair  european/fair  early_share  forfeit_share
+cls                                                                                             
+reduces  1018 68,035.763 1.261        1.197     1.368          1.298        0.678          0.111
+neutral  1739 84,110.680 1.178        1.244     1.244          1.313        0.695          0.099
+adds     1286 73,284.583 0.696        0.782     0.803          0.902        0.681          0.053
+
+=== B1. by size tier x class: pay/fair (premium-weighted)
+cls            reduces  neutral  adds
+size_b                               
+(0.0, 0.002]     0.290    0.500 0.620
+(0.002, 0.01]    0.670    1.430 0.800
+(0.01, 0.05]     0.800    1.070 0.780
+(0.05, 0.2]      0.950    1.260 1.000
+(0.2, 0.5]       1.140    0.970 0.910
+(0.5, 1.0]       1.630    0.990 0.790
+(1.0, 10.0]      1.190    2.200 0.610
+premium:
+cls              reduces    neutral       adds
+size_b                                        
+(0.0, 0.002]      43.000     55.000     21.000
+(0.002, 0.01]    376.000  1,060.000    365.000
+(0.01, 0.05]     673.000  1,403.000    964.000
+(0.05, 0.2]    2,904.000  5,982.000  4,689.000
+(0.2, 0.5]    10,269.000 16,580.000 15,433.000
+(0.5, 1.0]    30,242.000 40,671.000 40,668.000
+(1.0, 10.0]   23,530.000 18,360.000 11,146.000
+
+=== B2. equal-weighted per-order ratio pay/fair (median and mean, per class)
+         median  mean  share_paid
+cls                              
+reduces   0.000 1.045       0.463
+neutral   0.000 1.030       0.459
+adds      0.000 0.840       0.442
+
+=== B3. drop the single largest day by premium in each month: pay/fair by class
+            n       prem  pay/fair  european/fair
+cls                                              
+reduces   956 62,103.748     1.349          1.312
+neutral  1655 79,793.930     1.230          1.294
+adds     1154 61,265.303     0.829          0.892
+
+=== C1. how the book forms: book imbalance vs past 24h return (call-heavy after rises?)
+             n  mean_imb  call_share_of_new_orders
+r24_b                                             
+<-2%       998    -0.102                     0.588
+-2..-0.5   998    -0.024                     0.531
+-0.5..0.5  672     0.000                     0.561
+0.5..2     820     0.191                     0.584
+>2%        555     0.264                     0.573
+
+=== C2. forward return to expiry (bp, mean) by book imbalance bucket: does the crowd get the direction right?
+               n  mean_fwd_bp  median_fwd_bp  share_up
+imb_b                                                 
+put-heavy    383        0.490          4.480     0.540
+put-lean     611      -12.340         -2.870     0.480
+balanced    1739       -4.160         -1.110     0.490
+call-lean    810      -11.540         -4.150     0.460
+call-heavy   500      -20.720        -11.420     0.390
+(call-heavy book = many shorts protected; if the crowd were right BTC would rise, mean_fwd_bp > 0)
+
+=== C3. the contrarian orders: who are they? size and product mix of "reduces" vs "adds"
+size_b   (0.0, 0.002]  (0.002, 0.01]  (0.01, 0.05]  (0.05, 0.2]  (0.2, 0.5]  (0.5, 1.0]  (1.0, 10.0]
+cls                                                                                                 
+reduces         0.000          0.010         0.010        0.040       0.150       0.440        0.350
+neutral         0.000          0.010         0.020        0.070       0.200       0.480        0.220
+adds            0.000          0.000         0.010        0.060       0.210       0.550        0.150
+productType  1800   3600   7200   14400  28800  43200  86400
+cls                                                         
+reduces      0.090  0.080  0.180  0.360  0.290  0.000  0.000
+neutral      0.140  0.140  0.190  0.350  0.170  0.000  0.000
+adds         0.320  0.220  0.220  0.140  0.090  0.000  0.000

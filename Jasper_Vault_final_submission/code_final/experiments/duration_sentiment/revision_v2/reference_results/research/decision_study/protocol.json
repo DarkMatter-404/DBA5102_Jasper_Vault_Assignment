@@ -1,0 +1,26 @@
+{
+  "cost_model": "base_prior200, selected only on April-June cost deviance",
+  "target_loss_ratios": [
+    0.85,
+    0.9,
+    0.95
+  ],
+  "weights": [
+    0,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "full_adjustment_caps": [
+    0.9,
+    1.1
+  ],
+  "conversion_elasticities": [
+    0,
+    1,
+    2,
+    4
+  ],
+  "selection": "Max min-e April-June aggregate gross-margin gain, e=1,2,4; each-month e4 order retention>=95%; each-month aggregate quote premium increase<=2%; at least10% of development quotes discounted for nonzero policies. Ties choose zero then smaller weight.",
+  "disclosure": "All rules/design assumptions declared before this grid evaluation. July is retrospective already inspected. Homogeneous retention with unchanged conditional payouts is an assumption, not estimated demand."
+}

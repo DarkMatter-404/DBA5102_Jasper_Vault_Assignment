@@ -1,0 +1,3 @@
+# Keep data and the frozen recommendation file byte-for-byte (its SHA-256 is recorded in outputs/FROZEN.json).
+data/** -text
+outputs/** -text

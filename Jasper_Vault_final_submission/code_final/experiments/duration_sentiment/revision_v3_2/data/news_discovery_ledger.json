@@ -1,0 +1,620 @@
+[
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/19/bitcoin-stuck-in-a-six-week-range-as-global-bond-yields-hit-highest-levels-for-decades",
+    "query_batch": "search_1",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/18/bitcoin-weathers-september-storm-as-rate-hikes-and-clarity-act-setback-test-bulls",
+    "query_batch": "search_1",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/02/bitcoin-tops-usd86-000-ahead-of-u-s-jobs-report",
+    "query_batch": "search_1",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/25/bitcoin-tops-usd80-000-solana-jumps-8-but-rally-now-runs-into-overbought-warning",
+    "query_batch": "search_1",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/21/bitcoin-could-test-usd90-000-after-shorts-get-squeezed-but-traders-warn-leverage-is-building",
+    "query_batch": "search_1",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/10/one-year-after-10-10-bitcoin-and-ether-liquidity-have-rebuilt-but-other-altcoins-still-face-risks",
+    "query_batch": "search_1",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/13/bitcoin-slips-near-usd63-500-as-traders-look-past-cpi-to-fed-s-next-tests",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/07/bitcoin-stuck-near-usd64-000-as-clarity-act-vote-slips-to-september",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/09/bitcoin-steadies-near-usd82-500-after-trump-rules-out-iran-strike-before-midterms",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/28/bitcoin-holds-usd80-000-solana-leads-majors-higher-before-warsh-s-jackson-hole-debut",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/24/crypto-roars-back-as-bitcoin-posts-its-second-best-week-since-early-2021",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/20/ether-jumps-18-to-usd2-250-as-bitcoin-tops-usd69-000-in-broad-crypto-rally",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/07/cmt",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/07/live-updates-bitcoin-flat-at-usd64-300-before-us-jobs-report-with-oil-back-as-a-headwind",
+    "query_batch": "search_2",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/05/bitcoin-zooms-toward-usd87-000-nearly-setting-an-eight-month-high-then-reverses",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/09/ether-bets-were-wiped-out-at-six-times-bitcoin-s-rate-in-crypto-s-usd1-billion-flush",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/12/dogecoin-and-bnb-lead-majors-higher-as-bitcoin-slips-near-usd63-700",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/13/live-updates-bitcoin-whipsaws-between-usd81-000-and-usd84-000-as-altcoins-slide",
+    "query_batch": "search_2",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/20/bearish-crypto-bets-lose-record-usd2-7-billion-as-bitcoin-surges-toward-usd70-000",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/09/bitcoin-rebounds-to-usd82-000-as-trump-rules-out-iran-strikes",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/01/bitcoin-enters-rektember-as-rate-hike-risks-threaten-its-august-rally",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/08/bitcoin-slips-under-usd79-000-zcash-leads-losses-as-fed-hike-odds-hold-near-60",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/27/bitcoin-below-usd79-000-xrp-leads-losses-as-traders-start-betting-on-a-fed-hike",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/20/bitcoin-approaches-usd72-000-as-strategy-and-coinbase-continue-rally",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/19/bitcoin-is-flashing-8-of-12-capitulation-signals-but-its-not-a-bottom-yet",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/01/bitcoin-steady-above-usd78-000-hype-leads-as-majors-slip-on-hawkish-fed-bets",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/08/bitcoin-slips-to-usd78-800-as-bnb-and-defi-tokens-buck-the-selloff",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/09/bitcoin-recovers-toward-usd79-000-as-zcash-records-a-usd500-million-etf-haul",
+    "query_batch": "search_2",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/10/bitcoin-tops-usd65-000-with-us-inflation-data-due-this-week",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/10/live-updates-btc-above-usd65-000-even-as-the-senate-punts-the-clarity-act-to-the-fall",
+    "query_batch": "search_3",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/10/live-updates-btc-above-usd65-000-even-as-the-senate-punts-the-clarity-act-to-the-fall",
+    "query_batch": "search_3",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/25/live-updates-bitcoin-steadies-near-usd84-000-as-the-bond-selloff-pauses",
+    "query_batch": "search_3",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/25/live-updates-bitcoin-steadies-near-usd84-000-as-the-bond-selloff-pauses",
+    "query_batch": "search_3",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/15/bitcoin-traders-brace-for-fed-hike-but-a-surprise-hold-could-pose-bigger-risk",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/25/altcoins-rally-across-the-board-as-bitcoin-consolidates-near-usd84-000",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/14/bitcoin-climbs-to-usd78-000-as-crypto-sits-out-the-ai-selloff",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/14/bitcoin-bucks-tech-selloff-as-ai-safety-concerns-weigh-on-stocks",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/13/bitcoin-slips-near-usd63-500-as-traders-look-past-cpi-to-fed-s-next-tests",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/23/bitcoin-consolidates-near-usd86-000-as-rally-narrows-and-brent-slips-below-usd100",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/23/zcash-leads-crypto-majors-with-a-10-gain-as-bitcoin-holds-near-usd87-000",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/18/bitcoin-weathers-september-storm-as-rate-hikes-and-clarity-act-setback-test-bulls",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/11/bitcoin-below-usd77-000-zcash-leads-losses-as-traders-bet-on-a-fed-rate-hike",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/13/bitcoin-holds-steady-near-usd64-000-as-monero-hyperliquid-outperform",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/05/bitcoin-flat-at-usd64-000-as-stocks-print-records-and-hormuz-deal-nears",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/05/bitcoin-broader-market-fail-to-keep-pace-as-global-equities-hit-record-highs",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/07/live-updates-bitcoin-flat-at-usd64-300-before-us-jobs-report-with-oil-back-as-a-headwind",
+    "query_batch": "search_3",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/12/bitcoin-holds-near-usd64-000-as-u-s-inflation-data-looms-harmony-exploit-rattles-altcoins",
+    "query_batch": "search_3",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/04/bitcoin-back-above-usd81-000-as-hike-odds-fade-zcash-leads-with-15-jump",
+    "query_batch": "search_4",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/12/altcoins-rally-on-thin-trading-as-bitcoin-holds-near-usd84-000",
+    "query_batch": "search_4",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/04/bitcoin-clears-usd81-000-as-privacy-coins-lead-a-broad-crypto-rally",
+    "query_batch": "search_4",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/04/one-full-bitcoin-now-buys-a-little-more-than-18-ounces-of-gold-the-most-since-january",
+    "query_batch": "search_4",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/05/bitcoin-flat-at-usd64-000-as-stocks-print-records-and-hormuz-deal-nears",
+    "query_batch": "search_4",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/05/bitcoin-broader-market-fail-to-keep-pace-as-global-equities-hit-record-highs",
+    "query_batch": "search_4",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/03/bitcoin-back-above-usd77-500-xrp-leads-majors-as-fed-hike-odds-near-66",
+    "query_batch": "search_4",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/07/live-updates-bitcoin-flat-at-usd64-300-before-us-jobs-report-with-oil-back-as-a-headwind",
+    "query_batch": "search_4",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/09/bitcoin-steadies-near-usd82-500-after-trump-rules-out-iran-strike-before-midterms",
+    "query_batch": "search_4",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/17/bitcoin-tops-usd64-000-in-asia-morning-hours-as-hype-jumps-8-on-the-week",
+    "query_batch": "search_5",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/28/bitcoin-falls-to-usd83-000-while-altcoins-unwind-friday-s-rally",
+    "query_batch": "search_5",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/28/bitcoin-bears-pay-to-bet-on-further-declines-as-futures-positions-near-yearly-lows",
+    "query_batch": "search_5",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/13/live-updates-bitcoin-whipsaws-between-usd81-000-and-usd84-000-as-altcoins-slide",
+    "query_batch": "search_5",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/17/live-updates-bitcoin-flat-near-usd63-500-but-the-flows-have-quietly-turned",
+    "query_batch": "search_5",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/17/live-updates-bitcoin-flat-near-usd63-500-but-the-flows-have-quietly-turned",
+    "query_batch": "search_5",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/18/bitcoin-pauses-at-usd64-000-as-rising-yields-oil-drag-equities-lower",
+    "query_batch": "search_5",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/29/live-updates-bitcoin-rebounds-above-usd84-000-as-treasury-yields-steady",
+    "query_batch": "search_5",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/29/live-updates-bitcoin-rebounds-above-usd84-000-as-treasury-yields-steady",
+    "query_batch": "search_5",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/09/bitcoin-steadies-near-usd82-500-after-trump-rules-out-iran-strike-before-midterms",
+    "query_batch": "search_5",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/05/bitcoin-zooms-toward-usd87-000-nearly-setting-an-eight-month-high-then-reverses",
+    "query_batch": "search_5",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/09/29/aave-leads-defi-higher-as-crypto-shrugs-off-surging-treasury-yields",
+    "query_batch": "search_5",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/13/bitcoin-slips-near-usd63-500-as-traders-look-past-cpi-to-fed-s-next-tests",
+    "query_batch": "search_5",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/13/bitcoin-holds-steady-near-usd64-000-as-monero-hyperliquid-outperform",
+    "query_batch": "search_5",
+    "included": true,
+    "reason": "verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/13/live-updates-bitcoin-whipsaws-between-usd81-000-and-usd84-000-as-altcoins-slide",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/07/liquidations-jump-to-usd547-million-as-oil-rally-drags-bitcoin-below-usd84-000",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/13/bitcoin-ether-slip-and-rebound-as-south-korean-stocks-slide-on-ai-related-concerns",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/13/bitcoin-diverges-from-south-korean-stocks-as-ai-concerns-deepen-the-kospi-selloff",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/14/bitcoin-climbs-toward-usd84-000-after-fed-s-williams-sees-no-rate-hikes-in-2027",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/13/bitcoin-rebounds-above-usd83-000-as-it-decouples-from-tumbling-korean-stocks-and-nasdaq-futures",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/07/bitcoin-dips-below-usd84-000-as-oil-jumps-on-iranian-tanker-attacks",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/policy/2026/10/13/u-k-court-ruling-boosts-government-s-chances-of-keeping-gbp3-8-billion-seized-bitcoin",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/daybook-us/2026/10/13/stacks-stx-a-bitcoin-layer-2-token-has-surged-by-50-in-four-weeks",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/13/tokenized-sandisk-bets-saw-more-liquidations-than-xrp-as-asia-s-chip-rout-wipes-out-usd800-million",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/07/u-s-government-moves-over-usd100-million-in-btc-and-bnb-a-sale-hasn-t-been-confirmed",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/07/bitcoin-s-recovery-stalls-just-short-of-rescuing-its-last-underwater-cohort",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/13/bitcoin-whale-that-sat-through-the-march-2020-crash-moves-usd378-million",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/07/down-but-not-out-bitcoin-s-stair-step-bullish-trajectory-is-still-intact",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/07/robinhood-adds-bitcoin-worth-usd25-million-to-its-balance-sheet-report",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/10/13/strive-to-ipo-second-preferred-share-class-as-it-looks-to-further-build-bitcoin-treasury",
+    "query_batch": "search_7",
+    "included": false,
+    "reason": "excluded_live_blog_or_outside_fixed_discovery_set"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/02/unlike-the-ftx-collapse-the-usd88-million-coldcard-exploit-has-investors-sending-bitcoin-back-to-exchanges",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/tech/2026/08/09/controversial-bitcoin-fork-bip-110-mines-two-blocks-then-stops",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/09/bitcoin-investors-pour-usd853-million-into-spot-etfs-blackrock-s-ibit-claims-the-bulk",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/tech/2026/08/02/the-future-of-crypto-payments-won-t-include-on-ramps-or-bridges-fun-ceo-says",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/business/2026/08/16/crypto-investors-are-looking-past-market-cap-rankings-and-back-to-fundamentals",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/business/2026/08/13/the-long-bitcoin-short-the-bankers-era-is-officially-over-as-tradfi-giants-embrace-digital-assets",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/policy/2026/08/02/counting-down-the-days-state-of-crypto",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/business/2026/08/09/crypto-is-going-through-a-massive-dot-com-style-shakeout-as-over-100-projects-fold-in-2026",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/web3/2026/08/02/why-a-defi-platform-ditched-its-consumer-app-to-become-the-secret-backend-for-tech-giants",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/policy/2026/08/16/the-sec-meeting-that-wasn-t-state-of-crypto",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/policy/2026/08/23/regulation-crypto-is-here-state-of-crypto",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/business/2026/08/14/mica-s-cleanup-is-creating-a-new-scam-wave-across-the-european-union",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/policy/2026/08/09/is-clarity-s-delay-a-blessing-in-disguise-state-of-crypto",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/news-analysis/2026/08/14/the-stablecoin-yield-clash-that-won-t-go-away-has-banks-crypto-battling-over-tradition",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/business/2026/08/02/the-reverse-bridge-crypto-meets-wall-street-using-perps",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/business/2026/08/09/hyperliquid-s-rwa-perps-boom-is-eating-into-the-revenue-that-backs-hype",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  },
+  {
+    "source_url": "https://www.coindesk.com/markets/2026/08/23/xrp-on-track-for-biggest-weekly-gain-in-21-months-as-treasury-buyback-spurs-curve-control-hopes",
+    "query_batch": "coverage_weekends_aug_02_09_16_23",
+    "included": true,
+    "reason": "coverage_gap_search_verified_headline_and_clock"
+  }
+]

@@ -1,0 +1,38 @@
+{
+ "fred_VIXCLS": {
+  "status": "failed",
+  "message": "RuntimeError: FRED VIXCLS: no answer after 4 tries (timeout 180 s)",
+  "accessed_utc": "2026-10-15 19:36"
+ },
+ "fred_DGS10": {
+  "status": "failed",
+  "message": "RuntimeError: FRED DGS10: no answer after 4 tries (timeout 180 s)",
+  "accessed_utc": "2026-10-15 19:48"
+ },
+ "fred_SP500": {
+  "status": "failed",
+  "message": "RuntimeError: FRED SP500: no answer after 4 tries (timeout 180 s)",
+  "accessed_utc": "2026-10-15 20:00"
+ },
+ "binance_funding_BTCUSDC": {
+  "status": "ok",
+  "rows": 955,
+  "first": "2025-12-01 00:00:00",
+  "last": "2026-10-15 00:00:00",
+  "accessed_utc": "2026-10-15 18:59"
+ },
+ "deribit_dvol_btc_hourly": {
+  "status": "ok",
+  "rows": 7633,
+  "first": "2025-12-01 00:00:00",
+  "last": "2026-10-15 00:00:00",
+  "accessed_utc": "2026-10-15 19:00"
+ },
+ "fear_greed_daily": {
+  "status": "ok",
+  "rows": 319,
+  "first": "2025-12-01",
+  "last": "2026-10-15",
+  "accessed_utc": "2026-10-15 19:00"
+ }
+}

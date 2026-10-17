@@ -1,0 +1,104 @@
+development_may: 962 quotes, 5375 past paths
+  500/962
+development_june: 2263 quotes, 6863 past paths
+  500/2263
+  1000/2263
+  1500/2263
+  2000/2263
+test_july: 2559 quotes, 8303 past paths
+  500/2559
+  1000/2559
+  1500/2559
+  2000/2559
+  2500/2559
+blind_validation: 4155 quotes; outcomes intentionally unavailable
+  1000/4155
+  2000/4155
+  3000/4155
+  4000/4155
+{
+  "policy": {
+    "m": 0.1,
+    "lambda": 0.1,
+    "development_gate_passed": true,
+    "selection": "market-only May/June; no test retuning",
+    "operating_cost_assumed": 0,
+    "policy_available_from": "2026-07-01 00:00:00+00:00",
+    "development_rows": 3222,
+    "last_policy_outcome": "2026-06-30 23:20:06+00:00"
+  },
+  "july_verified": {
+    "orders": 2559,
+    "actual_premium": 107718.290005,
+    "payout": 103433.60332688168,
+    "actual_gross_profit": 4284.686678118308,
+    "quoted_total": 111051.48052426567,
+    "quote_ratio_total": 1.0309435892373613,
+    "quote_ratio_median": 0.8545076882086378,
+    "quote_ratio_p95": 1.4748207307276213,
+    "expected_claim_total": 66215.36158268581,
+    "mean_claim_mae": 43.96802564887421,
+    "claim_calibration_ratio": 0.6401726272014822,
+    "brier": 0.2552176852033834,
+    "crps": 30.749164252521876,
+    "predicted_payout_rate": 0.49176205832437603,
+    "observed_payout_rate": 0.4740132864400156,
+    "central90_coverage": 0.908948808128175,
+    "event_orders": 0,
+    "event_days": 0,
+    "event_ids": 0,
+    "fresh_market_orders": 2559,
+    "worst_daily_gross_profit": -4796.3532918729225,
+    "worst5pct_daily_mean": -4763.107229547206,
+    "gross_profit_e0": 7617.877197383987,
+    "gain_vs_actual_e0": 3333.1905192656786,
+    "flat_same_total_profit_e0": 7617.877197383994,
+    "gain_vs_flat_e0": -7.275957614183426e-12,
+    "retained_fraction_e0": 1.0,
+    "gross_profit_e2": -1697.5191409326508,
+    "gain_vs_actual_e2": -5982.205819050959,
+    "flat_same_total_profit_e2": 7167.44159396384,
+    "gain_vs_flat_e2": -8864.960734896491,
+    "retained_fraction_e2": 0.9003237223374765,
+    "gross_profit_e4": -5846.476319414967,
+    "gain_vs_actual_e4": -10131.162997533276,
+    "flat_same_total_profit_e4": 6743.6396875135115,
+    "gain_vs_flat_e4": -12590.116006928478,
+    "retained_fraction_e4": 0.8440700781347413,
+    "api_comparison_orders": 2559,
+    "api_gross_profit_matched": -31427.900518298964,
+    "actual_gross_profit_matched": 4284.686678118308,
+    "model_gross_profit_matched": 7617.877197383987
+  },
+  "paired": {
+    "days": 31,
+    "bootstrap_samples": 2000,
+    "confidence_level": 0.9,
+    "method": "paired UTC-day bootstrap; overlapping multi-day shocks can reduce effective sample size",
+    "crps_delta": {
+      "estimate": 0.0,
+      "low90": 0.0,
+      "high90": 0.0
+    },
+    "brier_delta": {
+      "estimate": 0.0,
+      "low90": 0.0,
+      "high90": 0.0
+    },
+    "profit_delta_e0": {
+      "estimate": 0.0,
+      "low90": 0.0,
+      "high90": 0.0
+    },
+    "profit_delta_e2": {
+      "estimate": 0.0,
+      "low90": 0.0,
+      "high90": 0.0
+    },
+    "profit_delta_e4": {
+      "estimate": 0.0,
+      "low90": 0.0,
+      "high90": 0.0
+    }
+  }
+}

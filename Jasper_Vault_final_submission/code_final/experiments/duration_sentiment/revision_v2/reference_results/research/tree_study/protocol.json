@@ -1,0 +1,39 @@
+{
+  "specs": [
+    [
+      "paid",
+      "poisson"
+    ],
+    [
+      "paid",
+      "squared_error"
+    ],
+    [
+      "api_base",
+      "poisson"
+    ],
+    [
+      "api_base",
+      "squared_error"
+    ]
+  ],
+  "params": {
+    "max_iter": 60,
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 4,
+    "min_samples_leaf": 100,
+    "l2_regularization": 20.0,
+    "early_stopping": false,
+    "random_state": 271828
+  },
+  "features": [
+    "log_tenor",
+    "put",
+    "log_vol_ratio",
+    "signed_momentum_60",
+    "log_notional",
+    "log_quote_anchor_ratio"
+  ],
+  "selection": "April-June equal-fold mean deviance relative to calibrated paid; eligibility mean RMSE relative <=1, max deviance relative<=1.10",
+  "July": "Already inspected; retrospective only"
+}

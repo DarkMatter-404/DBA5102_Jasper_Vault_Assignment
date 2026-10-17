@@ -1,0 +1,68 @@
+orders with open book >= 1.0 BTC: 3241 of 7123 (67% of premium)
+
+=== 1a. by signed imbalance from the order's perspective (s_add > 0: order adds to the dominant side)
+           group    n    premium  loss_ratio       lr_90  pay_over_fair      pof_90
+strongly reduces  265 14,511.718       1.230 [0.89,1.54]          1.418 [1.01,1.85]
+         reduces  518 31,140.019       1.172 [0.86,1.50]          1.238 [0.90,1.58]
+         neutral 1385 63,047.534       1.131 [0.92,1.38]          1.211 [0.97,1.48]
+            adds  636 32,026.969       0.925 [0.68,1.20]          0.966 [0.71,1.26]
+   strongly adds  437 24,971.952       0.476 [0.35,0.62]          0.612 [0.46,0.76]
+
+=== 1b. same, using 24h net flow instead of the open book
+                group    n    premium  loss_ratio       lr_90  pay_over_fair      pof_90
+against flow (strong)  461 11,463.607       0.594 [0.38,0.85]          0.675 [0.45,0.95]
+         against flow 1528 60,216.335       1.102 [0.76,1.50]          1.257 [0.87,1.68]
+              neutral 2704 85,581.278       0.990 [0.84,1.17]          1.138 [0.95,1.36]
+            with flow 1827 74,183.302       0.745 [0.59,0.89]          0.846 [0.67,1.02]
+   with flow (strong)  603 16,521.929       1.052 [0.71,1.38]          1.190 [0.76,1.59]
+
+=== 1c. adds vs reduces, by product length (open book >= 1 BTC)
+               n                       prem                          LR                 pay/fair                
+cls         adds neutral reduces       adds    neutral    reduces  adds neutral reduces     adds neutral reduces
+productType                                                                                                     
+1800         427     513     280 17,102.220 10,452.580  4,918.420 0.460   1.040   0.760    0.680   1.370   1.030
+3600         178     136      69 14,018.320  9,825.240  4,456.570 0.720   0.960   1.870    0.780   1.090   1.960
+7200         210     267     126 12,671.500 11,856.450  7,577.680 0.960   1.090   1.070    1.010   1.160   1.220
+14400        130     286     147  7,641.850 19,895.000 15,643.560 0.770   1.470   1.200    0.730   1.410   1.150
+28800        114     155     142  5,458.830 10,709.520 12,973.440 1.000   0.790   1.180    0.990   0.840   1.380
+43200          2      12       3      4.940    208.290      5.230 0.000   0.890   0.780    0.000   1.150   1.150
+86400         12      16      16    101.270    100.450     76.830 0.020   0.820   1.010    0.020   0.610   1.020
+
+=== 1d. by month (open book >= 1 BTC)
+           n                       prem                       pay/fair                
+cls     adds neutral reduces       adds    neutral    reduces     adds neutral reduces
+month                                                                                 
+2026-04   13      33      13     49.860    332.900     38.310    0.460   0.910   0.200
+2026-05   99     168      71  3,220.730  4,783.540  2,755.760    0.790   0.890   1.120
+2026-06  547     380     315 33,998.310 19,703.420 16,146.390    0.850   1.110   1.380
+2026-07  414     804     384 19,730.020 38,227.670 26,711.270    0.800   1.330   1.250
+
+=== 2. does the imbalance predict the direction of the move?
+share of orders that paid out: adds 0.445, neutral 0.469, reduces 0.473
+Spearman corr(imb, ret over next window via payout side):
+  corr(imb, log return to expiry) = -0.0405  n = 4043
+  corr(flow24_imb, log return to expiry) = 0.0011
+  corr(ret24h (past), imb) = 0.3596  (do users herd into the side that just moved against them?)
+  corr(ret4h (past), flow24_imb) = 0.3031
+
+=== 3. daily P&L vs one-sidedness of the book
+           days       prem        pnl    LR      worst        sd
+imb_q                                                           
+balanced     25 78,937.010  7,609.580 0.900 -4,293.040 1,448.520
+q2           24 75,380.430 -6,674.280 1.090 -5,072.860 1,705.180
+q3           24 54,486.790   -324.220 1.010 -9,629.880 2,412.180
+one-sided    25 35,422.240 16,588.770 0.530   -259.230   978.690
+
+worst 10 days: P&L and premium-weighted |imbalance| that day
+                prem        pay        pnl  abs_imb  book
+date                                                     
+2026-06-24 6,672.650 16,302.530 -9,629.880    0.490 4.010
+2026-07-14 5,907.960 10,980.830 -5,072.860    0.340 5.510
+2026-07-31 3,872.140  8,165.180 -4,293.040    0.230 5.380
+2026-06-18 4,453.550  7,667.340 -3,213.790    0.350 2.760
+2026-06-25 5,528.810  8,728.030 -3,199.230    0.340 3.170
+2026-07-01 4,637.690  7,334.590 -2,696.900    0.330 3.350
+2026-07-24 4,155.220  5,541.070 -1,385.850    0.300 4.780
+2026-07-20 4,112.200  5,376.280 -1,264.090    0.340 4.460
+2026-07-07 4,676.950  5,594.500   -917.550    0.240 4.460
+2026-07-23 2,403.990  3,287.470   -883.490    0.500 4.210

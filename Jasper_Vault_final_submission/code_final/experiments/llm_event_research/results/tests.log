@@ -1,0 +1,14 @@
+test_collector_records_receipt_and_deduplicates (test_agents.AgentTests.test_collector_records_receipt_and_deduplicates) ... ok
+test_schema_rejects_probability_and_nonboolean (test_agents.AgentTests.test_schema_rejects_probability_and_nonboolean) ... ok
+test_two_pass_preserves_evidence_and_clocks (test_agents.AgentTests.test_two_pass_preserves_evidence_and_clocks) ... ok
+test_distribution_and_payoff_mechanics (test_integrity.Integrity.test_distribution_and_payoff_mechanics) ... ok
+test_event_admission_and_delay (test_integrity.Integrity.test_event_admission_and_delay) ... ok
+test_missing_market_fails_closed_status (test_integrity.Integrity.test_missing_market_fails_closed_status) ... ok
+test_no_future_market_or_path (test_integrity.Integrity.test_no_future_market_or_path) ... ok
+test_observed_clock_has_no_historical_events (test_integrity.Integrity.test_observed_clock_has_no_historical_events) ... ok
+test_outcome_does_not_change_quote (test_integrity.Integrity.test_outcome_does_not_change_quote) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.517s
+
+OK

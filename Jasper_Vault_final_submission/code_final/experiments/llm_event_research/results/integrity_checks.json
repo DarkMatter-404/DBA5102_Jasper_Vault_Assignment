@@ -1,0 +1,7 @@
+{
+  "observed_clock_historical_contexts": 0,
+  "max_probability_mass_error": 4.440892098500626e-16,
+  "all_archive_outcomes_before_cutoff": true,
+  "validation_no_actual_outcome_columns": true,
+  "positive_finite_validation_premiums": true
+}

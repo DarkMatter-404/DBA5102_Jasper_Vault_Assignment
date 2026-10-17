@@ -1,0 +1,122 @@
+[
+  {
+    "fold": "development_may",
+    "archive_paths": 5375,
+    "fit_cutoff": "2026-05-01 00:00:00+00:00",
+    "last_archive_outcome": "2026-04-30 23:29:59.999000+00:00",
+    "hazard": {
+      "training_orders": 1293,
+      "usable_hazard_orders": 1293,
+      "early_exits": 582,
+      "fit_cutoff": "2026-05-01 00:00:00+00:00",
+      "last_label_close": "2026-04-30 20:03:29+00:00",
+      "features": [
+        "elapsed_fraction",
+        "elapsed_fraction_squared",
+        "log_hours",
+        "put_indicator",
+        "standardized_signed_gain",
+        "log_notional"
+      ],
+      "method": "regularized_logistic_hazard",
+      "standardized_coefficients": {
+        "elapsed_fraction": -1.47767140442253,
+        "elapsed_fraction_squared": 1.5317643096706972,
+        "log_hours": -0.9458793498950716,
+        "put_indicator": -0.003121699646762573,
+        "standardized_signed_gain": -0.10783502122680368,
+        "log_notional": -0.24425276292792258
+      }
+    }
+  },
+  {
+    "fold": "development_june",
+    "archive_paths": 6863,
+    "fit_cutoff": "2026-06-01 00:00:00+00:00",
+    "last_archive_outcome": "2026-05-31 23:29:59.999000+00:00",
+    "hazard": {
+      "training_orders": 2253,
+      "usable_hazard_orders": 2253,
+      "early_exits": 1079,
+      "fit_cutoff": "2026-06-01 00:00:00+00:00",
+      "last_label_close": "2026-05-31 23:47:28+00:00",
+      "features": [
+        "elapsed_fraction",
+        "elapsed_fraction_squared",
+        "log_hours",
+        "put_indicator",
+        "standardized_signed_gain",
+        "log_notional"
+      ],
+      "method": "regularized_logistic_hazard",
+      "standardized_coefficients": {
+        "elapsed_fraction": -1.4122715250764826,
+        "elapsed_fraction_squared": 1.59451264396421,
+        "log_hours": -0.9328559786276714,
+        "put_indicator": -0.026504630359656493,
+        "standardized_signed_gain": -0.07003674948581012,
+        "log_notional": -0.19364015609978125
+      }
+    }
+  },
+  {
+    "fold": "test_july",
+    "archive_paths": 8303,
+    "fit_cutoff": "2026-07-01 00:00:00+00:00",
+    "last_archive_outcome": "2026-06-30 23:29:59.999000+00:00",
+    "hazard": {
+      "training_orders": 4516,
+      "usable_hazard_orders": 4516,
+      "early_exits": 2561,
+      "fit_cutoff": "2026-07-01 00:00:00+00:00",
+      "last_label_close": "2026-06-30 23:20:06+00:00",
+      "features": [
+        "elapsed_fraction",
+        "elapsed_fraction_squared",
+        "log_hours",
+        "put_indicator",
+        "standardized_signed_gain",
+        "log_notional"
+      ],
+      "method": "regularized_logistic_hazard",
+      "standardized_coefficients": {
+        "elapsed_fraction": -0.9972257806651806,
+        "elapsed_fraction_squared": 1.4458510014240327,
+        "log_hours": -1.0489889442478424,
+        "put_indicator": -0.1076347878620649,
+        "standardized_signed_gain": -0.14990557007734673,
+        "log_notional": -0.236671645828114
+      }
+    }
+  },
+  {
+    "fold": "blind_validation",
+    "archive_paths": 9778,
+    "fit_cutoff": "2026-07-31 17:11:00+00:00",
+    "last_archive_outcome": "2026-07-31 16:59:59.999000+00:00",
+    "hazard": {
+      "training_orders": 7060,
+      "usable_hazard_orders": 7060,
+      "early_exits": 3913,
+      "fit_cutoff": "2026-07-31 17:11:00+00:00",
+      "last_label_close": "2026-07-31 17:10:27+00:00",
+      "features": [
+        "elapsed_fraction",
+        "elapsed_fraction_squared",
+        "log_hours",
+        "put_indicator",
+        "standardized_signed_gain",
+        "log_notional"
+      ],
+      "method": "regularized_logistic_hazard",
+      "standardized_coefficients": {
+        "elapsed_fraction": -1.0631736983721842,
+        "elapsed_fraction_squared": 1.5048322559214655,
+        "log_hours": -1.004474342283187,
+        "put_indicator": -0.0865224379748836,
+        "standardized_signed_gain": -0.16990815586336558,
+        "log_notional": -0.17664139885649158
+      }
+    }
+  }
+]
