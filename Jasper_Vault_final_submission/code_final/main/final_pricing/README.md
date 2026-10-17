@@ -1,6 +1,7 @@
 # Final PP pricing solution (team)
 
-This folder holds the team's final pricing solution. The rest of `subham/` is my earlier hybrid experiment.
+This folder holds the team's final pricing solution. It is a copy of `subham/final/` at commit `461f015`, set up to
+run inside `code_final/main` (changes: `../../CHANGES.md`, section 3). The pipeline is in [`../README.md`](../README.md).
 
 The core is Maksim's model: `premium = quantity × fair value × 1.25`, never below the API base price.
 The improvement is Chris's order-flow loading. This section was committed **before** any scoring of the loading on
@@ -19,6 +20,10 @@ HTML source, so download the file and open it in a browser.
 | Risk rule | Cap of 250,000 USDC open protection per direction (reported, not priced) |
 
 ## Adoption rule for the order-flow loading
+
+> This section is unchanged since commit `cd9437f`, when the rule was committed before any scoring. Its paths name the
+> original folders: `maksim/results/...` is now `../evidence/fair_value_model/results/...`, and `data/` is the
+> repository's `data/` folder.
 
 **Panel.** `maksim/results/walk_forward_orders_priced.parquet`: 7,150 training orders, February to July 2026. Each
 month is priced by Maksim's model fitted on earlier data only (`model_premium_USDC`). `row_id` is the row number in
@@ -76,7 +81,7 @@ So the main column is Maksim's frozen premium. The loading stays in the file as 
 | `outputs/final_submission.csv` | 4,155 rows in the original order of the validation file |
 | `outputs/summary.json` | Totals, checks, the decision, SHA-256 of every input and of the submission |
 | `outputs/*.csv`, `outputs/figures/` | Every table and chart in the report |
-| `tests/` | 28 checks: unit tests, output checks, and a `closedAt` invariance test |
+| `tests/` | 42 checks: unit tests, output checks, a `closedAt` invariance test, the submitted file's SHA-256, and the evidence copies |
 
 Columns of `final_submission.csv`:
 
@@ -92,35 +97,33 @@ Columns of `final_submission.csv`:
 
 ## How to run
 
-Tested with Python 3.14.3 on Windows. From the repository root:
+Tested with Python 3.14.3 on Windows. From this folder:
 
 ```bash
-python -m pip install -r subham/final/requirements.txt
+python -m pip install -r ../requirements.txt
 python -m ipykernel install --user --name jv-pricing     # the notebooks use this kernel name
-cd subham/final
 jupyter nbconvert --to notebook --execute --inplace final_solution.ipynb
 jupyter nbconvert --to notebook --execute --inplace final_report.ipynb
 jupyter nbconvert --to html --no-input final_report.ipynb --output final_report
-cd ../..
-python -m pytest subham/final/tests -q                  # 28 checks
+python -m pytest tests -q                               # 42 checks
 ```
 
-The notebooks find the repository root by searching parent folders for `maksim/src`. Outside the repository, set the
-`JV_REPO` environment variable to its path.
+The code finds the data by searching parent folders for `data/with_base_premium`. If the data is somewhere else, set
+the `JV_REPO` environment variable to the folder that holds `data/`.
 
 ## Inputs (read only)
 
 | Input | File | SHA-256 (first 12) |
 |---|---|---|
-| Maksim's walk-forward prices, training | `maksim/results/walk_forward_orders_priced.parquet` | `29e04ae3f0fd` |
+| Maksim's walk-forward prices, training | `../evidence/fair_value_model/results/walk_forward_orders_priced.parquet` | `29e04ae3f0fd` |
 | Training orders | `data/with_base_premium/pp_transactions_training.csv` | `3f046081325c` |
 | Validation orders | `data/validation/pp_transactions_validation.csv` | `fd85444b94f9` |
-| Maksim's frozen prices | `maksim/outputs/validation_recommendations.csv` | `995844128715` |
-| Subham's rebuilt base price (cross-check) | `subham/outputs/validation_premiums.csv` | `d70b3bf024ee` |
+| Maksim's frozen prices | `../fair_value_engine/outputs/validation_recommendations.csv` | `995844128715` |
+| Subham's rebuilt base price (cross-check) | `../evidence/hybrid_base_multiplier/outputs/validation_premiums.csv` | `d70b3bf024ee` |
 
-Code used without change: `maksim/src/evaluate.py` (demand rules, intervals, Gini), `maksim/src/model.py`
-(`fair_value_per_btc`) and `maksim/run_extensions.py` (`exposure_cap`). The open-book code follows
-`chris/audit/combos.py`.
+Code used without change: `../fair_value_engine/src/evaluate.py` (demand rules, intervals, Gini),
+`../fair_value_engine/src/model.py` (`fair_value_per_btc`) and `../fair_value_engine/run_extensions.py`
+(`exposure_cap`). The open-book code follows `../../experiments/team_audit/combos.py`.
 
 ## Key assumptions
 

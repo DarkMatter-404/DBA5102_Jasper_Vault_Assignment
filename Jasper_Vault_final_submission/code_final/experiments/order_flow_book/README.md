@@ -1,5 +1,15 @@
 # Order flow and the state of Jasper Vault's book (Cris)
 
+> **code_final copy.** Copied from `chris/` (steps 00 to 06; the audit is in [`../team_audit/`](../team_audit/)) at
+> commit `461f015`. One line changed: `DATA` in `run_all.sh` ([`../../CHANGES.md`](../../CHANGES.md)). Checked from this folder on 18 Oct 2026:
+>
+> ```bash
+> python -m pip install -r requirements.txt
+> bash run_all.sh               # needs python3 on the PATH; about 15 s
+> ```
+>
+> The 6 console outputs in `results/` are identical. Three result tables differ only in the last digit.
+
 Angle: treat Jasper Vault as a market maker. At the moment each PP order arrives, JV already holds a book of open
 protections. Does the state of that book (how one-sided it is, and whether the new order joins or opposes the crowd)
 tell us anything about the order's expected payout, about daily losses, and about how to price or limit it?

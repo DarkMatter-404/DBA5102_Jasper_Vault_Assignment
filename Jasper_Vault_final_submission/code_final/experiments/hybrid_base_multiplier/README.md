@@ -1,7 +1,16 @@
 # Subham: hybrid pricing model for Perpetual Protect
 
-> **The team's final solution is in [`final/`](final/)** (Maksim's model with the team's tested layers; report:
-> [`final/final_report.html`](final/final_report.html)). The rest of this folder is my earlier hybrid experiment.
+> **code_final copy.** Copied from `subham/` (without `final/`) at commit `461f015`. `pricing/data.py` changed so that
+> it finds `data/` ([`../../CHANGES.md`](../../CHANGES.md)). The team's final solution is in
+> [`../../main/final_pricing/`](../../main/final_pricing/) (report:
+> [`final_report.html`](../../main/final_pricing/final_report.html)). Checked from this folder on 18 Oct 2026:
+>
+> ```bash
+> python -m pip install -r requirements.txt
+> python -m pytest tests -q     # 14 of 14 pass
+> ```
+>
+> The notebooks were not re-run for code_final. Notebook 02 needs internet.
 
 This folder has my pricing model for Jasper Vault's Perpetual Protect (PP). The model starts from Jasper Vault's base price. It corrects that price with the payouts in the training data. Then it adds a margin that keeps the price near what customers pay today.
 
@@ -56,7 +65,7 @@ subham/
 
 ## Data
 
-- **Training data:** [`../data/with_base_premium/`](../data/with_base_premium/), unchanged. These files are identical to the supplied release (check with `materials/SHA256SUMS.txt`).
+- **Training data:** [`../data/with_base_premium/`](../../../../data/with_base_premium/), unchanged. These files are identical to the supplied release (check with `materials/SHA256SUMS.txt`).
 - **Validation data:** not in this repository. Put the two validation files in `data/validation/` at the repository root. The version I used:
 
   | File | Content | SHA256 |

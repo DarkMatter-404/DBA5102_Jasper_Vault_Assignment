@@ -74,3 +74,20 @@ Applied once by `tools/path_edits.py`. The tool refuses an edit unless its old t
 | `main/final_pricing/final_solution.ipynb`, `final_report.ipynb` | Input paths now point to `fair_value_engine/`, `evidence/` and the data root. 3 text mentions of old folders now use the new names. Both notebooks were re-run. |
 | `main/final_pricing/final_report.html` | Rebuilt. All 3,166 words and all 498 numbers are the same as in the report the deck used. The only text change is `chris/audit/` → `experiments/team_audit/`. |
 | `main/final_pricing/outputs/` | From the re-run. `final_submission.csv` is byte-identical (SHA-256 `810eae3a…`). In `summary.json`, only `repo_commit_at_run` changed. `training_scores.csv` and `training_intervals.csv` differ only by float rounding (below 1e-9 relative). |
+
+## 4. Documentation
+
+| File (inside code_final) | Change |
+|---|---|
+| `experiments/fair_value_model/README.md` | A "code_final copy" block under the title: what was copied, and the commands checked from this folder. |
+| `experiments/hybrid_base_multiplier/README.md` | The pointer to `final/` is replaced by the "code_final copy" block; the link to `data/` now goes 4 levels up. |
+| `experiments/jv_reference_f1/README.md` | The "code_final copy" block; the links to the project README and to `data/README.md` now go 4 levels up. |
+| `experiments/order_flow_book/README.md` | The "code_final copy" block. |
+| `experiments/duration_sentiment/README.md` | The "code_final copy" block. |
+| `experiments/duration_sentiment/docs/findings_and_submission.md` | 6 links to `materials/` and `data/` now go 5 levels up. |
+| `experiments/llm_event_research/README.md` | The "code_final copy" block. |
+| `main/final_pricing/README.md` | Paths and run steps for `main/`; 42 checks; a note on the pre-registered rule, whose text is unchanged. |
+
+New files (status `new` in `MANIFEST.csv`): every other README in code_final, `experiments/team_audit/README.md`,
+`experiments/team_audit/make_audit_inputs.py` and its test, `experiments/llm_event_research/data/raw/README.md`,
+this file, `.gitattributes`, `MANIFEST.csv` and `tools/`.

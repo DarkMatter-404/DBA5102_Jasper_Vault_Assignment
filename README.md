@@ -2,6 +2,8 @@
 
 Team repository for the NUS MSBA Capstone **Blockchain Group Assignment, Option 2: Options Pricing Model**, using the Jasper Vault Perpetual Protect case study.
 
+**Final submission:** [`Jasper_Vault_final_submission/`](Jasper_Vault_final_submission/) holds the deck, the video and [`code_final/`](Jasper_Vault_final_submission/code_final/): all team code, one folder per idea, with the final solution in `code_final/main/`. Start with [`code_final/README.md`](Jasper_Vault_final_submission/code_final/README.md).
+
 **Submission deadline: 18 October 2026, 11:59 p.m., via Canvas.** The assignment brief says the submission folder closes automatically. The time above is reproduced as written in the brief; check the Canvas assignment for the displayed timezone and any updates.
 
 ## Project objective

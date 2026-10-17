@@ -1,5 +1,17 @@
 # Perpetual Protect pricing strategy (Maksim)
 
+> **code_final copy.** Copied from `maksim/` at commit `461f015`. One line changed: `REPO` in `src/config.py`
+> ([`../../CHANGES.md`](../../CHANGES.md)). The parts that make the submitted prices are also in
+> [`../../main/fair_value_engine/`](../../main/fair_value_engine/). Checked from this folder on 18 Oct 2026:
+>
+> ```bash
+> python -m pip install -r requirements.txt
+> python -m pytest tests -q     # 9 of 10 pass; the failing check also fails in maksim/ (see ../../README.md)
+> python run_validation.py      # rebuilds outputs/ (keep a copy first): 6 of 4,155 premiums differ by 0.000001 USDC
+> ```
+>
+> The other scripts in section 11 run the same way from this folder. They were not re-run for code_final.
+
 Pricing strategy for Jasper Vault's Perpetual Protect (PP): analysis, code, backtests and a recommended premium for every order in the validation file. This folder is a working strategy for the team, not a final submission document.
 
 **Recommended rule.** `premium = quantity x fair value per BTC x 1.25`, never below Jasper Vault's API base price when that quote exists. The fair value is half the expected size of the BTC move over the protection window, forecast from recent volatility, the time of day (US Eastern) and scheduled US releases (CPI, jobs report, FOMC). The model is fitted on BTC market data only; no order outcome is used to fit it. **Proposed risk policy:** cap open protected notional at 250,000 USDC per direction and hedge the book's net delta within 0.5 BTC.

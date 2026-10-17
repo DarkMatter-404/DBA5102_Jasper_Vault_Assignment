@@ -1,5 +1,17 @@
 # Event-to-Loss: standalone PP pricing experiment
 
+> **code_final copy.** Copied from `llm assisted trading/` at commit `461f015`, with no code change. Its input folder
+> `data/raw/` was never committed, so it is restored from the repository's own files
+> ([`data/raw/README.md`](data/raw/README.md)). Checked from this folder on 18 Oct 2026, with Python 3.12:
+>
+> ```bash
+> python -m pip install -r requirements-tested.txt
+> python -m unittest discover -s tests -v                          # 9 of 9 pass
+> python scripts/run_study.py --output results/my_reproduction     # about 20 s
+> ```
+>
+> The full study reproduces every saved result in `results/` within 1e-6.
+
 A complete research prototype for the Jasper Vault assignment: conditional historical market paths, an early-close model, and structured event research. The language model supplies evidence classifications; it does **not** invent claim probabilities or set premiums.
 
 Start with **[Event_to_Loss_PP_Report.html](Event_to_Loss_PP_Report.html)** for a nontechnical explanation, the six assignment requirements, measured findings and a suggested video narrative. Open it directly in a browser; it has no external dependencies.

@@ -17,7 +17,7 @@ The work combined two delegated research streams with a central synthesis:
 3. **Model synthesis:** use an option-shaped cost anchor, empirical payout calibration, a bounded adjustment and temporal validation; evaluate both prediction and commercial scenarios.
 4. **Verification and reporting:** test outcome independence, future-data exclusion, invalid-input handling, model serialization and numerical reproduction; prepare evidence and a presentation narrative.
 
-The sources are the [assignment brief](../../materials/briefs/Blockchain%20Group%20Assignment.pdf), [Jasper case statement](../../materials/case-study/Jasper%20Vault%20Options%20Pricing%20Optimisation.docx), [supplied class notes](classnotes.md), and the original [dictionary](../../data/en/data_dictionary.csv), [guide](../../data/en/research_dataset_guide.md) and [metadata](../../data/en/pp_research_datasets_metadata.json). External research references appear at the end.
+The sources are the [assignment brief](../../../../../materials/briefs/Blockchain%20Group%20Assignment.pdf), [Jasper case statement](../../../../../materials/case-study/Jasper%20Vault%20Options%20Pricing%20Optimisation.docx), [supplied class notes](classnotes.md), and the original [dictionary](../../../../../data/en/data_dictionary.csv), [guide](../../../../../data/en/research_dataset_guide.md) and [metadata](../../../../../data/en/pp_research_datasets_metadata.json). External research references appear at the end.
 
 ## Data findings and interpretation
 
@@ -119,7 +119,7 @@ There are nine negative July **order-creation-date cohorts**, with worst gross m
 
 ## Next study using the base-premium release
 
-The repository contains additional evidence not used in the original EN experiment. Its [enriched guide](../../data/with_base_premium/research_dataset_guide.md) describes a 7,204-order training population after removing 627 negative-markup rows. It adds per-BTC order premium, API base quote and residual markup. The metadata records 1,131 unmatched base quotes. Quotes are matched by side and tenor to the nearest timestamp within 120 seconds after timezone alignment, but individual matched timestamps are absent from the packaged data.
+The repository contains additional evidence not used in the original EN experiment. Its [enriched guide](../../../../../data/with_base_premium/research_dataset_guide.md) describes a 7,204-order training population after removing 627 negative-markup rows. It adds per-BTC order premium, API base quote and residual markup. The metadata records 1,131 unmatched base quotes. Quotes are matched by side and tenor to the nearest timestamp within 120 seconds after timezone alignment, but individual matched timestamps are absent from the packaged data.
 
 The guide describes these fields as observable at creation. A nearest-time match can nevertheless select a later quote, so individual quote timestamps are needed to verify past-only availability independently. The recorded residual may contain PP conversion, moneyness, subsidies or execution effects; it is not necessarily Jasper's configured markup. This does not override the original notes' ATM assignment scope.
 

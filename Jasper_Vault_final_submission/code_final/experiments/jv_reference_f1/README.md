@@ -1,5 +1,16 @@
 # Aman — pricing Jasper Vault's Perpetual Protect
 
+> **code_final copy.** Copied from `aman/` at commit `461f015`. Path lines changed in `pp_pricing.ipynb` (cell 2) and
+> in `checks/` ([`../../CHANGES.md`](../../CHANGES.md)). Checked from this folder on 18 Oct 2026:
+>
+> ```bash
+> python -m pip install -r requirements.txt
+> jupyter nbconvert --to notebook --execute --inplace pp_pricing.ipynb --ExecutePreprocessor.timeout=1800
+> ```
+>
+> The notebook runs to the end, and every built-in check passes (about 30 s). On Windows, 4 of 4,155 premiums in
+> `validation_predictions.csv` differ from the committed file by 0.000001 USDC, with Python 3.14 and 3.12 alike.
+
 **Status: final.** Team decision at the 16 Oct regroup: model **F1**, theta_level = 0, band 0.8-1.2. The
 specification was locked at 2026-10-16 04:46 SGT, and the 544-row reference check was run after the lock.
 
@@ -52,4 +63,4 @@ the same `validation_predictions.csv` byte for byte: computed columns are rounde
   Phase 4 tested hourly GDELT news attention instead.
 
 Teammates' work is read from saved outputs at fixed commits (see `data_external/teammates/inventory.json`); no branch
-was checked out. Project-wide context: the [project README](../README.md) and the [data inventory](../data/README.md).
+was checked out. Project-wide context: the [project README](../../../../README.md) and the [data inventory](../../../../data/README.md).

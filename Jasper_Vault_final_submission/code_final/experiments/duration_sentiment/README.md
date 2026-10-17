@@ -1,5 +1,22 @@
 # Jasper Vault PP pricing: a combined market, news and social sentiment experiment
 
+> **code_final copy.** Copied from `jay/` and the root folder `revision_v2/` at commit `461f015`. Jay's version 2 sat at
+> the repository root, but its code expects to sit inside his folder, so it is in [`revision_v2/`](revision_v2/) here.
+> Path lines changed in `verify_pricing.py` and in `revision_v2/` ([`../../CHANGES.md`](../../CHANGES.md)). Checked
+> from this folder on 18 Oct 2026, with Python 3.12 (on Windows, set `PYTHONUTF8=1`):
+>
+> ```bash
+> python -m pip install -r revision_v3_2/requirements.txt
+> python revision_v3_2/build_data.py && python revision_v3_2/framework.py && python revision_v3_2/verify.py   # v3.2
+> python pp_pricing.py analyze --orders ../../../../data/en/pp_transactions_training.csv --market ../../../../data/en/btc_market_history.csv --outdir output/data
+> python verify_pricing.py                                                                                    # v1
+> python revision_v2/pricing.py analyze --orders ../../../../data/en/pp_transactions_training.csv --market ../../../../data/en/btc_market_history.csv --outdir output/v2
+> python revision_v2/verify.py                                                                                # v2
+> ```
+>
+> Every step runs, and every check passes (v3.2: 4 of 4). The v3.2 rebuild reproduces every saved result within
+> 1e-15. Run `verify.py` on an exact checkout: a Windows checkout that changes line endings fails its input-hash test.
+
 **DBA5102 — Option 2: Options Pricing Model | Main assignment framework: V3.2**
 
 Our project investigates whether a bounded adjustment to an existing PP premium can improve the balance between expected payouts, customer willingness to buy and gross margin. The proposed framework combines duration, BTC market conditions, news NLP and X/Twitter sentiment. **The combined framework is our assignment experiment**, with component comparisons showing what each information layer contributes.
