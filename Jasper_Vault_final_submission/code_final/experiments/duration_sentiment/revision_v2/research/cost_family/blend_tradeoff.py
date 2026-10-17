@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 from budget_neutral_study import lower_tail_mean, paired_bootstrap
 
-OUT=Path(__file__).resolve().parents[4]/'jay/output/v2/research/cost_family'
+OUT=Path(__file__).resolve().parents[3]/'output/v2/research/cost_family'  # code_final: Jay's folder
 OUT.mkdir(parents=True,exist_ok=True)
 
 

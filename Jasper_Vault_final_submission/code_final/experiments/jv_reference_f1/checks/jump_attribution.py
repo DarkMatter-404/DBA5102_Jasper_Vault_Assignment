@@ -11,7 +11,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-REPO = Path(__file__).resolve().parents[2]
+_UP = Path(__file__).resolve().parents  # code_final path fix: nearest folder with data/
+REPO = next((p for p in _UP if (p / "data" / "with_base_premium").is_dir()), _UP[2])
 D = REPO / "data" / "with_base_premium"
 c = pd.read_csv(D / "btc_market_history.csv", usecols=["open_time_utc", "close"])
 c["t"] = pd.to_datetime(c.open_time_utc, utc=True)
@@ -21,7 +22,7 @@ bar = np.log(c.close).resample("15min").last().diff().dropna()      # label L: c
 bar = bar.abs().rename("absr").to_frame()
 bar["start"] = bar.index                                              # so the move happened over [L, L+15m)
 
-ev = pd.read_csv(REPO / "aman" / "data_external" / "macro_events_2026_checked.csv")
+ev = pd.read_csv(Path(__file__).resolve().parents[1] / "data_external" / "macro_events_2026_checked.csv")
 ev = ev[ev.in_core_set.astype(str) == "True"]
 rel = pd.to_datetime(ev.ts_utc, utc=True).sort_values().values
 

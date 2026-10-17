@@ -4,9 +4,9 @@ import json, sys
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
-sys.path.insert(0,str(Path(__file__).resolve().parents[3]/'jay'))
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]))  # code_final: Jay's folder
 import pp_pricing as old
-OUT=Path(__file__).resolve().parents[3]/'jay/output/v2/research/tree_study';OUT.mkdir(parents=True,exist_ok=True)
+OUT=Path(__file__).resolve().parents[2]/'output/v2/research/tree_study';OUT.mkdir(parents=True,exist_ok=True)
 SPEC=[(a,l) for a in ['paid','api_base'] for l in ['poisson','squared_error']]
 PARAM={'max_iter':60,'learning_rate':.05,'max_leaf_nodes':4,'min_samples_leaf':100,'l2_regularization':20.,'early_stopping':False,'random_state':271828}
 FEATURES=['log_tenor','put','log_vol_ratio','signed_momentum_60','log_notional','log_quote_anchor_ratio']

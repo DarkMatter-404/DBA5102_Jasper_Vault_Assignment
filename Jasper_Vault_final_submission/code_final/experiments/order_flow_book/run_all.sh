@@ -2,7 +2,7 @@
 # Reproduce every table in README.md from the supplied files. Run from this folder. Takes a few minutes.
 set -e
 mkdir -p work results
-DATA=../data/with_base_premium
+DATA=../../../../data/with_base_premium  # code_final: the repository root is four levels up
 python3 00_prepare_features.py $DATA/pp_transactions_training.csv $DATA/btc_market_history.csv work/orders.pkl
 python3 01_build_book.py        work/orders.pkl work/book.pkl                 | tee results/console_01_book.txt
 python3 02_test_imbalance.py    work/book.pkl   work/orders.pkl               | tee results/console_02_imbalance.txt

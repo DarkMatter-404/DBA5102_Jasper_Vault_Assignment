@@ -11,7 +11,7 @@ import pandas as pd
 from scipy.optimize import brentq
 import study
 
-OUT=Path(__file__).resolve().parents[4]/'jay/output/v2/research/cost_family'
+OUT=Path(__file__).resolve().parents[3]/'output/v2/research/cost_family'  # code_final: Jay's folder
 OUT.mkdir(parents=True,exist_ok=True)
 models=json.loads((OUT/'fitted_models.json').read_text())
 data=study.pp.features(study.ROOT/'data/en/pp_transactions_training.csv',study.pp.read_market(study.ROOT/'data/en/btc_market_history.csv'))

@@ -3,7 +3,8 @@ Resamples UTC creation days within each month (2,000 draws, seed 0), identical d
 Run: python3 -I bootstrap_diffs.py
 """
 import pickle, numpy as np, pandas as pd
-SP = '/tmp/claude-0/-home-claude/ac6d6fb2-071e-5acb-9735-f66862273856/scratchpad/'
+import os; from pathlib import Path  # code_final path fix: work folder set at run time
+SP = os.environ.get('AUDIT_WORK', str(Path(__file__).resolve().parent / 'work')) + '/'
 P = pickle.load(open(SP + 'amanrun/aman/panels_dump.pkl', 'rb'))['panels']
 df = pd.concat(P.values(), ignore_index=True); df['pay'] = df.realizedProfit_USDC
 fv = df.fv.values

@@ -4,7 +4,8 @@
 and a few F1 variants. Training months only; validation untouched."""
 import pickle, numpy as np, pandas as pd
 pd.set_option('display.width', 260); pd.set_option('display.max_columns', 40)
-SP = '/tmp/claude-0/-home-claude/ac6d6fb2-071e-5acb-9735-f66862273856/scratchpad'
+import os; from pathlib import Path  # code_final path fix: work folder set at run time
+SP = os.environ.get('AUDIT_WORK', str(Path(__file__).resolve().parent / 'work'))
 P = pickle.load(open(f'{SP}/amanrun/aman/panels_dump.pkl', 'rb'))['panels']
 bk = pd.read_pickle(f'{SP}/data/book.pkl')[['createdAt', 'q', 's_add', 'open_total_btc']].rename(columns={'q': 'quantity_BTC'})
 bk['createdAt'] = pd.to_datetime(bk.createdAt)

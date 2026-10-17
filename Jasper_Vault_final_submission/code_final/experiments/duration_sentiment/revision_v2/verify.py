@@ -13,8 +13,8 @@ import pandas as pd
 import pricing
 
 ROOT=Path(__file__).resolve().parent
-REPO=ROOT.parents[1]
-OUT=REPO/'jay/output/v2'
+REPO=next((p for p in ROOT.parents if (p/'data'/'with_base_premium').is_dir()),ROOT.parents[1])  # code_final path fix
+OUT=ROOT.parent/'output/v2'  # code_final: Jay's folder
 
 
 def main():

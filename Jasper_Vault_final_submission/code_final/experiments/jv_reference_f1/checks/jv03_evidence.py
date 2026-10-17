@@ -24,7 +24,8 @@ import pandas as pd
 from scipy.stats import norm
 
 pd.set_option("display.width", 200)
-REPO = Path(__file__).resolve().parents[2]
+_UP = Path(__file__).resolve().parents  # code_final path fix: nearest folder with data/
+REPO = next((p for p in _UP if (p / "data" / "with_base_premium").is_dir()), _UP[2])
 D = Path(sys.argv[1]) if len(sys.argv) > 1 else REPO / "data" / "with_base_premium"
 YEAR_S = 365 * 24 * 3600
 Q5 = ["Q1", "Q2", "Q3", "Q4", "Q5"]

@@ -14,7 +14,7 @@ import pandas as pd
 from scipy.optimize import brentq
 import study
 
-OUT=Path(__file__).resolve().parents[4]/'jay/output/v2/research/cost_family'
+OUT=Path(__file__).resolve().parents[3]/'output/v2/research/cost_family'  # code_final: Jay's folder
 OUT.mkdir(parents=True,exist_ok=True)
 SEED=271828
 N_BOOT=2000

@@ -17,7 +17,8 @@ Run:  python3 -I score_panels.py
 import pickle, sys
 import numpy as np, pandas as pd
 
-SP = '/tmp/claude-0/-home-claude/ac6d6fb2-071e-5acb-9735-f66862273856/scratchpad/'
+import os; from pathlib import Path  # code_final path fix: work folder set at run time
+SP = os.environ.get('AUDIT_WORK', str(Path(__file__).resolve().parent / 'work')) + '/'
 OUT = SP + 'audit/'
 with open(SP + 'amanrun/aman/panels_dump.pkl', 'rb') as f:
     P = pickle.load(f)['panels']

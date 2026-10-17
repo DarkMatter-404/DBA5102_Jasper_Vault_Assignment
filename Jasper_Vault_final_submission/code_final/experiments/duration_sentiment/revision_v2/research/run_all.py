@@ -11,10 +11,10 @@ import numpy as np
 import pandas as pd
 
 HERE=Path(__file__).resolve().parent
-REPO=HERE.parents[2]
-sys.path.insert(0,str(REPO/'jay'))
+REPO=next((p for p in HERE.parents if (p/'data'/'with_base_premium').is_dir()),HERE.parents[2])  # code_final path fix
+sys.path.insert(0,str(HERE.parents[1]))  # code_final: Jay's folder
 import pp_pricing
-OUT=REPO/'jay/output/v2/research'
+OUT=HERE.parents[1]/'output/v2/research'
 
 
 def main():

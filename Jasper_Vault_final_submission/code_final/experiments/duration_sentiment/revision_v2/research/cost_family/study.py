@@ -11,10 +11,10 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
 
-ROOT = Path(__file__).resolve().parents[4]
-sys.path.insert(0, str(ROOT / 'jay'))
+ROOT = next((p for p in Path(__file__).resolve().parents if (p / 'data' / 'with_base_premium').is_dir()), Path(__file__).resolve().parents[4])  # code_final path fix
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))  # code_final: Jay's folder
 import pp_pricing as pp
-OUT = ROOT / 'jay/output/v2/research/cost_family'
+OUT = Path(__file__).resolve().parents[3] / 'output/v2/research/cost_family'
 OUT.mkdir(parents=True, exist_ok=True)
 CANDIDATES = ['baseline', 'recency60', 'tenor200', 'tenor500',
               'state_no_side_ridge10', 'state_no_side_ridge100', 'state_no_side_ridge10_blend25']

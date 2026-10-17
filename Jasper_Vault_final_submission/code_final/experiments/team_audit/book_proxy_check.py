@@ -4,8 +4,9 @@ assumption). This needs no outcome column, so it can be built on the blind file 
 Compared with Chris's book (uses earlier orders' actual close times).  Run: python3 -I book_proxy_check.py
 """
 import pickle, numpy as np, pandas as pd
-SP = '/tmp/claude-0/-home-claude/ac6d6fb2-071e-5acb-9735-f66862273856/scratchpad/'
-R = '/home/claude/dba5102_jasper_vault_assignment/'
+import os; from pathlib import Path  # code_final path fix: work folder set at run time
+SP = os.environ.get('AUDIT_WORK', str(Path(__file__).resolve().parent / 'work')) + '/'
+R = str(next(p for p in Path(__file__).resolve().parents if (p / 'data' / 'with_base_premium').is_dir())) + '/'
 t = pd.read_csv(R + 'data/with_base_premium/pp_transactions_training.csv', parse_dates=['createdAt', 'closedAt', 'expirationDate'])
 t = t[t.realizedProfit_USDC.notna()].reset_index(drop=True)
 t['notional'] = t.quantity_BTC * t.strikePrice

@@ -14,11 +14,12 @@ import pandas as pd
 import pp_pricing as pp
 
 ROOT=Path(__file__).resolve().parent
+DATA_ROOT=next((p for p in ROOT.parents if (p/'data'/'with_base_premium').is_dir()),ROOT.parent)  # code_final path fix
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--orders',type=Path,default=ROOT.parent/'data/en/pp_transactions_training.csv')
-    parser.add_argument('--market',type=Path,default=ROOT.parent/'data/en/btc_market_history.csv')
+    parser.add_argument('--orders',type=Path,default=DATA_ROOT/'data/en/pp_transactions_training.csv')
+    parser.add_argument('--market',type=Path,default=DATA_ROOT/'data/en/btc_market_history.csv')
     parser.add_argument('--outdir',type=Path,default=ROOT/'output/data')
     parser.add_argument('--reference-dir',type=Path,default=ROOT/'reference_results')
     args=parser.parse_args()

@@ -2,7 +2,7 @@
 from pathlib import Path
 import json
 import numpy as np,pandas as pd
-OUT=Path(__file__).resolve().parents[3]/'jay/output/v2/research/decision_study';OUT.mkdir(parents=True,exist_ok=True)
+OUT=Path(__file__).resolve().parents[2]/'output/v2/research/decision_study';OUT.mkdir(parents=True,exist_ok=True)
 RULE={'cost_model':'base_prior200, selected only on April-June cost deviance','target_loss_ratios':[.85,.90,.95],'weights':[0,.25,.5,1.],'full_adjustment_caps':[.90,1.10],'conversion_elasticities':[0,1,2,4],'selection':'Max min-e April-June aggregate gross-margin gain, e=1,2,4; each-month e4 order retention>=95%; each-month aggregate quote premium increase<=2%; at least10% of development quotes discounted for nonzero policies. Ties choose zero then smaller weight.','disclosure':'All rules/design assumptions declared before this grid evaluation. July is retrospective already inspected. Homogeneous retention with unchanged conditional payouts is an assumption, not estimated demand.'}
 (OUT/'protocol.json').write_text(json.dumps(RULE,indent=2))
 d=pd.read_csv(OUT.parent/'base_study/predictions.csv');d=d[d.model.eq('base_prior200')].copy()

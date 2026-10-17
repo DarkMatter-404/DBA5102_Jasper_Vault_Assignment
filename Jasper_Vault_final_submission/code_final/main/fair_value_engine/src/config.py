@@ -2,7 +2,7 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]  # .../maksim
-REPO = ROOT.parent
+REPO = next((p for p in ROOT.parents if (p / "data" / "with_base_premium").is_dir()), ROOT.parent)  # code_final path fix
 
 TRAIN_CSV = REPO / "data" / "with_base_premium" / "pp_transactions_training.csv"
 VALID_CSV = ROOT / "data" / "pp_transactions_validation.csv"

@@ -4,10 +4,10 @@ import json, sys
 import numpy as np
 import pandas as pd
 from scipy.optimize import brentq
-sys.path.insert(0,str(Path(__file__).resolve().parents[3]/'jay'))
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]))  # code_final: Jay's folder
 import pp_pricing as old
 
-OUT=Path(__file__).resolve().parents[3]/'jay/output/v2/research/base_study'
+OUT=Path(__file__).resolve().parents[2]/'output/v2/research/base_study'
 OUT.mkdir(parents=True,exist_ok=True)
 SPECS=[{'anchor':a,'prior':k} for a in ['base','blend','paid'] for k in [0,200,1000]]
 # Fixed before evaluating these candidates: nine coarse credibility models.

@@ -19,10 +19,11 @@ def _first_existing(*paths: Path) -> Path:
 
 
 # Team repository layout first (this folder is next to ../data), then the original export folders.
+DATA_ROOT = next((p for p in ROOT.parents if (p / "data" / "with_base_premium").is_dir()), ROOT.parent)  # code_final path fix
 TRAIN_FILE = _first_existing(
-    ROOT.parent / "data" / "with_base_premium" / "pp_transactions_training.csv",
+    DATA_ROOT / "data" / "with_base_premium" / "pp_transactions_training.csv",
     ROOT / "Jasper Vault Options Pricing Optimisation(Included Base Premium)" / "pp_transactions_training.csv")
-VALID_DIR = _first_existing(ROOT.parent / "data" / "validation", ROOT / "JV validation dataset")
+VALID_DIR = _first_existing(DATA_ROOT / "data" / "validation", ROOT / "JV validation dataset")
 VALID_FILE = VALID_DIR / "pp_transactions_validation.csv"
 # The validation copy covers 1 Jan - 14 Oct 2026 and equals the training copy where both exist
 # (only the last, unfinished minute of the training copy differs). Without the validation files,
