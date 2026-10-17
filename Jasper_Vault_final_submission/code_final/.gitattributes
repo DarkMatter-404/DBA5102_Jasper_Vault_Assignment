@@ -2,3 +2,5 @@
 experiments/llm_event_research/data/raw/** -text
 # Shell scripts need LF line endings, also in a Windows checkout.
 *.sh text eol=lf
+# Evidence read by main: keep it byte for byte, so that summary.json records the hash of the committed bytes.
+main/evidence/** -text

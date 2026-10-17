@@ -38,7 +38,7 @@ cd Jasper_Vault_final_submission/code_final/main/final_pricing
 jupyter nbconvert --to notebook --execute --inplace final_solution.ipynb
 jupyter nbconvert --to notebook --execute --inplace final_report.ipynb
 jupyter nbconvert --to html --no-input final_report.ipynb --output final_report
-python -m pytest tests -q                                 # 42 checks
+python -m pytest tests -q                                 # 43 checks
 cd ../fair_value_engine
 python -m pytest tests -q                                 # 9 of 10 pass: see below
 ```
@@ -49,7 +49,7 @@ keep a copy first. On Windows, the rebuild matches the frozen file except 6 of 4
 
 ## Checks (Windows 11, Python 3.14.3, 18 Oct 2026, from the unzipped package)
 
-- `final_pricing`: 42 of 42 checks pass. After the re-run, `final_submission.csv` is byte-identical to the submitted
+- `final_pricing`: 43 of 43 checks pass. After the re-run, `final_submission.csv` is byte-identical to the submitted
   file, and all 498 numbers in the report are the same as in the report that the deck used.
 - `fair_value_engine`: 9 of 10 checks pass. The failing one also fails in Maksim's original folder: it requires exact
   equality for the variant `+ range and volume (candidate)`, and one price differs by 0.000000000009 USDC. The final

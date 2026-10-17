@@ -27,12 +27,12 @@
     "margin": 0.25,
     "cap_per_direction_usdc": 250000
   },
-  "repo_commit_at_run": "b7ac940",
+  "repo_commit_at_run": "9625d2e",
   "inputs_sha256": {
     "panel": "29e04ae3f0fdf406b59b2911aca18c97468be328e8bc0903b440b2f758fc5701",
     "training": "3f046081325c40eaee5139429dbf85e668f98b281c26f2f7bb523eb9781ccbd5",
     "validation": "fd85444b94f91cf212ddecbc2a16681e9f4a196cc45b7d42cdbddba03ff72d07",
     "frozen": "9958441287151693fb97d389c8cb206525cd4c856a0310b6bca4f7ff318f0a25",
-    "rebuilt_base": "d70b3bf024ee55d455b8dfa03b8e74248424510fb937be9aa5f74c68230b6cfb"
+    "rebuilt_base": "25744f1139ed64c9bacb4ba4ac298c4810d31380292b8e4bc0e93065f828b41e"
   }
 }

@@ -70,10 +70,11 @@ Applied once by `tools/path_edits.py`. The tool refuses an edit unless its old t
 | `main/final_pricing/solution.py` | `find_repo_root()` looked for `maksim/src`. It is now `find_data_root()`, which looks for `data/with_base_premium` (the `JV_REPO` variable still works). New constants `MAIN`, `ENGINE` (= `main/fair_value_engine`) and `EVIDENCE` (= `main/evidence`). `_use_maksim_code()` is now `_use_engine_code()`. `price_blind_file` reads the frozen prices from `fair_value_engine/outputs/`. No pricing logic changed. |
 | `main/final_pricing/tests/conftest.py` | The import path is `fair_value_engine/` instead of `maksim/`. |
 | `main/final_pricing/tests/test_final_solution.py` | The 2 tests for the old root finder are replaced by 4 location tests (the engine code must be imported from `main`, never from a member folder). 11 new tests: `evidence/` holds 10 files, and each one equals its copy in `experiments/`. |
-| `main/final_pricing/tests/test_final_submission.py` | New paths. New test: `final_submission.csv` is byte-identical to the submitted file (SHA-256 `810eae3a…`). |
+| `main/final_pricing/tests/test_final_submission.py` | New paths. Two new tests: `final_submission.csv` is byte-identical to the submitted file (SHA-256 `810eae3a…`), and the input hashes that `summary.json` records equal the committed bytes in `MANIFEST.csv`. |
 | `main/final_pricing/final_solution.ipynb`, `final_report.ipynb` | Input paths now point to `fair_value_engine/`, `evidence/` and the data root. 3 text mentions of old folders now use the new names. Both notebooks were re-run. |
 | `main/final_pricing/final_report.html` | Rebuilt. All 3,166 words and all 498 numbers are the same as in the report the deck used. The only text change is `chris/audit/` → `experiments/team_audit/`. |
-| `main/final_pricing/outputs/` | From the re-run. `final_submission.csv` is byte-identical (SHA-256 `810eae3a…`). In `summary.json`, only `repo_commit_at_run` changed. `training_scores.csv` and `training_intervals.csv` differ only by float rounding (below 1e-9 relative). |
+| `main/final_pricing/outputs/` | From the re-run. `final_submission.csv` is byte-identical (SHA-256 `810eae3a…`). In `summary.json`, `repo_commit_at_run` changed, and the hash of the rebuilt base input is now the hash of the committed bytes (`25744f11…`; a Windows checkout had recorded `d70b3bf0…`, the same content with CRLF line endings). `training_scores.csv` and `training_intervals.csv` differ only by float rounding (below 1e-9 relative). |
+| `.gitattributes` (code_final) | `main/evidence/** -text`: the evidence stays byte for byte in every checkout, so the recorded input hashes do not depend on the computer. |
 
 ## 4. Documentation
 
@@ -86,7 +87,7 @@ Applied once by `tools/path_edits.py`. The tool refuses an edit unless its old t
 | `experiments/duration_sentiment/README.md` | The "code_final copy" block. |
 | `experiments/duration_sentiment/docs/findings_and_submission.md` | 6 links to `materials/` and `data/` now go 5 levels up. |
 | `experiments/llm_event_research/README.md` | The "code_final copy" block. |
-| `main/final_pricing/README.md` | Paths and run steps for `main/`; 42 checks; a note on the pre-registered rule, whose text is unchanged. |
+| `main/final_pricing/README.md` | Paths and run steps for `main/`; 43 checks; a note on the pre-registered rule, whose text is unchanged. |
 
 New files (status `new` in `MANIFEST.csv`): every other README in code_final, `experiments/team_audit/README.md`,
 `experiments/team_audit/make_audit_inputs.py` and its test, `experiments/llm_event_research/data/raw/README.md`,

@@ -21,6 +21,20 @@ def outputs():
     return pd.read_csv(sub_path), json.loads(summary_path.read_text()), sub_path
 
 
+def test_recorded_input_hashes_are_the_committed_bytes():
+    # summary.json must record the SHA-256 of each input as committed, not of a checkout with other line endings.
+    import csv
+    code_final = s.MAIN.parent
+    with open(code_final / "MANIFEST.csv", newline="", encoding="utf-8") as f:
+        manifest = {r["copy_path"]: r["sha256"] for r in csv.DictReader(f)}
+    _, summary, _ = outputs()
+    inputs = {"panel": s.EVIDENCE / "fair_value_model/results/walk_forward_orders_priced.parquet",
+              "frozen": s.ENGINE / "outputs/validation_recommendations.csv",
+              "rebuilt_base": s.EVIDENCE / "hybrid_base_multiplier/outputs/validation_premiums.csv"}
+    for key, path in inputs.items():
+        assert summary["inputs_sha256"][key] == manifest[path.relative_to(code_final).as_posix()], key
+
+
 def test_submission_file_is_byte_identical_to_the_submitted_file():
     _, summary, sub_path = outputs()
     assert hashlib.sha256(sub_path.read_bytes()).hexdigest() == SUBMITTED_SHA256

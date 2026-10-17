@@ -81,7 +81,7 @@ So the main column is Maksim's frozen premium. The loading stays in the file as 
 | `outputs/final_submission.csv` | 4,155 rows in the original order of the validation file |
 | `outputs/summary.json` | Totals, checks, the decision, SHA-256 of every input and of the submission |
 | `outputs/*.csv`, `outputs/figures/` | Every table and chart in the report |
-| `tests/` | 42 checks: unit tests, output checks, a `closedAt` invariance test, the submitted file's SHA-256, and the evidence copies |
+| `tests/` | 43 checks: unit tests, output checks, a `closedAt` invariance test, the submitted file's SHA-256, the recorded input hashes, and the evidence copies |
 
 Columns of `final_submission.csv`:
 
@@ -105,7 +105,7 @@ python -m ipykernel install --user --name jv-pricing     # the notebooks use thi
 jupyter nbconvert --to notebook --execute --inplace final_solution.ipynb
 jupyter nbconvert --to notebook --execute --inplace final_report.ipynb
 jupyter nbconvert --to html --no-input final_report.ipynb --output final_report
-python -m pytest tests -q                               # 42 checks
+python -m pytest tests -q                               # 43 checks
 ```
 
 The code finds the data by searching parent folders for `data/with_base_premium`. If the data is somewhere else, set
@@ -119,7 +119,11 @@ the `JV_REPO` environment variable to the folder that holds `data/`.
 | Training orders | `data/with_base_premium/pp_transactions_training.csv` | `3f046081325c` |
 | Validation orders | `data/validation/pp_transactions_validation.csv` | `fd85444b94f9` |
 | Maksim's frozen prices | `../fair_value_engine/outputs/validation_recommendations.csv` | `995844128715` |
-| Subham's rebuilt base price (cross-check) | `../evidence/hybrid_base_multiplier/outputs/validation_premiums.csv` | `d70b3bf024ee` |
+| Subham's rebuilt base price (cross-check) | `../evidence/hybrid_base_multiplier/outputs/validation_premiums.csv` | `25744f1139ed` |
+
+The SHA-256 values are of the committed bytes. `code_final/.gitattributes` keeps the evidence byte for byte in every
+checkout. (In `subham/final`, a Windows checkout changed the line endings of the rebuilt base file, so its summary
+recorded `d70b3bf024ee`. The content is the same.)
 
 Code used without change: `../fair_value_engine/src/evaluate.py` (demand rules, intervals, Gini),
 `../fair_value_engine/src/model.py` (`fair_value_per_btc`) and `../fair_value_engine/run_extensions.py`

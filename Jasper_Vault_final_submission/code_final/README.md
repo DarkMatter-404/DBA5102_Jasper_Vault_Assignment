@@ -32,11 +32,15 @@ folder that holds `data/with_base_premium`. In the zip for Canvas, `data/` sits 
 
 ## Environments
 
-| Name | Python | Install | Used for |
-|---|---|---|---|
-| A | 3.14.3 | `main/requirements.txt` | `main`, `fair_value_model`, `hybrid_base_multiplier`, `order_flow_book` |
-| A + F1 | 3.14.3 or 3.12 | `experiments/jv_reference_f1/requirements.txt` | `jv_reference_f1`, `team_audit` (it runs Aman's notebook) |
-| B | 3.12 | `experiments/duration_sentiment/revision_v3_2/requirements.txt` | `duration_sentiment`, `llm_event_research` |
+Each folder installs its own requirements file. The "code_final copy" block in each README names it.
+
+| Python | Folders | Requirements file |
+|---|---|---|
+| 3.14.3 | `main` | `main/requirements.txt` |
+| 3.14.3 | `fair_value_model`, `hybrid_base_multiplier`, `order_flow_book` | `requirements.txt` in the folder |
+| 3.14.3 or 3.12 | `jv_reference_f1`, `team_audit` (it runs Aman's notebook) | `experiments/jv_reference_f1/requirements.txt` |
+| 3.12 | `duration_sentiment` | `revision_v3_2/requirements.txt` in the folder |
+| 3.12 | `llm_event_research` | `requirements-tested.txt` in the folder |
 
 On Windows, set `PYTHONUTF8=1` for Jay's two folders (his scripts read UTF-8 text with the system default encoding).
 
@@ -46,7 +50,7 @@ Run on 18 Oct 2026 from the unzipped package (code and data only, with no member
 
 | Folder | Check | Result |
 |---|---|---|
-| `main/final_pricing` | both notebooks, the HTML report, `pytest tests` | 42 of 42 pass. `final_submission.csv` is byte-identical to the submitted file (SHA-256 `810eae3a…`). All 498 numbers in the report are unchanged. |
+| `main/final_pricing` | both notebooks, the HTML report, `pytest tests` | 43 of 43 pass. `final_submission.csv` is byte-identical to the submitted file (SHA-256 `810eae3a…`). All 498 numbers in the report are unchanged. |
 | `main/fair_value_engine` | `pytest tests`; `run_validation.py` | 9 of 10 pass (see Known limits). The rebuilt prices equal the frozen file, except 6 of 4,155 premiums that differ by 0.000001 USDC. |
 | `fair_value_model` | `pytest tests`; `run_validation.py` | The same as `main/fair_value_engine`. |
 | `hybrid_base_multiplier` | `pytest tests` | 14 of 14 pass. |
